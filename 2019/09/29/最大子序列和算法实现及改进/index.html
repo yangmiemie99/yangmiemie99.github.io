@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法,分而治之,动态规划,leetcode,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一 描述给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。  示例:   输入: [-2,1,-3,4,-1,2,1,-5,4],输出: 6解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。  二 实现下面介绍本题的三种解法,规律,分而治之,动态规划. 1 最开始我的的想法利用规律,忽略对子序列进行寻找比较,和是正数就可以一直向后加,如">
+<meta name="keywords" content="算法,分而治之,动态规划,leetcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最大子序列和算法实现及改进">
+<meta property="og:url" content="https://yangmiemie99.github.io/2019/09/29/最大子序列和算法实现及改进/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="一 描述给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。  示例:   输入: [-2,1,-3,4,-1,2,1,-5,4],输出: 6解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。  二 实现下面介绍本题的三种解法,规律,分而治之,动态规划. 1 最开始我的的想法利用规律,忽略对子序列进行寻找比较,和是正数就可以一直向后加,如">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2019/09/29/最大子序列和算法实现及改进/1569761770737.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2019/09/29/最大子序列和算法实现及改进/1569761793334.png">
+<meta property="og:updated_time" content="2019-09-30T03:20:35.311Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最大子序列和算法实现及改进">
+<meta name="twitter:description" content="一 描述给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。  示例:   输入: [-2,1,-3,4,-1,2,1,-5,4],输出: 6解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。  二 实现下面介绍本题的三种解法,规律,分而治之,动态规划. 1 最开始我的的想法利用规律,忽略对子序列进行寻找比较,和是正数就可以一直向后加,如">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2019/09/29/最大子序列和算法实现及改进/1569761770737.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2019/09/29/最大子序列和算法实现及改进/">
+
+
+
+
+
+  <title>最大子序列和算法实现及改进 | MieMieBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2019/09/29/最大子序列和算法实现及改进/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/944104.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">最大子序列和算法实现及改进</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-29T11:26:16+08:00">
+                2019-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一-描述"><a href="#一-描述" class="headerlink" title="一 描述"></a>一 描述</h1><p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<blockquote>
+<p>示例:</p>
+</blockquote>
+<blockquote>
+<p>输入: [-2,1,-3,4,-1,2,1,-5,4],<br>输出: 6<br>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</p>
+</blockquote>
+<h1 id="二-实现"><a href="#二-实现" class="headerlink" title="二 实现"></a>二 实现</h1><p>下面介绍本题的三种解法,规律,分而治之,动态规划.</p>
+<h2 id="1-最开始我的的想法"><a href="#1-最开始我的的想法" class="headerlink" title="1 最开始我的的想法"></a>1 最开始我的的想法</h2><p>利用规律,忽略对子序列进行寻找比较,和是正数就可以一直向后加,如果不是就重新确定一个头是整数的最大子序列起点,复杂度O(n),空间复杂度O(1),使用了两遍循环,效果差一些,,下面写出一遍循环解决.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numMax = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> thisMax = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; nums.size(); ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            thisMax += nums[i];</span><br><span class="line">            <span class="keyword">if</span> (thisMax &gt; numMax)</span><br><span class="line">                numMax =thisMax;</span><br><span class="line">            <span class="keyword">if</span> (thisMax &lt; <span class="number">0</span>)</span><br><span class="line">                thisMax = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 数组全是负数的情况</span></span><br><span class="line">        <span class="keyword">if</span>(numMax == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            numMax = nums[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size();++i)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (numMax &lt; nums[i])</span><br><span class="line">                    numMax = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> numMax;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-改进的做法"><a href="#2-改进的做法" class="headerlink" title="2 改进的做法"></a>2 改进的做法</h2><p>经过学习,进行改进,思路基本相同不过把负数的例外情况在一个循环中体现出来了.性能基本不变,这个也可以说用了动态规划的思想,不过不明显.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numSum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (numSum &gt; <span class="number">0</span>)</span><br><span class="line">                numSum += nums[i];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                numSum = nums[i];</span><br><span class="line">            res = max(res,numSum);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-利用分而治之的思想"><a href="#3-利用分而治之的思想" class="headerlink" title="3 利用分而治之的思想"></a>3 利用分而治之的思想</h2><p>利用分而治之对这个问题而言性能没有上边的算法好,作为练习,写代码.时间复杂度O(NlogN),将问题分为两个大致相等的子问题,然后用递归对他进行求解,这是分的部分.然后将两个子问题修补到一起,并可能在做一些少量的 附加工作.</p>
+<p>在这个例子中,最大子序列可能出现在三处,整个输入数据的左半部分,或者右半部分,或者横跨左右两部分.</p>
+<p>三者最大的就是最大子序列.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> maxSubArray(nums,<span class="number">0</span>,nums.size() - <span class="number">1</span> );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left == right)</span><br><span class="line">            <span class="keyword">return</span> nums[left];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> center = (left +right) /<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> maxLeftNum = maxSubArray(nums, left, center);</span><br><span class="line">        <span class="keyword">int</span> maxRightNum = maxSubArray(nums, center +<span class="number">1</span>, right);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> leftBorderSum = <span class="number">0</span>, maxleftBorderSum = nums[center]; <span class="comment">//防止有负数不能赋值为0</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i =center; i &gt;= left; --i)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            leftBorderSum += nums[i];</span><br><span class="line">            <span class="keyword">if</span>(leftBorderSum &gt; maxleftBorderSum)</span><br><span class="line">                maxleftBorderSum = leftBorderSum;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> rightBorderSum = <span class="number">0</span>, maxrightBorderSum = nums[center +<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j =center + <span class="number">1</span>; j &lt;= right; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            rightBorderSum += nums[j];</span><br><span class="line">            <span class="keyword">if</span>(rightBorderSum &gt; maxrightBorderSum)</span><br><span class="line">                maxrightBorderSum = rightBorderSum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max( max(maxLeftNum,maxRightNum) ,(maxleftBorderSum + maxrightBorderSum));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-动态规划"><a href="#4-动态规划" class="headerlink" title="4 动态规划"></a>4 动态规划</h2><p>任何数学递推公式都可以直接翻译成递归算法.但是基本现实是:编译器常常不能正确的对待递归算法,结果导致低效的程序.当我们怀疑这种情况时,我么需要给编译器一点帮助,将递归算法重新写成非递归算法,让后者把这些子问题的答案记录在一个表内.利用这种技巧的方法叫做动态规划.</p>
+<p>动态规划的两个步骤是思考“状态”和“状态转移方程”</p>
+<p>搅动太规划划分成三步:</p>
+<ul>
+<li>base case : 思考问题规模最小时,是什么情况</li>
+<li>update function: 自下而上的思考这个问题,即上面的“状态转移方程”</li>
+<li>gola: 终点强调输出是什么,很多时候输出不一定是最后一个状态</li>
+</ul>
+<p>对本题进行分析</p>
+<p><strong>1 状态</strong></p>
+<p>题目中哦个有关键字连续,首先我们尝试将状态定义乘题目要求的结果:即<code>dp[i]</code>表示nums在区间[0,i]中连续子数组的最大和.在思考“状态转移方程时”,<code>dp[i]</code>之前的,例如<code>dp[i - 1]</code>就有可能是更前面的连续子数组的最大和,这两者之间的关系比较复杂,不利于写出状态空间方程.</p>
+<blockquote>
+<p>既然一个连续的子数组一定要以一个数作为结尾,那么我没问你就将状态定义为</p>
+<p><code>dp[i]</code> : 表示以 <code>nums[i]</code> 结尾的连续子数组的最大和</p>
+</blockquote>
+<p>注意:</p>
+<blockquote>
+<p>如果状态的定义不是题目中为题的定义,一定要考虑输出是什么,不能将最后的一个状态返回出去.</p>
+<p>输出应该是把所有的<code>dp[0],dp[1],dp[2]...dp[n-1]</code>都看一遍取最大值</p>
+</blockquote>
+<p><strong>2 状态转移方程</strong></p>
+<p><code>dp[i]</code>的值要看<code>dp[i -1]</code>,因为<code>nums[i]</code>一定被寻取那么<code>dp[i-1]</code>的政府就成为分类的标准</p>
+<ul>
+<li><p>如果 dp[i - 1] &gt;= 0，那么可以把 nums[i] 直接接在 dp[i - 1] 表示的那个数组的后面。</p>
+</li>
+<li><p>如果 dp[i - 1] &lt; 0，那么加上前面的数反而我越来越小了，干脆“另起炉灶”吧，单独的一个 nums[i]，就是 dp[i]。</p>
+</li>
+</ul>
+<p>以上两种情况的最大值就是 dp[i] 的值，写出“状态转移方程 1”：</p>
+<p><img src="/yangmiemie99.github.io/2019/09/29/最大子序列和算法实现及改进/1569761770737.png" alt="1569761770737"></p>
+<p>或者你还可以这样写，反正求的是最大值，我也不用分类讨论了，就这两种情况，直接取最大即可，因此还可以写出“状态转移方程 2”：</p>
+<p><img src="/yangmiemie99.github.io/2019/09/29/最大子序列和算法实现及改进/1569761793334.png" alt="1569761793334"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp(nums.size());</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size() ; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[i - <span class="number">1</span>] &gt;= <span class="number">0</span>)</span><br><span class="line">                dp[i] = dp[i <span class="number">-1</span>] + nums[i];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                dp[i] = nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> maxtmp = dp[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j= <span class="number">1</span>; j &lt; dp.size() ;++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[j] &gt; maxtmp)</span><br><span class="line">                maxtmp = dp[j];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxtmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/yangmiemie99.github.io/tags/分而治之/" rel="tag"># 分而治之</a>
+          
+            <a href="/yangmiemie99.github.io/tags/动态规划/" rel="tag"># 动态规划</a>
+          
+            <a href="/yangmiemie99.github.io/tags/leetcode/" rel="tag"># leetcode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2019/09/24/我的第一个博客/" rel="next" title="我的第一个博客">
+                <i class="fa fa-chevron-left"></i> 我的第一个博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/944104.png" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-描述"><span class="nav-number">1.</span> <span class="nav-text">一 描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-实现"><span class="nav-number">2.</span> <span class="nav-text">二 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-最开始我的的想法"><span class="nav-number">2.1.</span> <span class="nav-text">1 最开始我的的想法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-改进的做法"><span class="nav-number">2.2.</span> <span class="nav-text">2 改进的做法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-利用分而治之的思想"><span class="nav-number">2.3.</span> <span class="nav-text">3 利用分而治之的思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-动态规划"><span class="nav-number">2.4.</span> <span class="nav-text">4 动态规划</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
