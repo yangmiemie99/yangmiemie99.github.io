@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法,分而治之,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一章 最近点问题找出在平面上的点集P上最近的一对点集.如果存在N个点,那么就存在N*(N-1)/2对点的距离,检查所有的距离花费$$O(N^{2})$$使用分治算法首先要对X轴坐标先进性排序,只不过在最后的算法的时间界限加上O(NlogN)而已 1 使用暴力方法代码123456789101112131415161718192021222324252627282930313233343536373">
+<meta name="keywords" content="算法,分而治之">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分而治之算法最近点问题">
+<meta property="og:url" content="https://yangmiemie99.github.io/2019/10/09/分而治之算法/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="第一章 最近点问题找出在平面上的点集P上最近的一对点集.如果存在N个点,那么就存在N*(N-1)/2对点的距离,检查所有的距离花费$$O(N^{2})$$使用分治算法首先要对X轴坐标先进性排序,只不过在最后的算法的时间界限加上O(NlogN)而已 1 使用暴力方法代码123456789101112131415161718192021222324252627282930313233343536373">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-11T07:33:01.985Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分而治之算法最近点问题">
+<meta name="twitter:description" content="第一章 最近点问题找出在平面上的点集P上最近的一对点集.如果存在N个点,那么就存在N*(N-1)/2对点的距离,检查所有的距离花费$$O(N^{2})$$使用分治算法首先要对X轴坐标先进性排序,只不过在最后的算法的时间界限加上O(NlogN)而已 1 使用暴力方法代码123456789101112131415161718192021222324252627282930313233343536373">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2019/10/09/分而治之算法/">
+
+
+
+
+
+  <title>分而治之算法最近点问题 | MieMieBlog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2019/10/09/分而治之算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/944104.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">分而治之算法最近点问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-09T09:42:41+08:00">
+                2019-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第一章-最近点问题"><a href="#第一章-最近点问题" class="headerlink" title="第一章 最近点问题"></a>第一章 最近点问题</h1><p>找出在平面上的点集P上最近的一对点集.如果存在N个点,那么就存在N*(N-1)/2对点的距离,检查所有的距离花费<br>$$<br>O(N^{2})<br>$$<br>使用分治算法首先要对X轴坐标先进性排序,只不过在最后的算法的时间界限加上O(NlogN)而已</p>
+<h2 id="1-使用暴力方法代码"><a href="#1-使用暴力方法代码" class="headerlink" title="1 使用暴力方法代码"></a>1 使用暴力方法代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">myPoint</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line">	<span class="keyword">int</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">comparable</span><span class="params">(myPoint &amp; a,myPoint &amp; b,<span class="keyword">int</span> type)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(type == <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> a.x &gt; b.x;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> a.y &gt; b.y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//产生随机点集</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Initial</span><span class="params">(<span class="keyword">int</span> N,myPoint* X)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	srand(N);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		X[i].x = rand();</span><br><span class="line">		X[i].y = rand();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//距离函数</span></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">distance</span><span class="params">(myPoint p1,myPoint p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">sqrt</span>((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用暴力的方法</span></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">force</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end, myPoint* P, myPoint &amp; p1,myPoint &amp; p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(end - start &lt; <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化 </span></span><br><span class="line">	<span class="keyword">double</span> minDis = distance(*(P),*(P + <span class="number">1</span>));</span><br><span class="line">	p1 = *P;</span><br><span class="line">	p2 = *(P + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = start; i &lt; end; ++i)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = start + <span class="number">1</span>; j &lt;= end; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(i != j &amp;&amp; distance(*(P + i),*(P + j)) &lt; minDis)</span><br><span class="line">			&#123;</span><br><span class="line">				minDis = distance(*(P + i),*(P + j));</span><br><span class="line">				p1 = *(P + i);</span><br><span class="line">				p2 = *(P + j);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> minDis;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> N;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入问题的规模"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; N;</span><br><span class="line"></span><br><span class="line">	myPoint * X = <span class="keyword">new</span> myPoint[N];</span><br><span class="line">	myPoint P1,P2;</span><br><span class="line">	Initial(N,X);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">double</span> minDis = <span class="number">0.0</span>;</span><br><span class="line">	minDis = force(<span class="number">0</span>,N<span class="number">-1</span>,X,P1,P2);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; minDis &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-使用分治的代码"><a href="#2-使用分治的代码" class="headerlink" title="2 使用分治的代码"></a>2 使用分治的代码</h2><p>（1） 预排序：<br>将点集存放到数组X中，数组X中的点集按照x坐标进行排序；将点集存放到数组Y中，数组Y中的点集按照y坐标进行排序。数组X和数组Y中总体的内容是相同的，都包含整个点集的X坐标和Y坐标，只是排序不一样而已。排序过程调用快速排序算法，其算法复杂度是O(n logn)<br>（2） 判断：<br>在分治算法中，若判断到点集的数量小于等于3，则直接调用蛮力法进行排序；若点集格式大于3，则采用分治的思想来求解。<br>（3） 分解：<br>找出一条垂直线L,将点集按照x坐标的顺序的不同分成两部分。由于之前做了预排序，所以取数组的中位数，就可以直接点集近乎平分成两半。<br>（4） 解决：<br>将上一步分成两半的子点集，递归调用分治算法对问题规模进行分解。当递归分解到符合点集的数目小于等于3后，通过蛮力法求解最小距离并且组成返回。此时可以得到左边的最小距离minL，右边的最小距离minR。选取min（minL，minR）作为当前的最小的距离s。<br>（5） 合并：<br>判断左、右两部分子点集中，是不是存在一个点a在左边的子点集，另外一个点b在右边的子点集，使得a,b之间的距离小于之前求得的最小距离s。那么左边的n/2 个点分别与右边的n/2个点进行比较，就要比较n2/4次，使得算法复杂度为O(n2)，这使得与蛮力法没多大差别，我们寻找更好的解决方法。</p>
+<p>我们尝试缩小搜索的范围，由于当前的最小距离是s，所以在距离中间线的宽度为s之外的点，不可能从对边找到一个距离小于s的点。接着我们继续缩小搜索的范围，对于一个点p，若要找到一个与它的距离不大于s的点q，则q的纵坐标与p的纵坐标的差值必须不大于s。所以我们得到了一个可能的满足条件的矩形区域s * 2s。 所以任意点集内的Pi点,在最坏的情况下最多有7个Pj被考虑进来</p>
+<h3 id="1-预先排序代码"><a href="#1-预先排序代码" class="headerlink" title="(1) 预先排序代码"></a>(1) 预先排序代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//快速排序代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//插入排序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;a,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = start+<span class="number">1</span>; i &lt;= end; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> comparable = <span class="built_in">std</span>::move(a[i]);</span><br><span class="line">		<span class="keyword">int</span> j;</span><br><span class="line">		<span class="keyword">for</span>(j = i - <span class="number">1</span>; (j &gt;= start) &amp;&amp; (comparable &lt; a[j]); --j)</span><br><span class="line">		&#123;</span><br><span class="line">			a[j+<span class="number">1</span>] = <span class="built_in">std</span>::move(a[j]); </span><br><span class="line">		&#125;</span><br><span class="line">		a[j+<span class="number">1</span>] = <span class="built_in">std</span>::move(comparable);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//快速排序,选取枢纽源</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">medianNum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp; a,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> median = (start + end) / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(a[median] &lt; a[start])</span><br><span class="line">		<span class="built_in">std</span>::swap(a[median],a[start]);</span><br><span class="line">	<span class="keyword">if</span>(a[end] &lt; a[start])</span><br><span class="line">		<span class="built_in">std</span>::swap(a[end],a[start]);</span><br><span class="line">	<span class="keyword">if</span>(a[end] &lt; a[median])</span><br><span class="line">		<span class="built_in">std</span>::swap(a[median],a[end]);</span><br><span class="line">	<span class="built_in">std</span>::swap(a[median],a[end - <span class="number">1</span>]);</span><br><span class="line">	<span class="keyword">return</span> a[end - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp; a,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(start + <span class="number">10</span> &lt;= end)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> middle = medianNum(a,start,end);</span><br><span class="line">		<span class="keyword">int</span> i = start;</span><br><span class="line">		<span class="keyword">int</span> j = end <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">for</span>(;;)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(i &lt; j)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">while</span>(a[++i] &lt; middle) &#123;&#125;;</span><br><span class="line">				<span class="keyword">while</span>(a[--j] &gt; middle) &#123;&#125;;</span><br><span class="line">				<span class="built_in">std</span>::swap(a[i],a[j]);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">std</span>::swap(a[i],a[end - <span class="number">1</span>]);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		quickSort(a,start,i<span class="number">-1</span>);</span><br><span class="line">		quickSort(a,i+<span class="number">1</span>,end);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		insertSort(a,start,end);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp; v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	quickSort(v,<span class="number">0</span>,v.size()<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-整体代码"><a href="#2-整体代码" class="headerlink" title="(2)整体代码"></a>(2)整体代码</h3><p>这需要对上述的排序算法进行更改,适合class myPoint的快速排序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">myPoint</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line">	<span class="keyword">int</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">Random</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">float</span> result=rand()%<span class="number">10000</span>;</span><br><span class="line">	<span class="keyword">return</span> result*<span class="number">0.01</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Initial</span><span class="params">(<span class="keyword">int</span> N,myPoint* X,myPoint* Y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">distance</span><span class="params">(myPoint p1,myPoint p2)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">comparable</span><span class="params">(myPoint &amp; a,myPoint &amp; b,<span class="keyword">int</span> type)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">force</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end, myPoint* P, myPoint &amp; p1,myPoint &amp; p2)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Comparable&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertsort</span><span class="params">(Comparable * a,<span class="keyword">int</span> start,<span class="keyword">int</span> end,<span class="keyword">int</span> type)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Comparable&gt;</span><br><span class="line"><span class="function">Comparable &amp; <span class="title">median</span><span class="params">(Comparable * a, <span class="keyword">int</span> left ,<span class="keyword">int</span> right,<span class="keyword">int</span> type)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Comparable&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">qicksort</span><span class="params">(Comparable * a,<span class="keyword">int</span> left ,<span class="keyword">int</span> right,<span class="keyword">int</span> type)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Comparable&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">qicksort</span><span class="params">(Comparable * a,<span class="keyword">int</span> N,<span class="keyword">int</span> type)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> comparable&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">displayFuction</span><span class="params">(<span class="keyword">const</span> comparable * display,<span class="keyword">int</span> N)</span></span>;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">closestPointer</span><span class="params">(T * X,T * Y,<span class="keyword">int</span> start,<span class="keyword">int</span> end,myPoint &amp; P1,myPoint &amp; P2)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入点集的规模"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">int</span> N;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; N;</span><br><span class="line">	myPoint P1;</span><br><span class="line">	myPoint P2;</span><br><span class="line">	myPoint * X = <span class="keyword">new</span> myPoint[N];</span><br><span class="line">	myPoint * Y = <span class="keyword">new</span> myPoint[N];</span><br><span class="line">	Initial(N,X,Y);</span><br><span class="line">	displayFuction&lt;myPoint&gt;(X,N);</span><br><span class="line"></span><br><span class="line">	qicksort(X,N,<span class="number">1</span>);</span><br><span class="line">	qicksort(Y,N,<span class="number">2</span>);</span><br><span class="line">	displayFuction&lt;myPoint&gt;(X,N);</span><br><span class="line">	<span class="comment">// displayFuction&lt;myPoint&gt;(Y,N);</span></span><br><span class="line">	<span class="comment">// double minDis = closestPointer&lt;myPoint&gt;(X,Y,0,N-1,P1,P2);</span></span><br><span class="line">	<span class="keyword">double</span> minDis = divide_conquer(<span class="number">0</span>,N<span class="number">-1</span>,X,Y,P1,P2);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; minDis &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">delete</span>[] X;</span><br><span class="line">	<span class="keyword">delete</span>[] Y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//插入排序</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Comparable&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertsort</span><span class="params">(Comparable * a,<span class="keyword">int</span> start,<span class="keyword">int</span> end,<span class="keyword">int</span> type)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = start+<span class="number">1</span>; i &lt;= end; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		Comparable tmp = <span class="built_in">std</span>::move(a[i]);</span><br><span class="line">		<span class="keyword">int</span> j;</span><br><span class="line">		<span class="keyword">for</span>(j = i - <span class="number">1</span>; (j &gt;= start) &amp;&amp; comparable(a[j],tmp,type); --j)</span><br><span class="line">		&#123;</span><br><span class="line">			a[j+<span class="number">1</span>] = <span class="built_in">std</span>::move(a[j]); </span><br><span class="line">		&#125;</span><br><span class="line">		a[j+<span class="number">1</span>] = <span class="built_in">std</span>::move(tmp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 快速排序选取枢纽原</span></span><br><span class="line"><span class="comment">: 最后返回枢纽元</span></span><br><span class="line"><span class="comment">: 将最左边,最右边 元素排序</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Comparable&gt;</span><br><span class="line"><span class="function">Comparable &amp; <span class="title">median</span><span class="params">(Comparable * a, <span class="keyword">int</span> left ,<span class="keyword">int</span> right,<span class="keyword">int</span> type)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> center = (left +right ) / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span> (comparable(a[center],a[left],type))</span><br><span class="line">		<span class="built_in">std</span>::swap(a[left] , a[center]);</span><br><span class="line">	<span class="keyword">if</span> (comparable(a[left],a[right],type))</span><br><span class="line">		<span class="built_in">std</span>::swap(a[right] ,a[left]);</span><br><span class="line">	<span class="keyword">if</span> (comparable(a[center],a[right],type))</span><br><span class="line">		<span class="built_in">std</span>::swap(a[center] ,a[right]);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::swap(a[center] , a[right - <span class="number">1</span>]);</span><br><span class="line">	<span class="keyword">return</span> a[right <span class="number">-1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">:进行递归调用的内部快速排序的方法</span></span><br><span class="line"><span class="comment">:使用三数中值分割法,以及截至范围是10的截至技术</span></span><br><span class="line"><span class="comment">: </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Comparable&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">qicksort</span><span class="params">(Comparable * a ,<span class="keyword">int</span> left ,<span class="keyword">int</span> right,<span class="keyword">int</span> type)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (right &gt; left +<span class="number">10</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		Comparable &amp; pivot = median(a , left ,right,type);</span><br><span class="line">		<span class="keyword">int</span> i = left;</span><br><span class="line">		<span class="keyword">int</span> j = right <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">for</span>(; ;)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">while</span>(comparable(pivot,a[++i],type)) &#123;&#125;;</span><br><span class="line">			<span class="keyword">while</span>(comparable(a[--j],pivot,type)) &#123;&#125;;</span><br><span class="line">			<span class="keyword">if</span> (i &lt; j)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">std</span>::swap(a[i],a[j]);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">std</span>::swap(a[i],a[right<span class="number">-1</span>]);</span><br><span class="line">		qicksort(a,left,i<span class="number">-1</span>);</span><br><span class="line">		qicksort(a,i+<span class="number">1</span>,right);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		insertsort(a,left,right,type);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Comparable&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">qicksort</span><span class="params">(Comparable * a,<span class="keyword">int</span> N,<span class="keyword">int</span> type)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	qicksort(a,<span class="number">0</span>,N<span class="number">-1</span>,type);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">comparable</span><span class="params">(myPoint &amp; a,myPoint &amp; b,<span class="keyword">int</span> type)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(type == <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> a.x &gt; b.x;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> a.y &gt; b.y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//产生随机点集</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Initial</span><span class="params">(<span class="keyword">int</span> N,myPoint* X,myPoint* Y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 两个点集根据x,y排序</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		X[i].x = Random();</span><br><span class="line">		X[i].y = Random();</span><br><span class="line">		Y[i].x = X[i].x;</span><br><span class="line">		Y[i].y = X[i].y;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//距离函数</span></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">distance</span><span class="params">(myPoint p1,myPoint p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">sqrt</span>((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用暴力的方法</span></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">force</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end, myPoint* P, myPoint &amp; p1,myPoint &amp; p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(end - start &lt; <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化 </span></span><br><span class="line">	<span class="keyword">double</span> minDis = distance(*(P),*(P + <span class="number">1</span>));</span><br><span class="line">	p1 = *P;</span><br><span class="line">	p2 = *(P + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = start; i &lt; end; ++i)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = start + <span class="number">1</span>; j &lt;= end; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(i != j &amp;&amp; distance(*(P + i),*(P + j)) &lt; minDis)</span><br><span class="line">			&#123;</span><br><span class="line">				minDis = distance(*(P + i),*(P + j));</span><br><span class="line">				p1 = *(P + i);</span><br><span class="line">				p2 = *(P + j);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> minDis;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> comparable&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">displayFuction</span><span class="params">(<span class="keyword">const</span> comparable * display,<span class="keyword">int</span> N)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> i = <span class="number">0</span>; i &lt; N ; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; display[i].x &lt;&lt;<span class="string">' '</span> &lt;&lt; display[i].y;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">closestPointer</span><span class="params">(T * X,T * Y,<span class="keyword">int</span> start,<span class="keyword">int</span> end,myPoint &amp; P1,myPoint &amp; P2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(end - start &lt; <span class="number">3</span>)</span><br><span class="line">		<span class="keyword">return</span> force(start,end,X,P1,P2);</span><br><span class="line">	<span class="keyword">int</span> mid = (end + start) /<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">double</span> leftMin = closestPointer(X,Y,start,mid,P1,P2);</span><br><span class="line">	myPoint leftP1 = P1;</span><br><span class="line">	myPoint leftP2 = P2;</span><br><span class="line">	<span class="keyword">double</span> rightMin = closestPointer(X,Y,mid+<span class="number">1</span>,end,P1,P2);</span><br><span class="line">	<span class="keyword">double</span> minDis; <span class="comment">//取最小的一个</span></span><br><span class="line">	<span class="keyword">if</span>(leftMin &lt; rightMin)</span><br><span class="line">	&#123;</span><br><span class="line">		P1 = leftP1;</span><br><span class="line">		P2 = leftP2;</span><br><span class="line">		minDis = leftMin;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		minDis = rightMin; </span><br><span class="line">	<span class="comment">//新建一个数组保存以中界为中心,宽度为2*minDis的垂直带型区域的点</span></span><br><span class="line">	T * newY = <span class="keyword">new</span> myPoint[(end - start +<span class="number">1</span>)];</span><br><span class="line">	<span class="keyword">int</span> newLen = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">double</span> leftBorder = X[mid].x - minDis;</span><br><span class="line">	<span class="keyword">double</span> rightBorder = X[mid].x +minDis;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (end-start+<span class="number">1</span>); i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(Y[i].x &gt;= leftBorder &amp;&amp; Y[i].x &lt;= rightBorder)</span><br><span class="line">		&#123;</span><br><span class="line">			newY[newLen++] = Y[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; newLen; i++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">7</span>; j++)  <span class="comment">//和后面的7个点做比较</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span>((i + j) &lt; newLen)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">double</span> dis = distance(newY[i],newY[i + j]);</span><br><span class="line">					<span class="keyword">if</span>(dis &lt; minDis)</span><br><span class="line">					&#123;</span><br><span class="line">						minDis = dis;</span><br><span class="line">						P1 = newY[i];</span><br><span class="line">						P2 = newY[i+j];</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">delete</span> newY;</span><br><span class="line">	<span class="keyword">return</span> minDis;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/yangmiemie99.github.io/tags/分而治之/" rel="tag"># 分而治之</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2019/09/29/最大子序列和算法实现及改进/" rel="next" title="最大子序列和算法实现及改进">
+                <i class="fa fa-chevron-left"></i> 最大子序列和算法实现及改进
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/944104.png" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-最近点问题"><span class="nav-number">1.</span> <span class="nav-text">第一章 最近点问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-使用暴力方法代码"><span class="nav-number">1.1.</span> <span class="nav-text">1 使用暴力方法代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用分治的代码"><span class="nav-number">1.2.</span> <span class="nav-text">2 使用分治的代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-预先排序代码"><span class="nav-number">1.2.1.</span> <span class="nav-text">(1) 预先排序代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-整体代码"><span class="nav-number">1.2.2.</span> <span class="nav-text">(2)整体代码</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
