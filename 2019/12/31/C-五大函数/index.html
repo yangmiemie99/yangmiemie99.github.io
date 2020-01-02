@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="理解五大函数的基本首先就是要搞懂什么是左值,什么是右值,他们都有什么用 左值,右值和引用一个左值是一个标识非临时性对象的表达式.一个右值是一个标识临时性对象的表达式,或者是一个不与任何对象相联系的值(如字面值常数). 123456vector&amp;lt;string&amp;gt; arr(3);const int x = 2;int y;int z = x +y;string str =&quot;foo&quot;;vect">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++五大函数">
+<meta property="og:url" content="https://yangmiemie99.github.io/2019/12/31/C-五大函数/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="理解五大函数的基本首先就是要搞懂什么是左值,什么是右值,他们都有什么用 左值,右值和引用一个左值是一个标识非临时性对象的表达式.一个右值是一个标识临时性对象的表达式,或者是一个不与任何对象相联系的值(如字面值常数). 123456vector&amp;lt;string&amp;gt; arr(3);const int x = 2;int y;int z = x +y;string str =&quot;foo&quot;;vect">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-01-02T09:30:11.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++五大函数">
+<meta name="twitter:description" content="理解五大函数的基本首先就是要搞懂什么是左值,什么是右值,他们都有什么用 左值,右值和引用一个左值是一个标识非临时性对象的表达式.一个右值是一个标识临时性对象的表达式,或者是一个不与任何对象相联系的值(如字面值常数). 123456vector&amp;lt;string&amp;gt; arr(3);const int x = 2;int y;int z = x +y;string str =&quot;foo&quot;;vect">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2019/12/31/C-五大函数/">
+
+
+
+
+
+  <title>C++五大函数 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2019/12/31/C-五大函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/944104.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++五大函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-31T14:39:28+08:00">
+                2019-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>人次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>理解五大函数的基本首先就是要搞懂什么是左值,什么是右值,他们都有什么用</p>
+<h1 id="左值-右值和引用"><a href="#左值-右值和引用" class="headerlink" title="左值,右值和引用"></a>左值,右值和引用</h1><p>一个<em>左值</em>是一个标识非临时性对象的表达式.一个<em>右值</em>是一个标识临时性对象的表达式,或者是一个不与任何对象相联系的值(如字面值常数).</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; arr(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> x = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> y;</span><br><span class="line"><span class="keyword">int</span> z = x +y;</span><br><span class="line"><span class="built_in">string</span> str =<span class="string">"foo"</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;* ptr = &amp;arr;</span><br></pre></td></tr></table></figure>
+
+<p>根据这些声明可知,arr,str,arr[x],&amp;x,y,z,ptr,* ptr, (* ptr)[x]都是左值,此外x也是一个左值,只不过它是一个不可修改的左值.</p>
+<p>其中的2,“foo”,x+y,str.substr(0,1)都是右值,因为它们都是字面值.直观的看,x+y是一个右值,因为它的值是临时的;在赋值给z之前被存放在某个地方.</p>
+<p>C++语言的语法允许 函数调用或运算符重载在返回类型中指定为左值.</p>
+<p>C++11中分为左值引用和右值引用</p>
+<p>引用类型允许我们为一个已知名字的值定义一个新的名字.右值引用允许引用一个右值(即一个临时量)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> str = <span class="string">"hell"</span>;</span><br><span class="line"><span class="built_in">string</span> &amp; rstr = str;   <span class="comment">//rstr是str的另一个名字</span></span><br><span class="line">rstr += <span class="string">'o'</span>;          <span class="comment">// 把str改成hello</span></span><br><span class="line"><span class="keyword">bool</span> cond = (&amp;str == &amp;rstr); <span class="comment">//ture;str和rstr是同一个对象</span></span><br><span class="line"><span class="built_in">string</span> &amp; bad1 = <span class="string">"hello"</span>;  <span class="comment">// 非法:"hello"不是可修改的左值</span></span><br><span class="line">string &amp; bad2 = str+'';   //非法str+''不是左值</span><br><span class="line"><span class="built_in">string</span> &amp; bad3 = str.substr(<span class="number">0</span>,<span class="number">4</span>);  <span class="comment">// 非法: str.substr(0,4)不是左值</span></span><br><span class="line"></span><br><span class="line">string &amp;&amp; bad2 = str+'';   //合法</span><br><span class="line"><span class="built_in">string</span> &amp;&amp; bad3 = str.substr(<span class="number">0</span>,<span class="number">4</span>); <span class="comment">//合法</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="左值引用的用途"><a href="#左值引用的用途" class="headerlink" title="左值引用的用途"></a>左值引用的用途</h2><p>1  给结构复杂的名称其别名</p>
+<p>2  范围for循环</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.size(); ++i)</span><br><span class="line">	++arr[i];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> &amp; x:arr)</span><br><span class="line">    ++x;</span><br></pre></td></tr></table></figure>
+
+<p>3  避免复制</p>
+<p>auto &amp; x = findMax(arr);</p>
+<h2 id="右值引用的用途"><a href="#右值引用的用途" class="headerlink" title="右值引用的用途"></a>右值引用的用途</h2><p>C++11中增加了右值引用</p>
+<p>1 传值引用调用</p>
+<p>其核心概念在于,由于右值存储的是要销毁的临时量,像x = rval这样的表达式可以通过移动(move)而不是复制来实现.移动一个对象的状态比复制他要容易的多,因为这可能就涉及一次简单的指针改变.给出一个基于参数是左值还是右值而重载函数的基本使用情况.<strong>这种做法最常见的使用是定义在=的行为以及编写构造函数上.</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">randmItem</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; arr)</span></span>; <span class="comment">//返回左值arr中的随机项</span></span><br><span class="line"><span class="function">stirng <span class="title">randmItem</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp;&amp; arr)</span></span>; <span class="comment">// 返回右值arr中的随机项</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v&#123;<span class="string">"hello"</span>,<span class="string">"world"</span>&#125;;  </span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; randmItem(v) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">//调用左值的方法</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; randItem(&#123;<span class="string">"hello"</span>,<span class="string">"world"</span>&#125;) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">//调用右值的方法</span></span><br></pre></td></tr></table></figure>
+
+<p>2 使用移动代替复制</p>
+<p><strong>在C++11中,如果赋值运算符的右边(或构造函数)是一个右值,那么当对象支持移动操作时我们能够自动避免复制.</strong></p>
+<p>看一个例子,这里vector支持移动,但是x是一个左值,不能直接移动到tmp;</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; x,<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;tmp = x;</span><br><span class="line">    x = y;</span><br><span class="line">    y = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>存在函数std::move,能够把任何左值(或者右值)转换成右值.注意这里名字具有误导性std::move并不能够移动任何数据.确切的说,它使一个值易于移动.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种交换通过强制类型转换实现</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; x,<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; tmp = <span class="keyword">static_cast</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp;&amp;&gt;(x);</span><br><span class="line">    x = <span class="keyword">static_cast</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp;&amp;&gt; y;</span><br><span class="line">    y = <span class="keyword">static_cast</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;&amp;&gt;(tmp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种交换使用std::move</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp;x, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; tmp = <span class="built_in">std</span>::move(x);</span><br><span class="line">    x = <span class="built_in">std</span>::move(y);</span><br><span class="line">    y = <span class="built_in">std</span>::move(tmp;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="五大函数"><a href="#五大函数" class="headerlink" title="五大函数"></a>五大函数</h1><p>析构函数,拷贝构造函数,移动构造函数,拷贝赋值运算符和移动赋值运算符</p>
+<h2 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h2><p>只要一个对象运行超出范围,或者经受一次delete,则析构函数就要被调用.析构函数的唯一作用就是释放掉对象在使用期间获得的资源,包括关于任意的new操作调用对应的delete,关闭任何打开的文件等.</p>
+<h2 id="拷贝构造函数和移动构造函数"><a href="#拷贝构造函数和移动构造函数" class="headerlink" title="拷贝构造函数和移动构造函数"></a>拷贝构造函数和移动构造函数</h2><p>有两个特殊的构造函数用来构造一个新的对象,它被初始化为与另一个同样类型对象相同的状态.如果这个已经存在的对象是一个左值,那么就调用拷贝构造函数,如果这个已存在的对象是一个右值(即一个迟早要删除的临时量),那么就调用移动构造函数.对于任意对象,例如IntCell这样的对象,下述实例中将调用拷贝构造函数或移动构造函数:</p>
+<ul>
+<li>初始化</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//带有初始化的声明</span></span><br><span class="line">IntCell B = C;  <span class="comment">//若C是左值则调用拷贝构造函数;若C是右值则调用移动构造函数</span></span><br><span class="line">IneCell B&#123;C&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用传值调用传递对象</li>
+<li>传值返回的对象,同样返回的换数是一个左值,则调用拷贝构造函数,如果是一个右值则调用移动构造函数.</li>
+</ul>
+<h2 id="拷贝赋值和移动赋值"><a href="#拷贝赋值和移动赋值" class="headerlink" title="拷贝赋值和移动赋值"></a>拷贝赋值和移动赋值</h2><p>当=用于两个之前均被构造过的对象,则调用赋值运算符 lhs = rhs 是拷贝rhs的状态到lhs上.如果rhs是一个左值,那么这可通过使用拷贝赋值运算符来完成;如果rhs是一个右值(即一个将要被回收的临时量),那么这就可以使用移动赋值运算符来做到.</p>
+<h2 id="默认情况"><a href="#默认情况" class="headerlink" title="默认情况"></a>默认情况</h2><p>默认情况下,拷贝构造函数的实现是通过将拷贝构造函数依次应用到每个数据成员来完成的.对于基本类型的数据成员(例如Int ,double或指针),进行简单赋值即可.拷贝赋值运算符是通过依次把拷贝赋值运算符用于每一个数据成员而被实现的.</p>
+<h2 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h2><p>主要问题发生在包含指针作为数据成员的类中.假设一个类包含一个数据成员是一个指针,这个指针指向一个对象.拷贝复制构造函数和拷贝赋值运算符均赋值指针的值而不是指针指向的对象.这就是所作谓的<strong>浅拷贝</strong>.单典型的情况是我们应该得到<strong>深拷贝</strong>,从而得到整个对象的复制品.当一个类包含指针作为数据成员时,我们一般必须自己实现5大函数.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IntCell</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function"><span class="keyword">explicit</span> <span class="title">IntCell</span><span class="params">(<span class="keyword">int</span> initialValue = <span class="number">0</span>)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">			storedValue = <span class="keyword">new</span> <span class="keyword">int</span>&#123;initialValue&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="function"><span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> *storedValue;</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="function"><span class="keyword">void</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            *storedValue = x;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    	<span class="keyword">int</span> *storedValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对所有的五个函数都给出定义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~IntCell();</span><br><span class="line">IntCell(<span class="keyword">const</span> IntCell&amp; rhs);  <span class="comment">//拷贝构造函数</span></span><br><span class="line">IntCell(IntCell &amp;&amp; rhs);   <span class="comment">//移动构造函数</span></span><br><span class="line">IntCell&amp; <span class="keyword">operator</span>= (<span class="keyword">const</span> IntCell &amp; rhs); <span class="comment">//拷贝赋值函数</span></span><br><span class="line">IntCell&amp; <span class="keyword">operator</span>= (IntCell &amp; rhs); <span class="comment">//移动赋值函数</span></span><br></pre></td></tr></table></figure>
+
+<p>浅拷贝导致一个编程错误:两个IntCell对象使他们的storedValue指向同一个对象.一旦第一个IntCell对象的析构函数被调用以回收storedValue指针正在关注的对象,第2个IntCell对象拥有的storedValue指针就过时了.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数据成员是指针,写出五大函数</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IntCell</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="function"><span class="keyword">explicit</span> <span class="title">IntCell</span><span class="params">(<span class="keyword">int</span> initValue = <span class="number">0</span>)</span>    <span class="comment">//构造函数</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">			storedValue = <span class="keyword">new</span> <span class="keyword">int</span>&#123;initValue&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    	~IntCell()                            <span class="comment">//析构函数</span></span><br><span class="line">        &#123;</span><br><span class="line">			<span class="keyword">delete</span> storedValue;</span><br><span class="line">        &#125;</span><br><span class="line">    	IntCell(<span class="keyword">const</span> IntCell&amp; rhs)          <span class="comment">//拷贝构造函数</span></span><br><span class="line">        &#123;</span><br><span class="line">            storedValue = <span class="keyword">new</span> <span class="keyword">int</span>&#123;*rhs.storedValue&#125;;;</span><br><span class="line">        &#125;</span><br><span class="line"> 		IntCell(IntCell &amp;&amp; rhs):storedValue&#123;rhs.storedValue&#125;  <span class="comment">//移动构造函数</span></span><br><span class="line">        &#123;</span><br><span class="line">            rhs.storedValue = <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;   </span><br><span class="line">    	IntCell &amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> IntCell &amp; rhs)   <span class="comment">//拷贝赋值</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span> != &amp;rhs)</span><br><span class="line">            &#123;</span><br><span class="line">				*storedValue = *rhs.storedValue;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    	IntCell&amp; <span class="keyword">operator</span>=(IntCell &amp;&amp; rhs)   <span class="comment">//移动赋值</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::swap(storedValue,rhs.storedValue);</span><br><span class="line">            <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>C++11中,常常使用拷贝和交换格式,编写拷贝赋值,导致另一种实现方法,对于那些拥有许多复杂的相互影响的数据成员的类型来说,这是相当不错的默认操作.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IntCell&amp; <span class="keyword">operator</span>= (<span class="keyword">const</span> IntCell&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">    IntCell copy = rhs;      <span class="comment">//利用拷贝构造函数将rhs拷贝置入copy</span></span><br><span class="line">    <span class="built_in">std</span>::swap(*<span class="keyword">this</span>,copy);   <span class="comment">//将copy内容交换到*this中</span></span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;			<span class="comment">//返回时刻调用析构函数,清理旧内存</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2019/12/24/自定义类中重载运算符号返回引用为什么允许连续赋值/" rel="next" title="自定义类中重载运算符号返回引用为什么允许连续赋值?">
+                <i class="fa fa-chevron-left"></i> 自定义类中重载运算符号返回引用为什么允许连续赋值?
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/944104.png" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#左值-右值和引用"><span class="nav-number">1.</span> <span class="nav-text">左值,右值和引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#左值引用的用途"><span class="nav-number">1.1.</span> <span class="nav-text">左值引用的用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#右值引用的用途"><span class="nav-number">1.2.</span> <span class="nav-text">右值引用的用途</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五大函数"><span class="nav-number">2.</span> <span class="nav-text">五大函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#析构函数"><span class="nav-number">2.1.</span> <span class="nav-text">析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拷贝构造函数和移动构造函数"><span class="nav-number">2.2.</span> <span class="nav-text">拷贝构造函数和移动构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拷贝赋值和移动赋值"><span class="nav-number">2.3.</span> <span class="nav-text">拷贝赋值和移动赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认情况"><span class="nav-number">2.4.</span> <span class="nav-text">默认情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要问题"><span class="nav-number">2.5.</span> <span class="nav-text">主要问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
