@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,树,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="二叉树的遍历二叉树中最重要的操作莫过于遍历,即按照莫一顺序访问树中的所有节点.在二叉树中通常有如下几种遍历方式.  前序遍历 : [根,左,右]  先访问根节点,在访问左子节点,在访问右子节点.  中序遍历 : [左,根,右]  先访问左子节点,在访问根节点,在访问右子节点.  后序遍历 : [左,右,根]  先访问左子节点,在访问右子节点,在访问根节点.  宽度优先遍历: 先访问数的第一层节点,">
+<meta name="keywords" content="数据结构,树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉树的遍历及构建方式详解">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/01/09/树的遍历方法/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="二叉树的遍历二叉树中最重要的操作莫过于遍历,即按照莫一顺序访问树中的所有节点.在二叉树中通常有如下几种遍历方式.  前序遍历 : [根,左,右]  先访问根节点,在访问左子节点,在访问右子节点.  中序遍历 : [左,根,右]  先访问左子节点,在访问根节点,在访问右子节点.  后序遍历 : [左,右,根]  先访问左子节点,在访问右子节点,在访问根节点.  宽度优先遍历: 先访问数的第一层节点,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/01/09/树的遍历方法/shu.jpeg">
+<meta property="og:updated_time" content="2020-01-10T05:14:13.019Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉树的遍历及构建方式详解">
+<meta name="twitter:description" content="二叉树的遍历二叉树中最重要的操作莫过于遍历,即按照莫一顺序访问树中的所有节点.在二叉树中通常有如下几种遍历方式.  前序遍历 : [根,左,右]  先访问根节点,在访问左子节点,在访问右子节点.  中序遍历 : [左,根,右]  先访问左子节点,在访问根节点,在访问右子节点.  后序遍历 : [左,右,根]  先访问左子节点,在访问右子节点,在访问根节点.  宽度优先遍历: 先访问数的第一层节点,">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/01/09/树的遍历方法/shu.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/01/09/树的遍历方法/">
+
+
+
+
+
+  <title>二叉树的遍历及构建方式详解 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/01/09/树的遍历方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/944104.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">二叉树的遍历及构建方式详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-09T10:34:09+08:00">
+                2020-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>人次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h1><p>二叉树中最重要的操作莫过于遍历,即按照莫一顺序访问树中的所有节点.在二叉树中通常有如下几种遍历方式.</p>
+<ul>
+<li><p>前序遍历 : [根,左,右]  先访问根节点,在访问左子节点,在访问右子节点.</p>
+</li>
+<li><p>中序遍历 : [左,根,右]  先访问左子节点,在访问根节点,在访问右子节点.</p>
+</li>
+<li><p>后序遍历 : [左,右,根]  先访问左子节点,在访问右子节点,在访问根节点.</p>
+</li>
+<li><p>宽度优先遍历: 先访问数的第一层节点,在访问数的第二层节点…直到访问到数的最下一层节点.</p>
+</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/01/09/树的遍历方法/shu.jpeg" alt="shu"></p>
+<p>先序遍历: ABCDEFGHK</p>
+<p>中序遍历: BCDAEHGKF</p>
+<p>后序遍历: DCBHKGFEA</p>
+<p>以中序遍历为例:</p>
+<p>我们从root节点A看起;</p>
+<p>此时A是根节点,遍历A的左子树；</p>
+<p>A左子数存在,找到B,此时将B看做根节点,遍历B的左子树;</p>
+<p>B的左子树不存在,找到B,根据[左根右]的遍历规则,记录B,遍历B的右子树;</p>
+<p>B的右子树存在,找到C,此时将C看作根节点,遍历C的左子树;</p>
+<p>C的左子树存在,找到D,由于D是叶子节点,无左子树,记录D,无右子树,返回C,根据[左,根右]的规则,记录C,遍历C的右子树;</p>
+<p>C的右子树不存在,返回B,B的右子树遍历完返回A;</p>
+<p>至此,A的左子树遍历完,根据[左,根,右]的规则,记录A,遍历A的右子树;</p>
+<p>A的右子树存在,找到E,此时将E看作根节点,遍历E的左子树;</p>
+<p>E的左子树不存在，返回E，根据【左根右】的遍历规则，记录E，遍历E的右子树；</p>
+<p>E的右子树存在，找到F，此时F看做根节点，遍历F的左子树；</p>
+<p>F的左子树存在，找到G，此时G看做根节点，遍历G的左子树；</p>
+<p>G的左子树存在，找到H，由于H是叶子节点，无左子树，记录H，无右子树，返回G，根据【左根右】的遍历规则，记录G，遍历G的右子树；</p>
+<p>G的右子树存在，找到K，由于K是叶子节点，无左子树，记录K，无右子树，返回G，根据【左根右】的遍历规则，记录F，遍历F的右子树；</p>
+<p>F的右子树不存在，返回F，E的右子树遍历完毕，返回A；</p>
+<p>至此，A的右子树也遍历完毕；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二差树的结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BinaryNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> m_key;</span><br><span class="line">    BinaryTreeNode* m_pLeft;</span><br><span class="line">    NinaryTreeNode* m_pRight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="先序遍历"><a href="#先序遍历" class="headerlink" title="先序遍历"></a>先序遍历</h2><h3 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先序递归遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrderRecursion</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; root -&gt; m_key;</span><br><span class="line">    preOrderRecursion(root -&gt; m_pLeft);</span><br><span class="line">    preOrderRecursion(root -&gt; m_pRight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="非递归实现"><a href="#非递归实现" class="headerlink" title="非递归实现"></a>非递归实现</h3><p>根据前序遍历的访问顺序,优先访问根节点,再依次访问左子节点和右字节点.即对于任意一节点,都可以看作是根节点,因此可以直接访问,若其左孩子部位空,按相同规则访问他的左子树;当访问完左子树是,再访问它的右子树.因此其处理过程如下:</p>
+<p>给定二叉树的根节点R:</p>
+<p>(a) 将根节点入栈;</p>
+<p>(b)判断栈是否为空,若不为空,取栈顶元素cur访问并出栈.然后将cur的右子节点入栈,再将cur的左子入栈;</p>
+<p>(c)重复(b)直到栈为空;</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrderStack</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">   	<span class="built_in">stack</span>&lt;BinaryTreeNode*&gt; nodes;</span><br><span class="line">    nodes.push(root);</span><br><span class="line">    BinaryTreeNode* cur = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(!nodes.empty)&#123;</span><br><span class="line">		cur = nodes.top();</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; cur -&gt; m_key;</span><br><span class="line">        nodes.pop();</span><br><span class="line">        <span class="keyword">if</span>(cur -&gt; m_pRight != <span class="literal">NULL</span>)</span><br><span class="line">        	nodes.push(cur -&gt; m_pRight);</span><br><span class="line">        <span class="keyword">if</span>(cur -&gt; m_pLeft != <span class="literal">NULL</span>)</span><br><span class="line">            nodes.push(cur -&gt; m_pLeft);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>中序遍历按照[左,根,右]来实现顺序访问.</p>
+<h3 id="递归实现-1"><a href="#递归实现-1" class="headerlink" title="递归实现"></a>递归实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">midOrderRecursion</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    midOrderRecursion(root -&gt; m_pLfet);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; root -&gt; m_key;</span><br><span class="line">    midOrderRecursion(root -&gt; m_pRight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="非递归实现-1"><a href="#非递归实现-1" class="headerlink" title="非递归实现"></a>非递归实现</h3><p>根据中序遍历顺序,对于任一节点,先访问左子节点,而左子节点又可以看做是一个根节点,然后继续访问其左子节点,当左子节点为空时才访问右子节点,再将右子节点作为根节点按照相同的规则访问.</p>
+<p>给定二叉数的根节点R</p>
+<p>(1)若其左子节点不为空,循环将R及R左子树中的所有及诶单的左孩子入栈;</p>
+<p>(2)取栈顶元素cur,访问cur并出栈.然后对cur的右子节点进行(1)那样的处理;</p>
+<p>(3)重复(1)(2)的操作,直到cur变为空</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//中序遍历非递归,需要使用栈</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">midOrderStack</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    BinaryTreeNode* cur = root;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">stack</span>&lt;BinaryTreeNode&gt; nodes;</span><br><span class="line">    <span class="keyword">while</span>(!nodes.empty() || cur!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">            nodes.push(cur);</span><br><span class="line">            cur = cur -&gt; m_pLeft;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = nodes.top();</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; cur -&gt; m_key;</span><br><span class="line">        nodes.pop();</span><br><span class="line">        cur = cur -&gt; m_pRight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>后序遍历按照[左 右 根]的顺序进行访问</p>
+<h3 id="递归实现-2"><a href="#递归实现-2" class="headerlink" title="递归实现"></a>递归实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderRecursion</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    postOrderRecursion(root -&gt; m_pLeft);</span><br><span class="line">    postOrderRecursion(root -&gt; m_pRight);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; root -&gt; m_key;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="非递归实现-2"><a href="#非递归实现-2" class="headerlink" title="非递归实现"></a>非递归实现</h3><p> 后序遍历的非递归实现是三种遍历方式中最难的一种。因为在后序遍历中，要保证左孩子和右孩子都已被访问并且左孩子要在右孩子前被访问，才能访问根节点。这就为流程的控制带来了难题。下面介绍两种思路。</p>
+<p><strong>第一种思路:</strong>对于任一结点P，将其入栈，然后沿其左子树一直往下搜索，直到搜索到没有左孩子的结点，此时该结点出现在栈顶，但是此时不能将其出栈并访问，因此其右孩子还为被访问。所以接下来按照相同的规则对其右子树进行相同的处理，当访问完其右孩子时，该结点又出现在栈顶，此时可以将其出栈并访问。这样就保证了正确的访问顺序。可以看出，在这个过程中，每个结点都两次出现在栈顶，只有在第二次出现在栈顶时，才能访问它。因此需要多设置一个变量标识该结点是否是第一次出现在栈顶。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非递归后续遍历</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderStack1</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    pair&lt;BinaryTreeNode*,<span class="keyword">bool</span>&gt; cur = make_pair(root,<span class="literal">true</span>);</span><br><span class="line">    <span class="built_in">stack</span>&lt;pair&lt;BinaryTreeNode*,<span class="keyword">bool</span>&gt;&gt; nodes;</span><br><span class="line">    <span class="keyword">while</span>(!nodes.empty() || cur.first != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(cur.first !=<span class="literal">NULL</span>)&#123;  <span class="comment">//沿着左子树一直向下搜索</span></span><br><span class="line">            <span class="built_in">stack</span>.push(cur);</span><br><span class="line">            cur = make_pair(cur.first -&gt; m_pLeft,<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!nodes.empty())&#123;</span><br><span class="line">			<span class="keyword">if</span>(nodes.top().second == <span class="literal">true</span>)&#123;	<span class="comment">//表示第一次出现在栈顶</span></span><br><span class="line">                nodes.top.second = <span class="literal">false</span>;</span><br><span class="line">                cur = make_pair(s.top().first -&gt; m_pRight,<span class="literal">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;		<span class="comment">//第二次出现在栈顶</span></span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; nodes.top().first-&gt;m_key &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">                nodes.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>第二种思路:</strong>要保证根结点在左孩子和右孩子访问之后才能访问，因此对于任一结点R，<br>（a）先将R入栈。如果R不存在左孩子和右孩子，则可以直接访问它并出栈；<br>（b）如果R存在左孩子或者右孩子，但是其左孩子和右孩子都已被访问过了，则同样可以直接访问该结点并出栈；<br>（c）若非上述两种情况，则将R的右孩子和左孩子依次入栈，这样就保证了每次取栈顶元素的时候，左孩子在右孩子前面被访问，<strong>左孩子和右孩子都在父结点前面被访问</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非递归版本2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderStack2</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root ==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;BinaryTreeNode*&gt; nodes;</span><br><span class="line">    BinaryTreeNode* cur;  <span class="comment">//当前节点</span></span><br><span class="line">    BinaryTreeNode* pre = <span class="literal">NULL</span>; <span class="comment">//前一次访问的节点</span></span><br><span class="line">    nodes.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!node.empty())&#123;</span><br><span class="line">        cur = nodes.top();</span><br><span class="line">        <span class="keyword">if</span>((cur -&gt;m_pLeft == <span class="literal">NULL</span> || cur -&gt;m_pRight == <span class="literal">NULL</span>) || (pre!=<span class="literal">NULL</span> &amp;&amp; (pre == cur-&gt;m_pLeft||pre == cur-&gt;m_pRight)))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; cur-&gt;m_key&lt;&lt; <span class="string">" "</span>; <span class="comment">//如果当前节点没有孩子节点或者孩子节点都已经被访问过</span></span><br><span class="line">            nodes.pop();</span><br><span class="line">            pre = cur;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(cur-&gt;m_pRight!=<span class="literal">NULL</span>)</span><br><span class="line">                nodes.push(cur -&gt; m_pRight);</span><br><span class="line">            <span class="keyword">if</span>(cur -&gt; m_pLeft!=<span class="literal">NULL</span>)</span><br><span class="line">                nodes.push(cur -&gt;m_pLeft);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="宽度优先遍历"><a href="#宽度优先遍历" class="headerlink" title="宽度优先遍历"></a>宽度优先遍历</h2><p>按层次从上到下，从左到右的逐层访问，不难想到，可以利用一个队列来实现。基本思想是：<br>（1）首先把二叉树的根节点送入队列；<br>（2）队首的节点出队列并访问之，然后把它的左子节点和右子节点分别入队列；<br>（3）重复上面两步操作，直至队空。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">breadthFirstOrder</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;BinatyTreeNode*&gt; nodes;</span><br><span class="line">    <span class="built_in">queue</span>.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!nodes.empty())&#123;</span><br><span class="line">        BinaryTreeNode* cur = <span class="built_in">queue</span>.front();</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; cur -&gt; m_key &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        <span class="built_in">queue</span>.pop();</span><br><span class="line">        <span class="keyword">if</span>(cur -&gt;m_pLeft!=<span class="literal">NULL</span>)</span><br><span class="line">            <span class="built_in">queue</span>.push(cur-&gt;m_pLeft);</span><br><span class="line">        <span class="keyword">if</span>(cur -&gt; m_pRight!= <span class="literal">NULL</span>)</span><br><span class="line">            <span class="built_in">queue</span>.push(cur -&gt; m_pRight);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="二差树的构建"><a href="#二差树的构建" class="headerlink" title="二差树的构建"></a>二差树的构建</h1><h2 id="前序-中序序列构建二叉树（递归实现）"><a href="#前序-中序序列构建二叉树（递归实现）" class="headerlink" title="前序+中序序列构建二叉树（递归实现）"></a>前序+中序序列构建二叉树（递归实现）</h2><p> （1）前序遍历序列中的第一个数字为根节点，构造根节点；<br>（2）找到根节点在中序遍历序列中的位置，中序中根节点左右两边分别为左子树和有子树，前序序列根节点后面为左子树+右子树；<br>（3）递归处理处理左右子树，返回根节点，完成构造。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">reConstructBinaryTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vin)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> size = pre.size();</span><br><span class="line">       <span class="keyword">if</span>(size == <span class="number">0</span>)</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">       </span><br><span class="line">       <span class="comment">//前序遍历找到根节点</span></span><br><span class="line">       <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; Left_pre,Left_vin,Right_pre,Right_vin;</span><br><span class="line">       TreeNode* root = <span class="keyword">new</span> TreeNode(pre[<span class="number">0</span>]);</span><br><span class="line">       <span class="comment">//只有一个节点返回</span></span><br><span class="line">       <span class="keyword">if</span>(size == <span class="number">1</span> &amp;&amp; pre[<span class="number">0</span>] == vin[<span class="number">0</span>])</span><br><span class="line">           <span class="keyword">return</span> root;</span><br><span class="line">       <span class="comment">//中序遍历找到根节点,确定左子树节点个数</span></span><br><span class="line">       <span class="keyword">int</span> leftSize = <span class="number">0</span>;</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size ;++i,++leftSize)&#123;</span><br><span class="line">           <span class="keyword">if</span>(pre[<span class="number">0</span>] == vin[i])</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span>(leftSize == size) <span class="comment">//没找到根节点</span></span><br><span class="line">           <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; leftSize;++i)&#123;</span><br><span class="line">           Left_pre.push_back(pre[i+<span class="number">1</span>]);</span><br><span class="line">           Left_vin.push_back(vin[i]);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">int</span> rightSize = size - leftSize <span class="number">-1</span> ;  <span class="comment">//这里编程出了很大的错误导致内存溢出,数的逻辑要理清楚,-1为根节点</span></span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rightSize; ++i)&#123;</span><br><span class="line">           Right_pre.push_back(pre[leftSize +<span class="number">1</span>+ i]);  <span class="comment">//加1为根节点</span></span><br><span class="line">           Right_vin.push_back(vin[leftSize +<span class="number">1</span>+ i]);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">/*</span></span><br><span class="line"><span class="comment">         写为更清晰的形式</span></span><br><span class="line"><span class="comment">         for(int i = leftSize+1; i &lt; size; i++)&#123;</span></span><br><span class="line"><span class="comment">           Right_pre.push_back(pre[i]);  //加1为根节点</span></span><br><span class="line"><span class="comment">           Right_vin.push_back(vin[i]);          	</span></span><br><span class="line"><span class="comment">         &#125;</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">    </span><br><span class="line">       <span class="comment">//递归构建左右子树</span></span><br><span class="line">       root -&gt; left = reConstructBinaryTree(Left_pre,Left_vin);</span><br><span class="line">       root -&gt; right = reConstructBinaryTree(Right_pre,Right_vin);</span><br><span class="line">       <span class="keyword">return</span> root;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/yangmiemie99.github.io/tags/树/" rel="tag"># 树</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2019/12/31/C-五大函数/" rel="next" title="C++五大函数">
+                <i class="fa fa-chevron-left"></i> C++五大函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/944104.png" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树的遍历"><span class="nav-number">1.</span> <span class="nav-text">二叉树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先序遍历"><span class="nav-number">1.1.</span> <span class="nav-text">先序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#递归实现"><span class="nav-number">1.1.1.</span> <span class="nav-text">递归实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非递归实现"><span class="nav-number">1.1.2.</span> <span class="nav-text">非递归实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中序遍历"><span class="nav-number">1.2.</span> <span class="nav-text">中序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#递归实现-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">递归实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非递归实现-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">非递归实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后序遍历"><span class="nav-number">1.3.</span> <span class="nav-text">后序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#递归实现-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">递归实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非递归实现-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">非递归实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宽度优先遍历"><span class="nav-number">1.4.</span> <span class="nav-text">宽度优先遍历</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二差树的构建"><span class="nav-number">2.</span> <span class="nav-text">二差树的构建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前序-中序序列构建二叉树（递归实现）"><span class="nav-number">2.1.</span> <span class="nav-text">前序+中序序列构建二叉树（递归实现）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
