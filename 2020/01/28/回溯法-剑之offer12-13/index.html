@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概念​      回溯算法实际上一个类似枚举的搜索尝试过程，主要是在搜索尝试过程中寻找问题的解，当发现已不满足求解条件时，就“回溯”返回，尝试别的路径。    回溯法是一种选优搜索法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。 基本思想  在包含问题的所有解">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回溯法-剑之offer12-13">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/01/28/回溯法-剑之offer12-13/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="概念​      回溯算法实际上一个类似枚举的搜索尝试过程，主要是在搜索尝试过程中寻找问题的解，当发现已不满足求解条件时，就“回溯”返回，尝试别的路径。    回溯法是一种选优搜索法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。 基本思想  在包含问题的所有解">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/01/28/回溯法-剑之offer12-13/1.jpeg">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/01/28/回溯法-剑之offer12-13/2.jpg">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/01/28/回溯法-剑之offer12-13/3.gif">
+<meta property="og:updated_time" content="2020-01-28T16:50:30.180Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="回溯法-剑之offer12-13">
+<meta name="twitter:description" content="概念​      回溯算法实际上一个类似枚举的搜索尝试过程，主要是在搜索尝试过程中寻找问题的解，当发现已不满足求解条件时，就“回溯”返回，尝试别的路径。    回溯法是一种选优搜索法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。 基本思想  在包含问题的所有解">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/01/28/回溯法-剑之offer12-13/1.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/01/28/回溯法-剑之offer12-13/">
+
+
+
+
+
+  <title>回溯法-剑之offer12-13 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/01/28/回溯法-剑之offer12-13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/944104.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">回溯法-剑之offer12-13</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-28T13:54:23+08:00">
+                2020-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>人次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>​      回溯算法实际上一个类似枚举的搜索尝试过程，主要是在搜索尝试过程中寻找问题的解，当发现已不满足求解条件时，就“回溯”返回，尝试别的路径。</p>
+<p>   回溯法是一种选优搜索法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。</p>
+<h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><p>  在包含问题的所有解的解空间树中，按照<strong>深度优先搜索的策略</strong>，从根结点出发深度探索解空间树。当探索到某一结点时，要先判断该结点是否包含问题的解，如果包含，就从该结点出发继续探索下去，如果该结点不包含问题的解，则逐层向其祖先结点回溯。（其实回溯法就是对隐式图的深度优先搜索算法）。</p>
+<p>​       若用回溯法求问题的所有解时，要回溯到根，且根结点的所有可行的子树都要已被搜索遍才结束。</p>
+<p>​       而若使用回溯法求任一个解时，只要搜索到问题的一个解就可以结束。</p>
+<h1 id="解题的一般步骤"><a href="#解题的一般步骤" class="headerlink" title="解题的一般步骤"></a>解题的一般步骤</h1><p> (1)针对所给问题，定义问题的解空间；</p>
+<p>(2)确定易于搜索的解空间结构；</p>
+<p>(3)以深度优先方式搜索解空间，并在搜索过程中用<strong>剪枝函数</strong>避免无效搜索。</p>
+<p>下面的两棵解空间树是回溯法解题时常遇到的两类典型的解空间树。</p>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><h3 id="递推"><a href="#递推" class="headerlink" title="递推"></a>递推</h3><p> 算法设计相对复杂，但效率高。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//针对N叉树的迭代回溯方法  </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">iterativeBacktrack</span> <span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">int</span> t=<span class="number">1</span>;  <span class="comment">// 处于第一层</span></span><br><span class="line">    <span class="keyword">while</span> (t&gt;<span class="number">0</span>) &#123;           <span class="comment">// 还有路可走</span></span><br><span class="line">        <span class="keyword">if</span>(ExistSubNode(t)) <span class="comment">//当前节点的存在子节点  </span></span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">for</span> i = <span class="number">1</span> to k  <span class="comment">//遍历当前节点的所有子节点  </span></span><br><span class="line">            &#123;  </span><br><span class="line">                x[t]=value(i);<span class="comment">//每个子节点的值赋值给x  </span></span><br><span class="line">                <span class="keyword">if</span> (constraint(t)&amp;&amp;bound(t))<span class="comment">//满足约束条件和限界条件   </span></span><br><span class="line">                &#123;  </span><br><span class="line">                    <span class="comment">//solution表示在节点t处得到了一个解  </span></span><br><span class="line">                    <span class="keyword">if</span> (solution(t)) output(x);<span class="comment">//得到问题的一个可行解，输出  </span></span><br><span class="line">                    <span class="keyword">else</span> t++;<span class="comment">//没有得到解，继续向下搜索  </span></span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//不存在子节点，返回上一层  </span></span><br><span class="line">        &#123;  </span><br><span class="line">            t--;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>思路简单，设计容易，但效率低，其设计范式如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//针对N叉树的递归回溯方法  </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">backtrack</span> <span class="params">(<span class="keyword">int</span> t)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (t&gt;n) output(x); <span class="comment">//叶子节点，输出结果，x是可行解  </span></span><br><span class="line">    <span class="keyword">else</span>  </span><br><span class="line">       <span class="keyword">for</span> i = <span class="number">1</span> to k<span class="comment">//当前节点的所有子节点  </span></span><br><span class="line">        &#123;  </span><br><span class="line">            x[t]=value(i); <span class="comment">//每个子节点的值赋值给x  </span></span><br><span class="line">            <span class="comment">//满足约束条件和限界条件  </span></span><br><span class="line">          <span class="keyword">if</span> (constraint(t)&amp;&amp;bound(t))   </span><br><span class="line">                backtrack(t+<span class="number">1</span>);  <span class="comment">//递归下一层  </span></span><br><span class="line">        &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="子集树"><a href="#子集树" class="headerlink" title="子集树"></a>子集树</h2><p>当所给问题是从n个元素的集合S中找出S满足某种性质的子集时，相应的解空间树称为子集树。例如从n个物品的0-1背包问题,从所给重量、价值不同的物品中挑选几个物品放入背包，使得在满足背包不超重的情况下，背包内物品价值最大。(如下图)所相应的解空间树是一棵子集树，这类子集树通常有2^n个叶结点，其结点总个数为2^(n+1)-1。遍历子集树的算法需Ω(2^n)计算时间。</p>
+<p><img src="/yangmiemie99.github.io/2020/01/28/回溯法-剑之offer12-13/1.jpeg" alt></p>
+<pre><code>图1</code></pre><p> 回溯法搜索子集树的算法范式如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * output(x)     记录或输出得到的可行解x </span></span><br><span class="line"><span class="comment"> * constraint(t) 当前结点的约束函数 </span></span><br><span class="line"><span class="comment"> * bount(t)      当前结点的限界函数 </span></span><br><span class="line"><span class="comment"> * @param t  t为当前解空间的层数 </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">backtrack</span> <span class="params">(<span class="keyword">int</span> t)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">  <span class="keyword">if</span> (t&gt;n) output(x);  </span><br><span class="line">    <span class="keyword">else</span>  </span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=<span class="number">1</span>;i++) &#123;  </span><br><span class="line">        x[t]=i;  </span><br><span class="line">        <span class="keyword">if</span> (constraint(t)&amp;&amp;bound(t)) backtrack(t+<span class="number">1</span>);  </span><br><span class="line">      &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="排列树"><a href="#排列树" class="headerlink" title="排列树"></a>排列树</h2><p>当所给问题是确定n个元素满足某种性质的排列时，相应的解空间树称为排列树。例如旅行售货员问题一个售货员把几个城市旅行一遍，要求走的路程最小。(如下图)的解空间树是一棵排列树，这类排列树通常有n!个叶结点。遍历子集树的算法需Ω(n!)计算时间。</p>
+<p><img src="/yangmiemie99.github.io/2020/01/28/回溯法-剑之offer12-13/2.jpg" alt> </p>
+<p>​                                      图2</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * output(x)     记录或输出得到的可行解x </span></span><br><span class="line"><span class="comment"> * constraint(t) 当前结点的约束函数 </span></span><br><span class="line"><span class="comment"> * bount(t)      当前结点的限界函数 </span></span><br><span class="line"><span class="comment"> * @param t  t为当前解空间的层数 </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="keyword">int</span> t)</span></span>&#123;  </span><br><span class="line">    <span class="keyword">if</span>(t &gt;= n)  </span><br><span class="line">        output(x);  </span><br><span class="line">    <span class="keyword">else</span>  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = t; i &lt;= n; i++) &#123;  </span><br><span class="line">            swap(x[t], x[i]);  </span><br><span class="line">            <span class="keyword">if</span>(constraint(t) &amp;&amp; bount(t))  </span><br><span class="line">                backtrack(t+<span class="number">1</span>);  </span><br><span class="line">            swap(x[t], x[i]);  </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><h2 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h2><p>给定n种物品和一背包。物品i的重量是wi，其价值为pi，背包的容量为C。问应如何选择装入背包的物品，使得装入背包中物品的总价值最大?</p>
+<p>  <strong>分析：</strong>问题是n个物品中选择部分物品，可知，问题的解空间是子集树。比如物品数目n=3时，其解空间树如下图，边为1代表选择该物品，边为0代表不选择该物品。使用x[i]表示物品i是否放入背包，x[i]=0表示不放，x[i]=1表示放入。回溯搜索过程，如果来到了叶子节点，表示一条搜索路径结束，如果该路径上存在更优的解，则保存下来。如果不是叶子节点，是中点的节点（如B），就遍历其子节点（D和E），如果子节点满足剪枝条件，就继续回溯搜索子节点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;  </span></span></span><br><span class="line">   </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 3         <span class="comment">//物品的数量  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> C 16        <span class="comment">//背包的容量  </span></span></span><br><span class="line">   </span><br><span class="line"><span class="keyword">int</span> w[N]=&#123;<span class="number">10</span>,<span class="number">8</span>,<span class="number">5</span>&#125;;  <span class="comment">//每个物品的重量  </span></span><br><span class="line"><span class="keyword">int</span> v[N]=&#123;<span class="number">5</span>,<span class="number">4</span>,<span class="number">1</span>&#125;;   <span class="comment">//每个物品的价值  </span></span><br><span class="line"><span class="keyword">int</span> x[N]=&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;   <span class="comment">//x[i]=1代表物品i放入背包，0代表不放入  </span></span><br><span class="line">   </span><br><span class="line"><span class="keyword">int</span> CurWeight = <span class="number">0</span>;  <span class="comment">//当前放入背包的物品总重量  </span></span><br><span class="line"><span class="keyword">int</span> CurValue = <span class="number">0</span>;   <span class="comment">//当前放入背包的物品总价值  </span></span><br><span class="line">   </span><br><span class="line"><span class="keyword">int</span> BestValue = <span class="number">0</span>;  <span class="comment">//最优值；当前的最大价值，初始化为0  </span></span><br><span class="line"><span class="keyword">int</span> BestX[N];       <span class="comment">//最优解；BestX[i]=1代表物品i放入背包，0代表不放入  </span></span><br><span class="line">   </span><br><span class="line"><span class="comment">//t = 0 to N-1  </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="keyword">int</span> t)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="comment">//叶子节点，输出结果  </span></span><br><span class="line">    <span class="keyword">if</span>(t&gt;N<span class="number">-1</span>)   </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="comment">//如果找到了一个更优的解  </span></span><br><span class="line">        <span class="keyword">if</span>(CurValue&gt;BestValue)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="comment">//保存更优的值和解  </span></span><br><span class="line">            BestValue = CurValue;  </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;++i) BestX[i] = x[i];  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">else</span>  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="comment">//遍历当前节点的子节点：0 不放入背包，1放入背包  </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=<span class="number">1</span>;++i)  </span><br><span class="line">        &#123;  </span><br><span class="line">            x[t]=i;  </span><br><span class="line">   </span><br><span class="line">            <span class="keyword">if</span>(i==<span class="number">0</span>) <span class="comment">//不放入背包  </span></span><br><span class="line">            &#123;  </span><br><span class="line">                backtrack(t+<span class="number">1</span>);  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//放入背包  </span></span><br><span class="line">            &#123;  </span><br><span class="line">                 <span class="comment">//约束条件：放的下  </span></span><br><span class="line">                <span class="keyword">if</span>((CurWeight+w[t])&lt;=C)  </span><br><span class="line">                &#123;  </span><br><span class="line">                    CurWeight += w[t];  </span><br><span class="line">                    CurValue += v[t];  </span><br><span class="line">                    backtrack(t+<span class="number">1</span>);  </span><br><span class="line">                    CurWeight -= w[t];  </span><br><span class="line">                    CurValue -= v[t];  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//PS:上述代码为了更符合递归回溯的范式，并不够简洁  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">   </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    backtrack(<span class="number">0</span>);  </span><br><span class="line">   </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"最优值：%d\n"</span>,BestValue);  </span><br><span class="line">   </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)  </span><br><span class="line">    &#123;  </span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">"最优解：%-3d"</span>,BestX[i]);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="旅行售货问题"><a href="#旅行售货问题" class="headerlink" title="旅行售货问题"></a>旅行售货问题</h2><p>某售货员要到若干城市去推销商品，已知各城市之间的路程(或旅费)。他要选定一条从驻地出发，经过每个城市一次，最后回到驻地的路线，使总的路程(或总旅费)最小。</p>
+<p>​        如下图：1，2，3，4 四个城市及其路线费用图，任意两个城市之间不一定都有路可达。</p>
+<p><img src="/yangmiemie99.github.io/2020/01/28/回溯法-剑之offer12-13/3.gif" alt></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment"> *问  题：旅行售货员</span></span><br><span class="line"><span class="comment"> *算  法：回溯法</span></span><br><span class="line"><span class="comment"> *描  述：解空间为 排列树</span></span><br><span class="line"><span class="comment"> ****************************************************************/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 4				   <span class="comment">//城市数目</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NO_PATH -1		   <span class="comment">//没有通路</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_WEIGHT 4000</span></span><br><span class="line"><span class="keyword">int</span> City_Graph[N+<span class="number">1</span>][N+<span class="number">1</span>];  <span class="comment">//保存图信息</span></span><br><span class="line"><span class="keyword">int</span> x[N+<span class="number">1</span>];                <span class="comment">//x[i]保存第i步遍历的城市</span></span><br><span class="line"><span class="keyword">int</span> isIn[N+<span class="number">1</span>];             <span class="comment">//保存 城市i是否已经加入路径</span></span><br><span class="line"><span class="keyword">int</span> bestw;                 <span class="comment">//最优路径总权值</span></span><br><span class="line"><span class="keyword">int</span> cw;                    <span class="comment">//当前路径总权值</span></span><br><span class="line"><span class="keyword">int</span> bestx[N+<span class="number">1</span>];            <span class="comment">//最优路径</span></span><br><span class="line"><span class="comment">//-----------------------------------------------------------------</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Travel_Backtrack</span><span class="params">(<span class="keyword">int</span> t)</span></span>&#123;        <span class="comment">//递归法</span></span><br><span class="line">	<span class="keyword">int</span> i,j;</span><br><span class="line">	<span class="keyword">if</span>(t&gt;N)&#123;                         <span class="comment">//走完了，输出结果</span></span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=N;i++)            <span class="comment">//输出当前的路径</span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d "</span>,x[i]);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"/n"</span>);</span><br><span class="line">		<span class="keyword">if</span>(cw &lt; bestw)&#123;              <span class="comment">//判断当前路径是否是更优解</span></span><br><span class="line">			<span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;=N;i++)&#123;</span><br><span class="line">				bestx[i] = x[i];</span><br><span class="line">			&#125;</span><br><span class="line">			bestw = cw;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=N;j++)&#123;           <span class="comment">//找到第t步能走的城市</span></span><br><span class="line">			<span class="keyword">if</span>(City_Graph[x[t<span class="number">-1</span>]][j] != NO_PATH &amp;&amp; !isIn[j])&#123; <span class="comment">//能到而且没有加入到路径中</span></span><br><span class="line">				isIn[j] = <span class="number">1</span>;</span><br><span class="line">				x[t] = j;</span><br><span class="line">				cw += City_Graph[x[t<span class="number">-1</span>]][j];</span><br><span class="line">				Travel_Backtrack(t+<span class="number">1</span>);</span><br><span class="line">				isIn[j] = <span class="number">0</span>;</span><br><span class="line">				x[t] = <span class="number">0</span>;</span><br><span class="line">				cw -= City_Graph[x[t<span class="number">-1</span>]][j];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	City_Graph[<span class="number">1</span>][<span class="number">1</span>] = NO_PATH;</span><br><span class="line">	City_Graph[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">30</span>;</span><br><span class="line">	City_Graph[<span class="number">1</span>][<span class="number">3</span>] = <span class="number">6</span>;</span><br><span class="line">	City_Graph[<span class="number">1</span>][<span class="number">4</span>] = <span class="number">4</span>;</span><br><span class="line">	</span><br><span class="line">	City_Graph[<span class="number">2</span>][<span class="number">1</span>] = <span class="number">30</span>;</span><br><span class="line">	City_Graph[<span class="number">2</span>][<span class="number">2</span>] = NO_PATH;</span><br><span class="line">	City_Graph[<span class="number">2</span>][<span class="number">3</span>] = <span class="number">5</span>;</span><br><span class="line">	City_Graph[<span class="number">2</span>][<span class="number">4</span>] = <span class="number">10</span>;</span><br><span class="line">	City_Graph[<span class="number">3</span>][<span class="number">1</span>] = <span class="number">6</span>;</span><br><span class="line">	City_Graph[<span class="number">3</span>][<span class="number">2</span>] = <span class="number">5</span>;</span><br><span class="line">	City_Graph[<span class="number">3</span>][<span class="number">3</span>] = NO_PATH;</span><br><span class="line">	City_Graph[<span class="number">3</span>][<span class="number">4</span>] = <span class="number">20</span>;</span><br><span class="line">	</span><br><span class="line">	City_Graph[<span class="number">4</span>][<span class="number">1</span>] = <span class="number">4</span>;</span><br><span class="line">	City_Graph[<span class="number">4</span>][<span class="number">2</span>] = <span class="number">10</span>;</span><br><span class="line">	City_Graph[<span class="number">4</span>][<span class="number">3</span>] = <span class="number">20</span>;</span><br><span class="line">	City_Graph[<span class="number">4</span>][<span class="number">4</span>] = NO_PATH;</span><br><span class="line">	<span class="comment">//测试递归法</span></span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;=N;i++)&#123;</span><br><span class="line">		x[i] = <span class="number">0</span>;               <span class="comment">//表示第i步还没有解</span></span><br><span class="line">		bestx[i] = <span class="number">0</span>;           <span class="comment">//还没有最优解</span></span><br><span class="line">		isIn[i] = <span class="number">0</span>;            <span class="comment">//表示第i个城市还没有加入到路径中</span></span><br><span class="line">	&#125;</span><br><span class="line">	 </span><br><span class="line">	x[<span class="number">1</span>] = <span class="number">1</span>;                   <span class="comment">//第一步 走城市1</span></span><br><span class="line">	isIn[<span class="number">1</span>] = <span class="number">1</span>;                <span class="comment">//第一个城市 加入路径</span></span><br><span class="line">	bestw = MAX_WEIGHT;</span><br><span class="line">	cw = <span class="number">0</span>;</span><br><span class="line">	Travel_Backtrack(<span class="number">2</span>);        <span class="comment">//从第二步开始选择城市</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"最优值为%d/n"</span>,bestw);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"最优解为:/n"</span>);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=N;i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>,bestx[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"/n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="剑指Offer"><a href="#剑指Offer" class="headerlink" title="剑指Offer"></a>剑指Offer</h1><h2 id="面试题12-矩阵中的路径"><a href="#面试题12-矩阵中的路径" class="headerlink" title="面试题12 矩阵中的路径"></a>面试题12 矩阵中的路径</h2><blockquote>
+<p>请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一个格子开始，每一步可以在矩阵中向左，向右，向上，向下移动一个格子。如果一条路径经过了矩阵中的某一个格子，则该路径不能再进入该格子。 例如 a b c e s f c s a d e e 矩阵中包含一条字符串”bcced”的路径，但是矩阵中不包含”abcb”路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入该格子。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPath</span><span class="params">(<span class="keyword">char</span>* matrix, <span class="keyword">int</span> rows, <span class="keyword">int</span> cols, <span class="keyword">char</span>* str)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        </span><br><span class="line">    	<span class="keyword">if</span>(matrix == <span class="literal">nullptr</span> || rows &lt;<span class="number">0</span> || cols &lt; <span class="number">0</span> || str == <span class="literal">nullptr</span>)</span><br><span class="line">    		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    	<span class="keyword">int</span> strLength = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//设置标志位，初始值为false</span></span><br><span class="line">    	<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; flags(rows*cols,<span class="literal">false</span>);</span><br><span class="line">  		<span class="keyword">for</span>(<span class="keyword">int</span> row = <span class="number">0</span>;row &lt; rows; ++row)</span><br><span class="line">  			<span class="keyword">for</span>(<span class="keyword">int</span> col = <span class="number">0</span>; col &lt; cols; ++col)</span><br><span class="line">                 <span class="comment">//循环遍历二维数组，找到起点等于str第一个元素的值，再递归判断四周是否有符合条件的----回溯法</span></span><br><span class="line">  				<span class="keyword">if</span>(hasPathCore(matrix,rows,cols,row,col,str,strLength,flags))</span><br><span class="line">  					&#123;</span><br><span class="line">  						<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  					&#125;</span><br><span class="line">  		<span class="keyword">return</span> <span class="literal">false</span>;  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 初始矩阵，矩阵行数，矩阵列数，初始行，初始列，要找的字符串，查找到第几位，标志位数组</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">hasPathCore</span><span class="params">(<span class="keyword">char</span>* matrix,<span class="keyword">int</span> rows,<span class="keyword">int</span> cols,<span class="keyword">int</span> row,<span class="keyword">int</span> col,<span class="keyword">char</span>* str,<span class="keyword">int</span> strLength,<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&amp; flags)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[strLength] == <span class="string">'\0'</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">         <span class="comment">//先根据i和j计算匹配的第一个元素转为一维数组的位置</span></span><br><span class="line">		<span class="keyword">int</span> index = row * cols + col;</span><br><span class="line">        <span class="comment">//递归终止条件</span></span><br><span class="line">		<span class="keyword">if</span>(row &gt;= rows || row &lt; <span class="number">0</span> || col &gt;=cols || col &lt; <span class="number">0</span> ||</span><br><span class="line">			matrix[index] != str[strLength] || flags[index]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			flags[index] = <span class="literal">true</span>;</span><br><span class="line">		  <span class="comment">//回溯，递归寻找，每次找到了就给k加一，找不到，还原</span></span><br><span class="line">		<span class="keyword">if</span>(hasPathCore(matrix,rows,cols,row <span class="number">-1</span>,col,str,strLength + <span class="number">1</span>,flags) ||</span><br><span class="line">			hasPathCore(matrix,rows,cols,row + <span class="number">1</span>,col,str,strLength + <span class="number">1</span>,flags) ||</span><br><span class="line">			hasPathCore(matrix,rows,cols,row ,col <span class="number">-1</span>,str,strLength + <span class="number">1</span>,flags) ||</span><br><span class="line">			hasPathCore(matrix,rows,cols,row ,col + <span class="number">1</span>,str,strLength + <span class="number">1</span> ,flags))</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">//此位查找失败，还原标志位</span></span><br><span class="line">		flags[index] = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="面试题13-机器人的运动范围"><a href="#面试题13-机器人的运动范围" class="headerlink" title="面试题13 机器人的运动范围"></a>面试题13 机器人的运动范围</h2><blockquote>
+<p>地上有一个m行和n列的方格。一个机器人从坐标0,0的格子开始移动，每一次只能向左，右，上，下四个方向移动一格，但是不能进入行坐标和列坐标的数位之和大于k的格子。 例如，当k为18时，机器人能够进入方格（35,37），因为3+5+3+7 = 18。但是，它不能进入方格（35,38），因为3+5+3+8 = 19。请问该机器人能够达到多少个格子？</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">movingCount</span><span class="params">(<span class="keyword">int</span> threshold, <span class="keyword">int</span> rows, <span class="keyword">int</span> cols)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; flags(rows*cols,<span class="literal">false</span>);</span><br><span class="line">        <span class="keyword">int</span> count =  movingCountCore(threshold,rows,cols,<span class="number">0</span>,<span class="number">0</span>,flags);</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">movingCountCore</span><span class="params">(<span class="keyword">int</span> threshold,<span class="keyword">int</span> rows,<span class="keyword">int</span> cols,<span class="keyword">int</span> row,<span class="keyword">int</span> col,<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&amp; flags)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> flagPos = cols * row + col;</span><br><span class="line">        <span class="keyword">if</span>(row &lt; <span class="number">0</span> || row &gt;= rows || col &lt;<span class="number">0</span> || col &gt;= cols|| flags[flagPos] || </span><br><span class="line">           CountNumSum(col) + CountNumSum(row) &gt; threshold)</span><br><span class="line">            <span class="keyword">return</span> count;</span><br><span class="line">        flags[flagPos] = <span class="literal">true</span>;</span><br><span class="line">        count = <span class="number">1</span> + movingCountCore(threshold,rows,cols,row <span class="number">-1</span>,col,flags) +</span><br><span class="line">             movingCountCore(threshold,rows,cols,row +<span class="number">1</span>,col,flags) +</span><br><span class="line">             movingCountCore(threshold,rows,cols,row ,col<span class="number">-1</span>,flags) +</span><br><span class="line">             movingCountCore(threshold,rows,cols,row ,col + <span class="number">1</span>,flags);</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">CountNumSum</span><span class="params">(<span class="keyword">int</span> inputNum)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(inputNum &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum += inputNum % <span class="number">10</span>;</span><br><span class="line">            inputNum /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/01/19/常见查找算法/" rel="next" title="顺序|二分|插值|分块|二叉树查找算法">
+                <i class="fa fa-chevron-left"></i> 顺序|二分|插值|分块|二叉树查找算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/01/29/从减绳子看动态规划和贪婪算法/" rel="prev" title="从减绳子看动态规划和贪婪算法">
+                从减绳子看动态规划和贪婪算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/944104.png" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思想"><span class="nav-number">2.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解题的一般步骤"><span class="nav-number">3.</span> <span class="nav-text">解题的一般步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方法"><span class="nav-number">3.1.</span> <span class="nav-text">实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#递推"><span class="nav-number">3.1.1.</span> <span class="nav-text">递推</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归"><span class="nav-number">3.1.2.</span> <span class="nav-text">递归</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子集树"><span class="nav-number">3.2.</span> <span class="nav-text">子集树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排列树"><span class="nav-number">3.3.</span> <span class="nav-text">排列树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例"><span class="nav-number">4.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背包问题"><span class="nav-number">4.1.</span> <span class="nav-text">背包问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#旅行售货问题"><span class="nav-number">4.2.</span> <span class="nav-text">旅行售货问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指Offer"><span class="nav-number">5.</span> <span class="nav-text">剑指Offer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题12-矩阵中的路径"><span class="nav-number">5.1.</span> <span class="nav-text">面试题12 矩阵中的路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题13-机器人的运动范围"><span class="nav-number">5.2.</span> <span class="nav-text">面试题13 机器人的运动范围</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
