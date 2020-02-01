@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在编程的时候应该注意，在我们遇到浮点数比较的问题时，千万不要直接比较两个数是否相。 陷阱12345678910111213141516171819int main()&amp;#123;    double epsilon=0.001;    double d1=2.334;    double d2=2.335;        cout &amp;lt;&amp;lt; &quot;epsilon is: &quot; &amp;lt;&amp;lt;">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浮点数能直接判断是否相等吗？原理解析">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/01/31/浮点数能直接判断是否相等吗？原理解析/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="在编程的时候应该注意，在我们遇到浮点数比较的问题时，千万不要直接比较两个数是否相。 陷阱12345678910111213141516171819int main()&amp;#123;    double epsilon=0.001;    double d1=2.334;    double d2=2.335;        cout &amp;lt;&amp;lt; &quot;epsilon is: &quot; &amp;lt;&amp;lt;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/home/brook/blog/source/_posts/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%83%BD%E7%9B%B4%E6%8E%A5%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89%E5%90%97%EF%BC%9F%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/1.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/home/brook/blog/source/_posts/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%83%BD%E7%9B%B4%E6%8E%A5%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89%E5%90%97%EF%BC%9F%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/2.jpeg">
+<meta property="og:image" content="https://yangmiemie99.github.io/home/brook/blog/source/_posts/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%83%BD%E7%9B%B4%E6%8E%A5%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89%E5%90%97%EF%BC%9F%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/3.png">
+<meta property="og:updated_time" content="2020-01-31T04:59:28.834Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浮点数能直接判断是否相等吗？原理解析">
+<meta name="twitter:description" content="在编程的时候应该注意，在我们遇到浮点数比较的问题时，千万不要直接比较两个数是否相。 陷阱12345678910111213141516171819int main()&amp;#123;    double epsilon=0.001;    double d1=2.334;    double d2=2.335;        cout &amp;lt;&amp;lt; &quot;epsilon is: &quot; &amp;lt;&amp;lt;">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/home/brook/blog/source/_posts/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%83%BD%E7%9B%B4%E6%8E%A5%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89%E5%90%97%EF%BC%9F%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/01/31/浮点数能直接判断是否相等吗？原理解析/">
+
+
+
+
+
+  <title>浮点数能直接判断是否相等吗？原理解析 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/01/31/浮点数能直接判断是否相等吗？原理解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/944104.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浮点数能直接判断是否相等吗？原理解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-31T10:17:12+08:00">
+                2020-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>人次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在编程的时候应该注意，在我们遇到浮点数比较的问题时，千万不要直接比较两个数是否相。</p>
+<h1 id="陷阱"><a href="#陷阱" class="headerlink" title="陷阱"></a>陷阱</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> epsilon=<span class="number">0.001</span>;</span><br><span class="line">    <span class="keyword">double</span> d1=<span class="number">2.334</span>;</span><br><span class="line">    <span class="keyword">double</span> d2=<span class="number">2.335</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"epsilon is: "</span> &lt;&lt; epsilon &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"d2-d1 is: "</span> &lt;&lt; d2-d1 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((d2 - d1) == epsilon)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Equal!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Not equal!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们来看一下运行结果：</p>
+<p><img src="/home/brook/blog/source/_posts/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%83%BD%E7%9B%B4%E6%8E%A5%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89%E5%90%97%EF%BC%9F%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/1.png" alt></p>
+<p><strong>从上面我们可以很容易的得知到一个事实：浮点数在计算机中不一定是精确表示的。所以我们得到的结论是：<br>远不要尝试去比较两个浮点数是否相等</strong></p>
+<h1 id="背后的原理"><a href="#背后的原理" class="headerlink" title="背后的原理"></a>背后的原理</h1><p>根据IEEE（Institute of Electrical and Electronic Engineers ）754标准，标准浮点数的格式如下：</p>
+<p><img src="/home/brook/blog/source/_posts/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%83%BD%E7%9B%B4%E6%8E%A5%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89%E5%90%97%EF%BC%9F%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/2.jpeg" alt></p>
+<p>其中n是浮点数，s是符号位，m是尾数，e是阶数。<br>由上面我们可以得知，任何存储在计算机中的浮点数都可以用(-1)s * m * 2e得到。因为二进制数无法精确表示一些十进制数的小数（类似于十进制数无法精确表示0.33333333……无限循环数一样。其中0.33333333333是三进制小数(0.1)3。这也就是很多浮点数在计算机中不能被精确表示的原因。<br>按照上述原理，我们可以来验证下计算机是否能够精确表示能用整数乘以2的幂表示的十进制数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> float_num = <span class="number">1.5</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"float_num is: "</span> &lt;&lt; setprecision(<span class="number">20</span>) &lt;&lt; float_num &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">if</span>(float_num == <span class="number">1.5</span>)</span><br><span class="line">    	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Equal"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">    	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Not Equal"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们现在来看一下运行结果：</p>
+<p><img src="/home/brook/blog/source/_posts/%E6%B5%AE%E7%82%B9%E6%95%B0%E8%83%BD%E7%9B%B4%E6%8E%A5%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89%E5%90%97%EF%BC%9F%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/3.png" alt></p>
+<h1 id="float-h中设定的误差"><a href="#float-h中设定的误差" class="headerlink" title="float.h中设定的误差"></a>float.h中设定的误差</h1><p>结果和我们预期的一样。因此我们的结论是：<br><strong>除了能用2的指数幂乘以整数表示的浮点数能够被精确的表示外，其余的浮点数都是近似表示的。</strong><br>在c++中，两个浮点数相差在DBL_EPSILON之内的数都认为是相等的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;float.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; DBL_EPSILON &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出为2.22045e-16</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>为了避免因为不精确导致的错误，我们可以用容错阈值来解决这个问题：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">abs</span>(d2 - d1) &lt; epsilon)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Equal!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">abs</span>(a - b) &lt;= epsilon * <span class="built_in">abs</span>(a))&#123;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; <span class="string">"Equal!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：<br>c++中的abs函数已经被重载，因此可以适用int, long int, float等各种类型。如果是c请调用fabs用于浮点数的绝对值。<br>上述两种方法中，epsilon为精度值。这个精度值是我们选择来判断两个数是否足够接近以至于可以认为是相等的。<br>我们不建议用一个常数值来做epsilon。因为随着比较数的改变，epsilon也应该随之改变来适应精度要求。例如我们选择了epsilon = 0.01。当两个比较数的数量级都在109以上但是二者的差值是0.02。0.02对于差值对于两个数而言可以忽略不计，因此二者就是近似相等的。然而依据0.01做判断，二者被判定为不相等。<br>Doug Gwyn建议用<strong>相对差值</strong>函数。当两个比较数完全相同时，函数返回值为0。否则函数的返回值是两个差值的绝对值比去两者中较大的数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;float.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">reldif</span><span class="params">(<span class="keyword">double</span> a, <span class="keyword">double</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> c = <span class="built_in">fabs</span>(a), d = <span class="built_in">fabs</span>(b);</span><br><span class="line">    d = max(c, d);</span><br><span class="line">    <span class="keyword">return</span> d == <span class="number">0</span> ? <span class="number">0</span> : <span class="built_in">fabs</span>(a-b)/d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>典型的用法是:</p>
+<p><code>if (reldif(a, b) &lt; DBL_EPSILON) ...</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">reldif</span><span class="params">(<span class="keyword">double</span> a, <span class="keyword">double</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> c = <span class="built_in">fabs</span>(a), d = <span class="built_in">fabs</span>(b);</span><br><span class="line">    d = max(c, d);</span><br><span class="line">    <span class="keyword">return</span> d == <span class="number">0</span> ? <span class="number">0</span> : <span class="built_in">fabs</span>(a-b)/d;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> d1=<span class="number">2.334</span>;</span><br><span class="line">    <span class="keyword">double</span> d2=<span class="number">2.335</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"d2-d1 is: "</span> &lt;&lt; d2-d1 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (reldif(d2-d1,<span class="number">0.001</span>) &lt; DBL_EPSILON)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Equal!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Not equal!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/01/29/从减绳子看动态规划和贪婪算法/" rel="next" title="从减绳子看动态规划和贪婪算法">
+                <i class="fa fa-chevron-left"></i> 从减绳子看动态规划和贪婪算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/01/31/剑指Offer：调整数组顺序使奇数位于偶数前面/" rel="prev" title="剑指Offer：调整数组顺序使奇数位于偶数前面">
+                剑指Offer：调整数组顺序使奇数位于偶数前面 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/944104.png" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#陷阱"><span class="nav-number">1.</span> <span class="nav-text">陷阱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#背后的原理"><span class="nav-number">2.</span> <span class="nav-text">背后的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#float-h中设定的误差"><span class="nav-number">3.</span> <span class="nav-text">float.h中设定的误差</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-number">4.</span> <span class="nav-text">解决方案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
