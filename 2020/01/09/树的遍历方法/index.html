@@ -88,7 +88,7 @@
 <meta property="og:description" content="二叉树的遍历二叉树中最重要的操作莫过于遍历,即按照莫一顺序访问树中的所有节点.在二叉树中通常有如下几种遍历方式.  前序遍历 : [根,左,右]  先访问根节点,在访问左子节点,在访问右子节点.  中序遍历 : [左,根,右]  先访问左子节点,在访问根节点,在访问右子节点.  后序遍历 : [左,右,根]  先访问左子节点,在访问右子节点,在访问根节点.  宽度优先遍历: 先访问数的第一层节点,">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/01/09/树的遍历方法/shu.jpeg">
-<meta property="og:updated_time" content="2020-01-10T05:14:13.019Z">
+<meta property="og:updated_time" content="2020-02-06T06:37:52.208Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二叉树的遍历及构建方式详解">
 <meta name="twitter:description" content="二叉树的遍历二叉树中最重要的操作莫过于遍历,即按照莫一顺序访问树中的所有节点.在二叉树中通常有如下几种遍历方式.  前序遍历 : [根,左,右]  先访问根节点,在访问左子节点,在访问右子节点.  中序遍历 : [左,根,右]  先访问左子节点,在访问根节点,在访问右子节点.  后序遍历 : [左,右,根]  先访问左子节点,在访问右子节点,在访问根节点.  宽度优先遍历: 先访问数的第一层节点,">
@@ -270,7 +270,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang MieMie">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/yangmiemie99.github.io/images/944104.png">
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -335,11 +335,6 @@
           
           
 
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv">本文总阅读量
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>人次
-            </span>
           
 
           
@@ -420,7 +415,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非递归后续遍历</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderStack1</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    pair&lt;BinaryTreeNode*,<span class="keyword">bool</span>&gt; cur = make_pair(root,<span class="literal">true</span>);</span><br><span class="line">    <span class="built_in">stack</span>&lt;pair&lt;BinaryTreeNode*,<span class="keyword">bool</span>&gt;&gt; nodes;</span><br><span class="line">    <span class="keyword">while</span>(!nodes.empty() || cur.first != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(cur.first !=<span class="literal">NULL</span>)&#123;  <span class="comment">//沿着左子树一直向下搜索</span></span><br><span class="line">            <span class="built_in">stack</span>.push(cur);</span><br><span class="line">            cur = make_pair(cur.first -&gt; m_pLeft,<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!nodes.empty())&#123;</span><br><span class="line">			<span class="keyword">if</span>(nodes.top().second == <span class="literal">true</span>)&#123;	<span class="comment">//表示第一次出现在栈顶</span></span><br><span class="line">                nodes.top.second = <span class="literal">false</span>;</span><br><span class="line">                cur = make_pair(s.top().first -&gt; m_pRight,<span class="literal">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;		<span class="comment">//第二次出现在栈顶</span></span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; nodes.top().first-&gt;m_key &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">                nodes.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>第二种思路:</strong>要保证根结点在左孩子和右孩子访问之后才能访问，因此对于任一结点R，<br>（a）先将R入栈。如果R不存在左孩子和右孩子，则可以直接访问它并出栈；<br>（b）如果R存在左孩子或者右孩子，但是其左孩子和右孩子都已被访问过了，则同样可以直接访问该结点并出栈；<br>（c）若非上述两种情况，则将R的右孩子和左孩子依次入栈，这样就保证了每次取栈顶元素的时候，左孩子在右孩子前面被访问，<strong>左孩子和右孩子都在父结点前面被访问</strong>。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非递归版本2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderStack2</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root ==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;BinaryTreeNode*&gt; nodes;</span><br><span class="line">    BinaryTreeNode* cur;  <span class="comment">//当前节点</span></span><br><span class="line">    BinaryTreeNode* pre = <span class="literal">NULL</span>; <span class="comment">//前一次访问的节点</span></span><br><span class="line">    nodes.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!node.empty())&#123;</span><br><span class="line">        cur = nodes.top();</span><br><span class="line">        <span class="keyword">if</span>((cur -&gt;m_pLeft == <span class="literal">NULL</span> || cur -&gt;m_pRight == <span class="literal">NULL</span>) || (pre!=<span class="literal">NULL</span> &amp;&amp; (pre == cur-&gt;m_pLeft||pre == cur-&gt;m_pRight)))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; cur-&gt;m_key&lt;&lt; <span class="string">" "</span>; <span class="comment">//如果当前节点没有孩子节点或者孩子节点都已经被访问过</span></span><br><span class="line">            nodes.pop();</span><br><span class="line">            pre = cur;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(cur-&gt;m_pRight!=<span class="literal">NULL</span>)</span><br><span class="line">                nodes.push(cur -&gt; m_pRight);</span><br><span class="line">            <span class="keyword">if</span>(cur -&gt; m_pLeft!=<span class="literal">NULL</span>)</span><br><span class="line">                nodes.push(cur -&gt;m_pLeft);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非递归版本2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderStack2</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root ==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;BinaryTreeNode*&gt; nodes;</span><br><span class="line">    BinaryTreeNode* cur;  <span class="comment">//当前节点</span></span><br><span class="line">    BinaryTreeNode* pre = <span class="literal">NULL</span>; <span class="comment">//前一次访问的节点</span></span><br><span class="line">    nodes.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!node.empty())&#123;</span><br><span class="line">        cur = nodes.top();</span><br><span class="line">        <span class="keyword">if</span>((cur -&gt;m_pLeft == <span class="literal">NULL</span> &amp;&amp; cur -&gt;m_pRight == <span class="literal">NULL</span>) || (pre!=<span class="literal">NULL</span> &amp;&amp; (pre == cur-&gt;m_pLeft||pre == cur-&gt;m_pRight)))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; cur-&gt;m_key&lt;&lt; <span class="string">" "</span>; <span class="comment">//如果当前节点没有孩子节点或者孩子节点都已经被访问过</span></span><br><span class="line">            nodes.pop();</span><br><span class="line">            pre = cur;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(cur-&gt;m_pRight!=<span class="literal">NULL</span>)</span><br><span class="line">                nodes.push(cur -&gt; m_pRight);</span><br><span class="line">            <span class="keyword">if</span>(cur -&gt; m_pLeft!=<span class="literal">NULL</span>)</span><br><span class="line">                nodes.push(cur -&gt;m_pLeft);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="宽度优先遍历"><a href="#宽度优先遍历" class="headerlink" title="宽度优先遍历"></a>宽度优先遍历</h2><p>按层次从上到下，从左到右的逐层访问，不难想到，可以利用一个队列来实现。基本思想是：<br>（1）首先把二叉树的根节点送入队列；<br>（2）队首的节点出队列并访问之，然后把它的左子节点和右子节点分别入队列；<br>（3）重复上面两步操作，直至队空。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">breadthFirstOrder</span><span class="params">(BinaryTreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;BinatyTreeNode*&gt; nodes;</span><br><span class="line">    <span class="built_in">queue</span>.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!nodes.empty())&#123;</span><br><span class="line">        BinaryTreeNode* cur = <span class="built_in">queue</span>.front();</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; cur -&gt; m_key &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        <span class="built_in">queue</span>.pop();</span><br><span class="line">        <span class="keyword">if</span>(cur -&gt;m_pLeft!=<span class="literal">NULL</span>)</span><br><span class="line">            <span class="built_in">queue</span>.push(cur-&gt;m_pLeft);</span><br><span class="line">        <span class="keyword">if</span>(cur -&gt; m_pRight!= <span class="literal">NULL</span>)</span><br><span class="line">            <span class="built_in">queue</span>.push(cur -&gt; m_pRight);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -538,7 +533,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/944104.png" alt="Yang MieMie">
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
             
               <p class="site-author-name" itemprop="name">Yang MieMie</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -551,7 +546,7 @@
               
                 <a href="/yangmiemie99.github.io/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -660,26 +655,6 @@
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      本站访客数
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
-    </span>
-  
-
-  
-    <span class="site-pv">
-      本站总访问量
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      人次
-    </span>
-  
-</div>
-
 
 
 
