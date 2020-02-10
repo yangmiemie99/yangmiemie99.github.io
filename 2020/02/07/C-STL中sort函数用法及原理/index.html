@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="C++,排序算法,STL,">
 
 
 
@@ -79,14 +79,21 @@
 
 
 
+<meta name="description" content="用法转载https://blog.csdn.net/l198738655/article/details/79872738 此函数有3个参数： 参数1：第一个参数是数组的首地址，一般写上数组名就可以，因为数组名是一个指针常量。 参数2：第二个参数相对较好理解，即首地址加上数组的长度n（代表尾地址的下一地址）。 参数3：默认可以不填，如果不填sort会默认按数组升序排序。也就是1,2,3,4排序。也">
+<meta name="keywords" content="C++,排序算法,STL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++STL中sort函数用法及原理">
 <meta property="og:url" content="https://yangmiemie99.github.io/2020/02/07/C-STL中sort函数用法及原理/index.html">
 <meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="用法转载https://blog.csdn.net/l198738655/article/details/79872738 此函数有3个参数： 参数1：第一个参数是数组的首地址，一般写上数组名就可以，因为数组名是一个指针常量。 参数2：第二个参数相对较好理解，即首地址加上数组的长度n（代表尾地址的下一地址）。 参数3：默认可以不填，如果不填sort会默认按数组升序排序。也就是1,2,3,4排序。也">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-07T04:42:05.172Z">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/07/C-STL中sort函数用法及原理/1.jpg">
+<meta property="og:image" content="https://yangmiemie99.github.io/home/brook/blog/source/_posts/C-STL%E4%B8%ADsort%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95%E5%8F%8A%E5%8E%9F%E7%90%86/2.jpeg">
+<meta property="og:updated_time" content="2020-02-07T16:37:59.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++STL中sort函数用法及原理">
+<meta name="twitter:description" content="用法转载https://blog.csdn.net/l198738655/article/details/79872738 此函数有3个参数： 参数1：第一个参数是数组的首地址，一般写上数组名就可以，因为数组名是一个指针常量。 参数2：第二个参数相对较好理解，即首地址加上数组的长度n（代表尾地址的下一地址）。 参数3：默认可以不填，如果不填sort会默认按数组升序排序。也就是1,2,3,4排序。也">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/07/C-STL中sort函数用法及原理/1.jpg">
 
 
 
@@ -299,6 +306,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -326,7 +355,92 @@
       
 
       
-        
+        <h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><p>转载<a href="https://blog.csdn.net/l198738655/article/details/79872738" target="_blank" rel="noopener">https://blog.csdn.net/l198738655/article/details/79872738</a></p>
+<p>此函数有3个参数：</p>
+<p>参数1：第一个参数是数组的首地址，一般写上数组名就可以，因为数组名是一个指针常量。</p>
+<p>参数2：第二个参数相对较好理解，即首地址加上数组的长度n（代表尾地址的下一地址）。</p>
+<p>参数3：默认可以不填，如果不填sort会默认按数组升序排序。也就是1,2,3,4排序。也可以自定义一个排序函数，改排序方式为降序什么的，也就是4,3,2,1这样。</p>
+<p>使用此函数需先包含：</p>
+<p><code>#include &lt;algorithm&gt;</code><br>并且导出命名空间：</p>
+<p><code>using namespace std;</code><br>简单例子：对数组A的0~n-1元素进行升序排序，只要写sort(A,A+n)即可；对于向量V也一样，sort(v.begin(),v.end())即可。</p>
+<p>自己编写排序规则函数</p>
+<p>例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compare</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a&lt;b; <span class="comment">//升序排列，如果改为return a&gt;b，则为降序</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sort扩展</p>
+<p>sort不只是能像上面那样简单的使用，我们可以对sort进行扩展，关键就在于第三个参数&lt;cmp比较函数&gt;，我们想降序排列，或者说我不是一个简简单单的数组，而是结构体、类怎么办，下面给出一些方法和例子。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">方法一：定义比较函数（最常用）</span><br><span class="line"><span class="comment">//情况一：数组排列</span></span><br><span class="line"><span class="keyword">int</span> A[<span class="number">100</span>];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp1</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span><span class="comment">//int为数组数据类型</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&gt;b;<span class="comment">//降序排列</span></span><br><span class="line">    <span class="comment">//return a&lt;b;//默认的升序排列</span></span><br><span class="line">&#125;</span><br><span class="line">sort(A,A+<span class="number">100</span>,cmp1);</span><br><span class="line"></span><br><span class="line"><span class="comment">//情况二：结构体排序</span></span><br><span class="line">Student Stu[<span class="number">100</span>];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp2</span><span class="params">(Student a,Student b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.id&gt;b.id;<span class="comment">//按照学号降序排列</span></span><br><span class="line">    <span class="comment">//return a.id&lt;b.id;//按照学号升序排列</span></span><br><span class="line">&#125;</span><br><span class="line">sort(Stu,Stu+<span class="number">100</span>,cmp2);</span><br></pre></td></tr></table></figure>
+
+<p>注：比较方法也可以放在结构体中或类中定义。</p>
+<p>方法二：使用标准库函数</p>
+<p>另外，其实我们还可以再懒一点，在标准库中已经有现成的。它在哪呢？答案是functional，我们include进来试试看。functional提供了一堆基于模板的比较函数对象，它们是：equal_to&lt; Type&gt;、not_equal_to&lt; Type&gt;、greater&lt; Type&gt;、greater_equal&lt; Type&gt;、less&lt; Type&gt;、less_equal&lt; Type&gt;。这些东西的用法看名字就知道了。在这里，我么sort要用到的也只是greater和less就足够了，用法如下：</p>
+<p>● 升序：sort(begin,end,less&lt; data-type&gt;())</p>
+<p>● 降序：sort(begin,end,greater&lt; data-type&gt;())</p>
+<p>缺点：也只是实现简单的排序，结构体不适用。</p>
+<p>方法三：重载结构体或类的比较运算符</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//情况一：在结构体内部重载 注意：一定要重载&lt;运算符，因为系统默认是降序，用的是&lt;运算符。</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Student</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">double</span> grade;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Student&amp; s)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> id&gt;s.id;<span class="comment">//降序排列</span></span><br><span class="line">        <span class="comment">//return id&lt;s.id;//升序排列</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;Student&gt; V;</span><br><span class="line">sort(V.begin(),V.end());</span><br><span class="line"></span><br><span class="line"><span class="comment">//情况二：在外部重载</span></span><br><span class="line"><span class="built_in">vector</span>&lt;Student&gt; V;</span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Student&amp; s1, <span class="keyword">const</span> Student&amp; s2)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> s1.id&gt;s2.id;<span class="comment">//降序排列</span></span><br><span class="line">    <span class="comment">//return s1.id&lt;s2.id;//升序排列</span></span><br><span class="line">&#125;</span><br><span class="line">sort(V.begin(),V.end());</span><br></pre></td></tr></table></figure>
+
+<p>方法四:声明比较类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Less</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> Student&amp; s1, <span class="keyword">const</span> Student&amp; s2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> s1.id&lt;s2.id; <span class="comment">//升序排列</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">sort(sutVector.begin(),stuVector.end(),Less())</span><br></pre></td></tr></table></figure>
+
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>sort并不是简单的快速排序，它对普通的快速排序进行了优化，此外，它还结合了插入排序和推排序。系统会根据你的数据形式和数据量自动选择合适的排序方法，这并不是说它每次排序只选择一种方法，它是在一次完整排序中不同的情况选用不同方法，比如给一个数据量较大的数组排序，开始采用快速排序（平均时间复杂度为O(nlogn)），分段递归，分段之后每一段的数据量达到一个较小值后它就不继续往下递归，而是选择插入排序（时间复杂度为O(n2)），如果递归的太深，他会选择推排序（时间复杂度为O(nlogn)）。</p>
+<p><img src="/yangmiemie99.github.io/2020/02/07/C-STL中sort函数用法及原理/1.jpg" alt></p>
+<h2 id="看下三种排序的优缺点吧"><a href="#看下三种排序的优缺点吧" class="headerlink" title="看下三种排序的优缺点吧"></a>看下三种排序的优缺点吧</h2><p>转载：<a href="https://blog.csdn.net/u012398362/article/details/103625840" target="_blank" rel="noopener">https://blog.csdn.net/u012398362/article/details/103625840</a></p>
+<p>快速排序 在大量数据时无论是有序还是重复，使用优化后的算法大多可以到达O(nlogn)，虽然堆排序也是O(nlogn)但是由于某些原因快速排序会更快一些，当递归过深分割严重不均匀情况出现时会退化为O(n^2)的复杂度，这时性能会打折扣，这也就是快速排序的短处了。</p>
+<p>堆排序 堆排序是快速排序的有力竞争者，最大的特点是可以到达O(nlogn)并且复杂度很稳定，并不会像快速排序一样可能退化为O(n^2)，但是堆排序过程中涉及大量堆化调整，并且元素比较是跳着来的对Cache的局部性特征利用不好，以及一些其他的原因导致堆排序比快速排序更慢一点，但是大O复杂度仍然是一个级别的。</p>
+<p>插入排序 插入排序的一个特点是就像我们玩纸牌，在梳理手中的牌时，如果已经比较有序了，那么只需要做非常少的调整即可，因此插入排序在数据量不大且近乎有序的情况下复杂度可以降低到O(n)，这一点值得被应用。</p>
+<p>优缺点也大致清楚了，所以可以猜想一下内省式排序在实际中是如何调度使这三种排序算法的：</p>
+<p>启动阶段 面对大量的待排序元素，首先使用快速排序进行大刀阔斧排序，复杂度可以在O(nlogn)运行</p>
+<p>深入阶段 在快速排序使用递归过程中，涉及栈帧保存切换等诸多递归的操作，如果分区切割不当递归过深可能造成栈溢出程序终止，因此如果快速排序过程中退化为O(n^2)，此时会自动检测切换为堆排序，因为堆排序没有恶化情况，都可以稳定在O(nlogn)</p>
+<p>收尾阶段 在经过快排和堆排的处理之后，数据分片的待排序元素数量小于某个经验设定值(可以认为是递归即将结束的前几步调用)时，数据其实已经几乎有序，此时就可以使用插入排序来提高效率，将复杂度进一步降低为O(n)。</p>
+<h2 id="sort函数的应用场景"><a href="#sort函数的应用场景" class="headerlink" title="sort函数的应用场景"></a>sort函数的应用场景</h2><p>SGI STL中的sort的参数是两个随机存取迭代器RandomAccessIterator，sort的模板也是基于此种迭代器的，因此如果容器不是随机存取迭代器，那么可能无法使用通用的sort函数。</p>
+<p>关联容器 map和set底层是基于RB-Tree，本身就已经自带顺序了，因此不需要使用sort算法</p>
+<p>序列容器 list是双向迭代器并不是随机存取迭代器，vector和deque是随机存取迭代器适用于sort算法</p>
+<p>容器适配器 stack、queue和priority-queue属于限制元素顺序的容器，因此不适用sort算法。</p>
+<p>综上我们可以知道，sort算法可以很好的适用于vector和deque这两种容器。</p>
+<p>前面介绍了内省式排序，所以看下sort是怎么一步步来使用introsort的，上一段入口代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">sort</span>(<span class="title">RandomAccessIterator</span> <span class="title">first</span>, <span class="title">RandomAccessIterator</span> <span class="title">last</span>) &#123;</span></span><br><span class="line">    <span class="keyword">if</span> (first != last) &#123;</span><br><span class="line">        __introsort_loop(first, last, value_type(first), __lg(last - first) * <span class="number">2</span>);</span><br><span class="line">        __final_insertion_sort(first, last);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从代码来看sort使用了first和last两个随机存取迭代器，作为待排序序列的开始和终止，进一步调用了<strong>introsort_loop和</strong>final_insertion_sort两个函数，从字面上看前者是内省排序循环，后者是插入排序。其中注意到<strong>introsort_loop的第三个参数</strong>lg(last - first)*2，凭借我们的经验来猜(蒙)一下吧，应该递归深度的限制，不急看下代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">Size</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">Size</span> __<span class="title">lg</span>(<span class="title">Size</span> <span class="title">n</span>)&#123;</span></span><br><span class="line">    Size k;</span><br><span class="line">    <span class="keyword">for</span>(k = <span class="number">0</span>;n &gt; <span class="number">1</span>;n &gt;&gt;= <span class="number">1</span>) ++k;</span><br><span class="line">    <span class="keyword">return</span> k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码的意思就是n=last-first，2^k&lt;=n的最大整数k值。所以整体看当假设last-first=20时，k=4,最大分割深度depth_max=4*2=8，从而我们就可以根据first和last来确定递归的最大深度了。</p>
+<p>快速排序和堆排序的配合<br>__introsort_loop函数中主要封装了快速排序和堆排序，来看看这个函数的实现细节：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//sort函数的入口</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>, <span class="title">class</span> <span class="title">T</span>, <span class="title">class</span> <span class="title">Size</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> __<span class="title">introsort_loop</span>(<span class="title">RandomAccessIterator</span> <span class="title">first</span>,</span></span><br><span class="line"><span class="class">                      <span class="title">RandomAccessIterator</span> <span class="title">last</span>, <span class="title">T</span>*,</span></span><br><span class="line"><span class="class">                      <span class="title">Size</span> <span class="title">depth_limit</span>) &#123;</span></span><br><span class="line">    <span class="keyword">while</span> (last - first &gt; __stl_threshold) &#123;</span><br><span class="line">        <span class="keyword">if</span> (depth_limit == <span class="number">0</span>) &#123;</span><br><span class="line">            partial_sort(first, last, last);<span class="comment">//使用堆排序</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        --depth_limit;<span class="comment">//减分割余额</span></span><br><span class="line">        RandomAccessIterator cut = __unguarded_partition</span><br><span class="line">          (first, last, T(__median(*first, *(first + (last - first)/<span class="number">2</span>),</span><br><span class="line">                                   *(last - <span class="number">1</span>))));<span class="comment">//三点中值法分区过程</span></span><br><span class="line">        __introsort_loop(cut, last, value_type(first), depth_limit);<span class="comment">//子序列递归调用</span></span><br><span class="line">        last = cut;<span class="comment">//迭代器交换 切换到左序列</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//基于三点中值法的分区算法</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">RandomAccessIterator</span> __<span class="title">unguarded_partition</span>(<span class="title">RandomAccessIterator</span> <span class="title">first</span>, </span></span><br><span class="line"><span class="class">                                           <span class="title">RandomAccessIterator</span> <span class="title">last</span>, </span></span><br><span class="line"><span class="class">                                           <span class="title">T</span> <span class="title">pivot</span>) &#123;</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">while</span> (*first &lt; pivot) ++first;</span><br><span class="line">    --last;</span><br><span class="line">    <span class="keyword">while</span> (pivot &lt; *last) --last;</span><br><span class="line">    <span class="keyword">if</span> (!(first &lt; last)) <span class="keyword">return</span> first;</span><br><span class="line">    iter_swap(first, last);</span><br><span class="line">    ++first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>各位先不要晕更不要蒙圈，一点点分析肯定可以拿下的。</p>
+<p>先看参数两个随机存取迭代器first和last，第三个参数是__lg计算得到的分割深度；</p>
+<p>这时候我们进入了while判断了last-first的区间大小，<strong>stl_threshold为16，侯捷大大特别指出</strong>stl_threshold的大小可以是5~20，具体大小可以自己设置，如果大于__stl_threshold那就才会继续执行，否则跳出；</p>
+<p>假如现在区间大小大于__stl_threshold，判断第三个参数depth_limit是否为0，也就是是否出现了分割过深的情况，相当于给了一个初始最大值，然后每分割一次就减1，直到depth_limit=0，这时候调用partial_sort，从《stl源码剖析》的其他章节可以知道，partial_sort就是对堆排序的封装，看到这里有点意思了主角之一的heapsort出现了；</p>
+<p>继续往下看，depth_limit&gt;0 尚有分割余额，那就燥起来吧！这样来到了<strong>unguarded_partition，这个函数从字眼看是快速排序的partiton过程，返回了cut随机存取迭代器，</strong>unguarded_partition的第三个参数__median使用的是三点中值法来获取的基准值Pivot，至此快速排序的partition的三个元素集齐了，最后返回新的切割点位置；</p>
+<p>继续看马上搞定啦，__introsort_loop出现了，果然递归了，特别注意一下这里只有一个递归，并且传入的是cut和last，相当于右子序列，那左子序列怎么办啊？别急往下看，last=cut峰回路转cut变成了左子序列的右边界，这样就开始了左子序列的处理；</p>
+<p>快速排序的实现对比<br>前面提到了在sort中快速排序的写法和我们之前见到的有一些区别，看了一下《STL源码剖析》对快排左序列的处理，侯捷老师是这么写的：”写法可读性较差，效率并没有比较好”，看到这里更蒙圈了，不过也试着分析一下吧！</p>
+<p>图为：STL源码剖析中侯捷老师对该种写法的注释</p>
+<p><img src="/home/brook/blog/source/_posts/C-STL%E4%B8%ADsort%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95%E5%8F%8A%E5%8E%9F%E7%90%86/2.jpeg" alt></p>
+<p>常见写法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//快速排序的常见写法伪代码</span></span><br><span class="line">quicksort(arr,left,right)&#123;</span><br><span class="line">    pivoit = func(arr);<span class="comment">//使用某种方法获取基准值</span></span><br><span class="line">    cut = partition(left,right,pivot);<span class="comment">//左右边界和基准值来共同确定分割点位置</span></span><br><span class="line">    quicksort(arr,left,cut<span class="number">-1</span>);<span class="comment">//递归处理左序列</span></span><br><span class="line">    quicksort(arr,cut+<span class="number">1</span>,right);<span class="comment">//递归处理右序列</span></span><br><span class="line">&#125;</span><br><span class="line">SGI STL中的写法:</span><br><span class="line"></span><br><span class="line">stl_quicksort(first,last)&#123;</span><br><span class="line">      <span class="comment">//循环作为外层控制结构</span></span><br><span class="line">      <span class="keyword">while</span>(ok)&#123;</span><br><span class="line">         cut = stl_partition(first,last,_median(first,last));<span class="comment">//分割分区</span></span><br><span class="line">         stl_quicksort(cut,last);<span class="comment">//递归调用 处理右子序列</span></span><br><span class="line">         last = cut;<span class="comment">//cut赋值为last 相当于切换到左子序列 再继续循环</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>网上有一些大佬的文章说sgi stl中快排的写法左序列的调用借助了while循环节省了一半的递归调用，是典型的尾递归优化思路.</p>
+<p>这里我暂时还没有写测试代码做对比，先占坑后续写个对比试验，再来评论吧，不过这种sgi的这种写法可以看看哈。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">堆排序的细节</span><br><span class="line"><span class="comment">//注：这个是带自定义比较函数的堆排序版本</span></span><br><span class="line"><span class="comment">//堆化和堆顶操作</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>, <span class="title">class</span> <span class="title">T</span>, <span class="title">class</span> <span class="title">Compare</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> __<span class="title">partial_sort</span>(<span class="title">RandomAccessIterator</span> <span class="title">first</span>, <span class="title">RandomAccessIterator</span> <span class="title">middle</span>,</span></span><br><span class="line"><span class="class">                    <span class="title">RandomAccessIterator</span> <span class="title">last</span>, <span class="title">T</span>*, <span class="title">Compare</span> <span class="title">comp</span>) &#123;</span></span><br><span class="line">    make_heap(first, middle, comp);</span><br><span class="line">    <span class="keyword">for</span> (RandomAccessIterator i = middle; i &lt; last; ++i)</span><br><span class="line">        <span class="keyword">if</span> (comp(*i, *first))</span><br><span class="line">            __pop_heap(first, middle, i, T(*i), comp, distance_type(first));</span><br><span class="line">    sort_heap(first, middle, comp);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//堆排序的入口</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>, <span class="title">class</span> <span class="title">Compare</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">partial_sort</span>(<span class="title">RandomAccessIterator</span> <span class="title">first</span>,</span></span><br><span class="line"><span class="class">                         <span class="title">RandomAccessIterator</span> <span class="title">middle</span>,</span></span><br><span class="line"><span class="class">                         <span class="title">RandomAccessIterator</span> <span class="title">last</span>, <span class="title">Compare</span> <span class="title">comp</span>) &#123;</span></span><br><span class="line">    __partial_sort(first, middle, last, value_type(first), comp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>插入排序上场了<strong>introsort_loop达到</strong>stl_threshold阈值之后，可以认为数据集近乎有序了，此时就可以通过插入排序来进一步提高排序速度了，这样也避免了递归带来的系统消耗，看下__final_insertion_sort的具体实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> __<span class="title">final_insertion_sort</span>(<span class="title">RandomAccessIterator</span> <span class="title">first</span>, </span></span><br><span class="line"><span class="class">                            <span class="title">RandomAccessIterator</span> <span class="title">last</span>) &#123;</span></span><br><span class="line">    <span class="keyword">if</span> (last - first &gt; __stl_threshold) &#123;</span><br><span class="line">        __insertion_sort(first, first + __stl_threshold);</span><br><span class="line">        __unguarded_insertion_sort(first + __stl_threshold, last);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        __insertion_sort(first, last);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>来分析一下__final_insertion_sort的实现细节吧！</p>
+<p>引入参数随机存取迭代器first和last</p>
+<p>如果last-first &gt; <strong>stl_threshold不成立就调用</strong>insertion_sort，这个相当于元素数比较少了可以直接调用，不用做特殊处理；</p>
+<p>如果last-first &gt; <strong>stl_threshold成立就进一步再分割成两部分，分别调用</strong>insertion_sort和<strong>unguarded_insertion_sort，两部分的分割点是</strong>stl_threshold，不免要问这俩函数有啥区别呀？__insertion_sort的实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//逆序对的调整</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> __<span class="title">unguarded_linear_insert</span>(<span class="title">RandomAccessIterator</span> <span class="title">last</span>, <span class="title">T</span> <span class="title">value</span>) &#123;</span></span><br><span class="line">    RandomAccessIterator next = last;</span><br><span class="line">    --next;</span><br><span class="line">    <span class="keyword">while</span> (value &lt; *next) &#123;</span><br><span class="line">        *last = *next;</span><br><span class="line">        last = next;</span><br><span class="line">        --next;</span><br><span class="line">    &#125;</span><br><span class="line">    *last = value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> __<span class="title">linear_insert</span>(<span class="title">RandomAccessIterator</span> <span class="title">first</span>, </span></span><br><span class="line"><span class="class">                            <span class="title">RandomAccessIterator</span> <span class="title">last</span>, <span class="title">T</span>*) &#123;</span></span><br><span class="line">    T value = *last;</span><br><span class="line">    <span class="keyword">if</span> (value &lt; *first) &#123;</span><br><span class="line">        copy_backward(first, last, last + <span class="number">1</span>);<span class="comment">//区间移动</span></span><br><span class="line">        *first = value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        __unguarded_linear_insert(last, value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//__insertion_sort入口</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> __<span class="title">insertion_sort</span>(<span class="title">RandomAccessIterator</span> <span class="title">first</span>, <span class="title">RandomAccessIterator</span> <span class="title">last</span>) &#123;</span></span><br><span class="line">    <span class="keyword">if</span> (first == last) <span class="keyword">return</span>; </span><br><span class="line">    <span class="keyword">for</span> (RandomAccessIterator i = first + <span class="number">1</span>; i != last; ++i)</span><br><span class="line">        __linear_insert(first, i, value_type(first));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在插入函数中同样出现了__unguarded_xxx这种形式的函数，unguarded单词的意思是无防备的，无保护的，侯捷大大提到这种函数形式是特定条件下免去边界检验条件也能正确运行的函数。</p>
+<p>copy_backward也是一种整体移动的优化，避免了one by one的调整移动，底层调用memmove来高效实现。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">__unguarded_insertion_sort的实现</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> __<span class="title">unguarded_insertion_sort_aux</span>(<span class="title">RandomAccessIterator</span> <span class="title">first</span>, </span></span><br><span class="line"><span class="class">                                    <span class="title">RandomAccessIterator</span> <span class="title">last</span>, <span class="title">T</span>*) &#123;</span></span><br><span class="line">    <span class="keyword">for</span> (RandomAccessIterator i = first; i != last; ++i)</span><br><span class="line">        __unguarded_linear_insert(i, T(*i));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">RandomAccessIterator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> __<span class="title">unguarded_insertion_sort</span>(<span class="title">RandomAccessIterator</span> <span class="title">first</span>, </span></span><br><span class="line"><span class="class">                                <span class="title">RandomAccessIterator</span> <span class="title">last</span>) &#123;</span></span><br><span class="line">    __unguarded_insertion_sort_aux(first, last, value_type(first));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于插入排序的这两个函数的实现和目的用途，展开起来会很细致，所以后面想着单独在写插入排序时单独拿出了详细学习一下，所以本文就暂时先不深究了，感兴趣的读者可以先行阅读相关资料，后续我们再共同辩驳哈！</p>
+<p>总结和笔者按<br>本文主要阐述了内省式排序的思想和基本实现思路，并且以此为切入点对sgi stl中sort算法的实现来进行了一些解读。</p>
+<p>stl的作者们为了追求极致性能所以使用了大量的技巧，对此本文并没有过多展开，也主要是段位不太高怕解读错了，嘿嘿…，不过后续可以尝试一点点剖析来一探大牛们的巅峰技艺。</p>
+
       
     </div>
     
@@ -340,6 +454,16 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/yangmiemie99.github.io/tags/排序算法/" rel="tag"># 排序算法</a>
+          
+            <a href="/yangmiemie99.github.io/tags/STL/" rel="tag"># STL</a>
+          
+        </div>
       
 
       
@@ -359,6 +483,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/02/09/字符串全排列算法/" rel="prev" title="字符串全排列算法">
+                字符串全排列算法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -410,8 +538,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -428,7 +565,7 @@
               
                 <a href="/yangmiemie99.github.io/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -450,7 +587,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/yangmiemie99.github.io/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -483,6 +620,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用法"><span class="nav-number">1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#看下三种排序的优缺点吧"><span class="nav-number">2.1.</span> <span class="nav-text">看下三种排序的优缺点吧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sort函数的应用场景"><span class="nav-number">2.2.</span> <span class="nav-text">sort函数的应用场景</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
