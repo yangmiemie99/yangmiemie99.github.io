@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="剑指Offer,算法,字符串,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="题目描述  求出113的整数中1出现的次数,并算出1001300的整数中1出现的次数？为此他特别数了一下1~13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数（从1 到 n 中1出现的次数）。  想法1： 通过对10求余判断整数是否是1,然后在除10判断下一位 1234">
+<meta name="keywords" content="剑指Offer,算法,字符串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指Offer-1到n整数中1出现的次数">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/02/11/剑指Offer-1到n整数中1出现的次数/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="题目描述  求出113的整数中1出现的次数,并算出1001300的整数中1出现的次数？为此他特别数了一下1~13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数（从1 到 n 中1出现的次数）。  想法1： 通过对10求余判断整数是否是1,然后在除10判断下一位 1234">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/11/剑指Offer-1到n整数中1出现的次数/1.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/11/剑指Offer-1到n整数中1出现的次数/2.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/11/剑指Offer-1到n整数中1出现的次数/3.png">
+<meta property="og:updated_time" content="2020-02-11T17:02:42.359Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="剑指Offer-1到n整数中1出现的次数">
+<meta name="twitter:description" content="题目描述  求出113的整数中1出现的次数,并算出1001300的整数中1出现的次数？为此他特别数了一下1~13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数（从1 到 n 中1出现的次数）。  想法1： 通过对10求余判断整数是否是1,然后在除10判断下一位 1234">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/11/剑指Offer-1到n整数中1出现的次数/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/02/11/剑指Offer-1到n整数中1出现的次数/">
+
+
+
+
+
+  <title>剑指Offer-1到n整数中1出现的次数 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/11/剑指Offer-1到n整数中1出现的次数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">剑指Offer-1到n整数中1出现的次数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-11T14:39:29+08:00">
+                2020-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>题目描述</p>
+<blockquote>
+<p>求出1<del>13的整数中1出现的次数,并算出100</del>1300的整数中1出现的次数？为此他特别数了一下1~13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数（从1 到 n 中1出现的次数）。</p>
+</blockquote>
+<p>想法1：</p>
+<p>通过对10求余判断整数是否是1,然后在除10判断下一位</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">NumberOf1Between1AndN_Solution</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    	<span class="keyword">int</span> numbers = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">if</span>(n &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">1</span>; i&lt;=n;++i)&#123;</span><br><span class="line">    		<span class="keyword">while</span>(i)&#123;</span><br><span class="line">    			<span class="keyword">if</span>(i%<span class="number">10</span> == <span class="number">1</span>)</span><br><span class="line">    				numbers += <span class="number">1</span>;</span><br><span class="line">    			i/=<span class="number">10</span>;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;    </span><br><span class="line">    	<span class="keyword">return</span> numbers;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 运行超时</span></span><br></pre></td></tr></table></figure>
+
+<p>想法2：</p>
+<p>根据剑指Offer   提供的思想，递归的思想</p>
+<p>先将数字转化为字符串，每次考虑最高位数字及删除最高位之后的数字。例如数据0-21345，一轮递归的考虑的范围是2346-21345,考虑了之后就相当于不再考虑最大的数字位置</p>
+<p>如果最高位不为1,那么这个位置可能出现1的次数为pow(10,length-1)，比如10000-19999正好</p>
+<p>如果最高位等于1,那么1的次数取决与之后的所有的数，在加上1 。比如10000-12345，那么1的次数就为 2345 +1</p>
+<p>下面分析除了最高位，低位1出现的次数，哪位都可以出现1,其他位置可以是任意数字，第一位不能超过本身那么可以算出 first * (length-1) * pow(10,lenght-2)</p>
+<p>下面写出代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">NumberOf1Between1AndN_Solution</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">   	<span class="keyword">if</span>(n &lt;=<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">char</span> str[<span class="number">50</span>];</span><br><span class="line">	<span class="built_in">sprintf</span>(str,<span class="string">"%d"</span>,n);    </span><br><span class="line">	<span class="keyword">return</span> NumberOf1(str);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">NumberOf1</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* str)</span></span>&#123;</span><br><span class="line">   	<span class="keyword">if</span>(*str &lt; <span class="string">'0'</span> || *str &gt;<span class="string">'9'</span>|| *str==<span class="string">'\0'</span> || !str)</span><br><span class="line">   		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">   	<span class="keyword">int</span> first = *str - <span class="string">'0'</span>;</span><br><span class="line">   	<span class="keyword">int</span> length = <span class="built_in">strlen</span>(str);</span><br><span class="line">   	<span class="keyword">if</span>(first == <span class="number">0</span> &amp;&amp; length ==<span class="number">1</span>) <span class="comment">// 边界一定要想好</span></span><br><span class="line">   		<span class="keyword">return</span> <span class="number">0</span>;        </span><br><span class="line">   	<span class="keyword">if</span>(first &gt; <span class="number">0</span> &amp;&amp; length == <span class="number">1</span>) <span class="comment">// 这里first&gt;0就返回1</span></span><br><span class="line">   		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">   	<span class="keyword">int</span> numFirstDigit = <span class="number">0</span>;</span><br><span class="line">   	<span class="keyword">if</span>(first &gt; <span class="number">1</span>)</span><br><span class="line">   		numFirstDigit = PowInt10(length <span class="number">-1</span>);</span><br><span class="line">   	<span class="keyword">else</span> <span class="keyword">if</span>(first == <span class="number">1</span>)   <span class="comment">// 必须把判断条件加上，不能直接else</span></span><br><span class="line">   		numFirstDigit = atoi(str+<span class="number">1</span>) +<span class="number">1</span>;</span><br><span class="line">   	<span class="keyword">int</span> numOtherDigit = first * (length<span class="number">-1</span>) * PowInt10(length<span class="number">-2</span>);</span><br><span class="line">   	<span class="keyword">int</span> remainDight = NumberOf1(str+<span class="number">1</span>);</span><br><span class="line">   	<span class="keyword">return</span> numFirstDigit + numOtherDigit + remainDight;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">PowInt10</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> result =<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i)&#123;</span><br><span class="line">		i--;</span><br><span class="line">		result *= <span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="sprintf-和sprintf-s"><a href="#sprintf-和sprintf-s" class="headerlink" title="sprintf()和sprintf_s()"></a>sprintf()和sprintf_s()</h1><p>该过程出现的sprintf进行总结</p>
+<p>函数功能：把格式化的数据写入某个字符串 。</p>
+<p>头文件：stdio.h<br>函数原型：int sprintf( char *buffer, const char *format [, argument] … );<br>返回值：字符串长度（strlen）</p>
+<p>（1）buffer：是char类型的指针，指向写入的字符串指针；</p>
+<p>（2）format：格式化字符串，即在程序中想要的格式；</p>
+<p>（3）argument：可选参数，可以为任意类型的数据；</p>
+<p>在将各种类型的数据构造成字符串时，sprintf 的功能很强大。sprintf 与printf 在用法上几乎一样，只是打印的目的地不同而已，前者打印到字符串中，后者则直接在命令行上输出。这也导致sprintf 比printf 有用得多.。</p>
+<p>printf 和sprintf 都使用格式化字符串来指定串的格式，在格式串内部使用一些以“%”开头的格式说明符（format specifications）来占据一个位置，在后边的变参列表中提供相应的变量，最终函数就会用相应位置的变量来替代那个说明符，产生一个调用者想要的字符串。 </p>
+<p>输出格式控制：</p>
+<p>​        %% 印出百分比符号，不转换。 </p>
+<p>　　%c 整数转成对应的 ASCII 字元。<br>　　%d 整数转成十进位。<br>　　%f 倍精确度数字转成浮点数。<br>　　%o 整数转成八进位。<br>　　%s 整数转成字符串。<br>　　%x 整数转成小写十六进位。<br>　　%X 整数转成大写十六进位。 </p>
+<p> 用处</p>
+<p><strong>（1）格式化数字字符串：</strong></p>
+<p>在这点上sprintf和printf的用法一样，只是打印到的位置不同而已，前者打印给buffer字符串，后者打印给标准输出，所以sprintf也可以用来将整型转化为字符串，比itoa效率高且如此地简便<del>比如：sprintf(buffer, “%d”, 123456);执行后buffer即指向字符串“123456”</del></p>
+<p><strong>（2）连接字符：</strong></p>
+<p>下面通过两个例子来说明这个问题：</p>
+<p>（a）连接以’\0’结束的字符串：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;  </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">10</span>];  </span><br><span class="line">    <span class="keyword">char</span> *a = <span class="string">"1234"</span>;  </span><br><span class="line">    <span class="keyword">char</span> *b = <span class="string">"5678"</span>;  </span><br><span class="line">    <span class="built_in">sprintf</span>(buffer, <span class="string">"%s%s"</span>, a, b);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, buffer);  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（b）连接结尾没有’\0’的字符数组或字符串缓冲区：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;  </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">char</span> a[] = &#123;<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>&#125;;  </span><br><span class="line">    <span class="keyword">char</span> b[] = &#123;<span class="string">'5'</span>, <span class="string">'6'</span>, <span class="string">'7'</span>, <span class="string">'8'</span>&#125;;  </span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">10</span>];  </span><br><span class="line">    <span class="built_in">sprintf</span>(buffer, <span class="string">"%.4s%.4s"</span>, a, b);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, buffer);  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果</p>
+<p><img src="/yangmiemie99.github.io/2020/02/11/剑指Offer-1到n整数中1出现的次数/1.png" alt></p>
+<p>如果第二种情况的程序中，sprintf的format部分为”%4s%4s”或”%s%s”，运行结果均为：</p>
+<p><img src="/yangmiemie99.github.io/2020/02/11/剑指Offer-1到n整数中1出现的次数/2.png" alt></p>
+<p>（c）如果我们想动态获取要处理的字符缓冲区长度，则将上面sprintf改为：sprintf(buffer, “%.<em>s%.</em>s”, sizeof(a), a, sizeof(b), b);即可~</p>
+<p>有这样一行程序：pos += sprintf(output+pos, “%d “, j+1); 它的作用是什么呢？</p>
+<p>因为sprintf函数的返回值为output+pos所指向字符串的长度，所以对于pos来说，相当于执行了一次pos+=sizeof(output+pos)，如果这条语句放在一个循环里，则第二次执行sprintf时output+pos随即指向了当前缓冲区的末尾（注意不是output的末尾！否则会读取非法内存！），这样就可以生成一个具有一定规则的字符串了~写个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;  </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">100</span>];  </span><br><span class="line">    <span class="keyword">int</span> pos = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">10</span>; j++)  </span><br><span class="line">        pos += <span class="built_in">sprintf</span>(buf+pos, <span class="string">"%d-"</span>, j);  </span><br><span class="line">    buf[pos<span class="number">-1</span>] = <span class="string">'\n'</span>;<span class="comment">//将最后一个字符'-'转换为'\n'  </span></span><br><span class="line">    <span class="built_in">printf</span>(buf);  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/yangmiemie99.github.io/2020/02/11/剑指Offer-1到n整数中1出现的次数/3.png" alt></p>
+<p>使用sprintf_s更加安全一点。</p>
+<p>sprintf_s()是sprintf()的安全版本，通过指定缓冲区长度来避免sprintf()存在的溢出风险。</p>
+<p>int sprintf_s(char *buffer,size_t sizeOfBuffer,const char *format [,argument] … ); </p>
+<p>例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> str[<span class="number">20</span>];</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">char</span> *s1=<span class="string">"hello"</span>; </span><br><span class="line">	<span class="keyword">char</span> *s2=<span class="string">"world"</span>;</span><br><span class="line">	sprintf_s(str,<span class="keyword">sizeof</span>(str),<span class="string">"%s %s"</span>,s1,s2);<span class="comment">//sizeof(str)的大小必须大于等于待写入字符串的大小加一，否则会出错。</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,str);</span><br><span class="line">	<span class="keyword">char</span> str_1[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">int</span> n,a=<span class="number">3</span>,b=<span class="number">5</span>;</span><br><span class="line">	n=sprintf_s(str_1,<span class="keyword">sizeof</span>(str_1),<span class="string">"%d + %d = %d"</span>,a,b,a+b);<span class="comment">//返回字符个数</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"[%s] :字符数为%d\n"</span>,str_1,n);</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">char</span> str_2[<span class="number">20</span>];</span><br><span class="line">	sprintf_s(str_2,<span class="keyword">sizeof</span>(str_2),<span class="string">"%x %o abcdefg"</span>,<span class="number">123</span>,<span class="number">123</span>);<span class="comment">//控制输出字符串的转换为相应的进制数</span></span><br><span class="line">	                                                      <span class="comment">//分别转换为十六进制和八进制</span></span><br><span class="line">	<span class="built_in">puts</span>(str_2);</span><br><span class="line">	sprintf_s(str_2,<span class="keyword">sizeof</span>(str_2),<span class="string">"%X %o"</span>,<span class="number">123</span>,<span class="number">123</span>);<span class="comment">//给数组赋新值</span></span><br><span class="line">	<span class="built_in">puts</span>(str_2);<span class="comment">//仅输出 "7B 173",说明sprintf_s向字符串str_2写入字符后，尾部自动加了'\0'</span></span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;str_2[<span class="number">8</span>]&lt;&lt;<span class="built_in">endl</span>;<span class="comment">//未输出b,说明sprintf_s是对整个数组重新写入。</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/剑指Offer/" rel="tag"># 剑指Offer</a>
+          
+            <a href="/yangmiemie99.github.io/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/yangmiemie99.github.io/tags/字符串/" rel="tag"># 字符串</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/02/10/剑指Offer-数据流中的中位数/" rel="next" title="剑指Offer-数据流中的中位数">
+                <i class="fa fa-chevron-left"></i> 剑指Offer-数据流中的中位数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/02/12/剑指Offer-数字序列中某一位的数字/" rel="prev" title="剑指Offer-数字序列中某一位的数字">
+                剑指Offer-数字序列中某一位的数字 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sprintf-和sprintf-s"><span class="nav-number">1.</span> <span class="nav-text">sprintf()和sprintf_s()</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
