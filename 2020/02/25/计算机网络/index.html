@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机网络,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="计算机网络概述网络的网络网络把主机连接起来，而互连网是把多种不同的网络连接起来，因此互连网是网络的网络。而因特网（Internet）是全球范围的互连网。 因特网的一些部件，主机（端系统），服务器，移动设备，路由器，链路交换机，调制解调器，基站，智能手机，蜂窝电话塔。 端系统通过因特网服务提供商（internet Service Provider）ISP接入因特网。 因特网还可以从应用程序提供服务的">
+<meta name="keywords" content="计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络总结">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/02/25/计算机网络/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="计算机网络概述网络的网络网络把主机连接起来，而互连网是把多种不同的网络连接起来，因此互连网是网络的网络。而因特网（Internet）是全球范围的互连网。 因特网的一些部件，主机（端系统），服务器，移动设备，路由器，链路交换机，调制解调器，基站，智能手机，蜂窝电话塔。 端系统通过因特网服务提供商（internet Service Provider）ISP接入因特网。 因特网还可以从应用程序提供服务的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/25/计算机网络/1.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/25/计算机网络/2.jpg">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/25/计算机网络/3.png">
+<meta property="og:updated_time" content="2020-02-25T08:46:08.072Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机网络总结">
+<meta name="twitter:description" content="计算机网络概述网络的网络网络把主机连接起来，而互连网是把多种不同的网络连接起来，因此互连网是网络的网络。而因特网（Internet）是全球范围的互连网。 因特网的一些部件，主机（端系统），服务器，移动设备，路由器，链路交换机，调制解调器，基站，智能手机，蜂窝电话塔。 端系统通过因特网服务提供商（internet Service Provider）ISP接入因特网。 因特网还可以从应用程序提供服务的">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/25/计算机网络/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/02/25/计算机网络/">
+
+
+
+
+
+  <title>计算机网络总结 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/25/计算机网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-25T11:45:12+08:00">
+                2020-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="计算机网络概述"><a href="#计算机网络概述" class="headerlink" title="计算机网络概述"></a>计算机网络概述</h1><h1 id="网络的网络"><a href="#网络的网络" class="headerlink" title="网络的网络"></a>网络的网络</h1><p>网络把主机连接起来，而互连网是把多种不同的网络连接起来，因此互连网是网络的网络。而因特网（Internet）是全球范围的互连网。</p>
+<p>因特网的一些部件，主机（端系统），服务器，移动设备，路由器，链路交换机，调制解调器，基站，智能手机，蜂窝电话塔。</p>
+<p><strong>端系统</strong>通过因特网服务提供商（internet Service Provider）ISP接入因特网。</p>
+<p>因特网还可以从应用程序提供服务的基础设施的角度来描述因特网。将因特网描述为应用程序的平台。应用程序可以包括：电子邮件，即时通讯，社交网络，流式视频，分布式游戏，Peer to peer 文件共享，因特网电视等等。</p>
+<h2 id="ISP"><a href="#ISP" class="headerlink" title="ISP"></a>ISP</h2><p>互联网服务提供商 ISP 可以从互联网管理机构获得许多 IP 地址，同时拥有通信线路以及路由器等联网设备，个人或机构向 ISP 缴纳一定的费用就可以接入互联网。</p>
+<p>目前的互联网是一种多层次 ISP 结构，ISP 根据覆盖面积的大小分为第一层 ISP、区域 ISP 和接入 ISP。互联网交换点 IXP 允许两个 ISP 直接相连而不用经过第三个 ISP。</p>
+<p><img src="/yangmiemie99.github.io/2020/02/25/计算机网络/1.png" alt></p>
+<h2 id="电路交换与分组交换"><a href="#电路交换与分组交换" class="headerlink" title="电路交换与分组交换"></a>电路交换与分组交换</h2><h3 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h3><p>电路交换用于电话通信系统，两个用户要通信之前需要建立一条专用的物理链路，并且在整个通信过程中始终占用该链路。由于通信的过程中不可能一直在使用传输线路，因此电路交换对线路的利用率很低，往往不到 10%。</p>
+<h3 id="分组交换"><a href="#分组交换" class="headerlink" title="分组交换"></a>分组交换</h3><p>端系统交换报文，源端系统将长报文划分乘较小的数据块，称为分组。</p>
+<p>每个分组都有首部和尾部，包含了源地址和目的地址等控制信息，在同一个传输线路上同时传输多个分组互相不会影响，因此在同一条传输线路上允许同时传输多个分组，也就是说分组交换不需要占用传输线路。</p>
+<p>在一个邮局通信系统中，邮局收到一份邮件之后，先存储下来，然后把相同目的地的邮件一起转发到下一个目的地，这个过程就是存储转发过程，分组交换也使用了存储转发过程。</p>
+<h3 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h3><p>由因特网端系统的分组交换机和链路构成的网状网络。</p>
+<h2 id="时延"><a href="#时延" class="headerlink" title="时延"></a>时延</h2><ul>
+<li>处理时延：主机或路由器收到分组时进行处理所需要的时间，例如分析首部、从分组中提取数据、进行差错检验或查找适当的路由等。（通常是微秒级以下）等。</li>
+<li>排队时延：在队列中，当分组在链路缓存中<strong>等待传输</strong>时，它经受排队时延。 到达组的分组数量是到达该队列的流量强度的函数。</li>
+<li>传输时延：用L比特表示分组的长度，用R b/s表示从路由器A到路由器B的链路传输速率。传输时延是L/R。这是<strong>将所有分组比特推向链路所需要的时间</strong>。实际的传输时延通常在毫秒到微秒级。是包从路由器A中被推出去的时间。与两路由器的距离无关。</li>
+<li>传播时延：电磁波在信道中传播所需要花费的时间，电磁波传播的速度接近光速。从该链路的<strong>起点到路由器B的传播所需要的时间</strong>是传播时延。</li>
+<li>传输时延可以看做是车队（包）过收费站（路由器）的时间，而传播时延可看作路上花费的时间。</li>
+<li>节点总时延 = 处理时延 + 排队时延 + 传输时延 + 传播时延 一般来说处理时延通常是微不足道的。</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/02/25/计算机网络/2.jpg" alt></p>
+<h2 id="计算机体系结构"><a href="#计算机体系结构" class="headerlink" title="计算机体系结构"></a>计算机体系结构</h2><p><img src="/yangmiemie99.github.io/2020/02/25/计算机网络/3.png" alt></p>
+<h3 id="五层协议"><a href="#五层协议" class="headerlink" title="五层协议"></a>五层协议</h3><p>写信为例子</p>
+<p><strong>应用层</strong>（信的格式）：应用程序以及他们的应用层协议留存的地方。应用层协议分布在多个端系统上，<strong>一个端系统中的应用程序使用协议与另一个端系统中的应用程序交换信息分组。</strong></p>
+<ul>
+<li>我们把应用层的信息称为<strong>报文</strong>。</li>
+<li>典型协议如<code>HTTP</code>、<code>FTP</code>、<code>SMTP(电邮)</code>、<code>DNS</code>。</li>
+</ul>
+<p><strong>运输层</strong>（加入对方名字的信封）：在应用程序端点之间传输应用层报文的协议。</p>
+<ul>
+<li>因特网中常用的有两个，即<code>TCP</code>和<code>UDP</code>。</li>
+<li>TCP：<strong>面向连接</strong>，分割长报文，拥塞控制机制，<strong>可靠传递</strong>，双方速率匹配。</li>
+<li>UDP：无连接，最大努力的数据传输服务。</li>
+<li>处于运输层的分组叫做<strong>报文段</strong>(segement)</li>
+</ul>
+<p><strong>网络层</strong> （邮局和邮政服务）：负责将数据报(datagram，处于网络层的分组)从主机移动到另一主机，使两端能够互连且决定最佳路径。<strong>数据报</strong></p>
+<ul>
+<li>从运输层拿到报文段和目标地址。然后进行<code>路由</code>（路由选择协议）。</li>
+<li>网络层的典型协议是<code>IP</code>协议，用来识别目标地址。</li>
+<li>另一典型协议是<code>网络控制消息协定（ICMP）</code>，它是IP的主要部分，一般不用于在两点间传输数据。它通常不由网络程序直接使用，除了<code>ping</code>和<code>traceroute</code>这两个特例。</li>
+</ul>
+<p><strong>链路层</strong> （信运输员）在两个网络实体之间提供数据链路连接的创建、维持和释放管理。</p>
+<ul>
+<li>构成链路层的分组（称之<strong>数据帧或帧</strong>），并对帧定界、同步、收发顺序的控制。</li>
+<li>负责传输过程中的流量控制,差错检测和差错控制等方面。</li>
+<li>数据链路层中的数据封装是指：封装的数据信息中，包含了地址段和数据段等。地址段含有点对点发送节点和接收节点的地址（如<code>MAC</code>），控制段用来表示数格连接帧的类型，数据段包含实际要传输的数据。</li>
+<li>网络层将数据报下发给链路层，链路层传输后，上报给目标结点的网络层。</li>
+<li>典型协议：<code>异步传输模式（ATM）</code>、<code>帧中继（frame relay）</code>、<code>高级数据链路控制（HDLC）</code>。</li>
+<li>交换机、桥接器是本层设备。而集线器是物理层设备，不是数据链路层设备。</li>
+</ul>
+<p>物理层（公路和车）：将一个比特一个比特移动。</p>
+<ul>
+<li>典型协议如：<code>蓝牙协议</code>、<code>数字用户线路（DSL）</code>等等</li>
+<li>常见物理层设备：网卡、光纤、集线器</li>
+</ul>
+<p>OSI</p>
+<ul>
+<li><strong>表示层</strong> ：数据压缩、加密以及数据描述，这使得应用程序不必关心在各台主机中数据内部格式不同的问题。</li>
+<li><strong>会话层</strong> ：建立会话，数据交换定界和同步功能，包括建立检查点和恢复方案的方法。</li>
+</ul>
+<blockquote>
+<ul>
+<li><strong>应用层</strong> ：为特定应用程序提供数据传输服务，例如 HTTP、DNS 等协议。数据单位为报文。</li>
+<li><strong>传输层</strong> ：为进程提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括两种协议：传输控制协议 TCP，提供面向连接、可靠的数据传输服务，数据单位为报文段；用户数据报协议 UDP，提供无连接、尽最大努力的数据传输服务，数据单位为用户数据报。TCP 主要提供完整性服务，UDP 主要提供及时性服务。</li>
+<li><strong>网络层</strong> ：为主机提供数据传输服务。而传输层协议是为主机中的进程提供数据传输服务。网络层把传输层传递下来的报文段或者用户数据报封装成分组。</li>
+<li><strong>数据链路层</strong> ：网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。</li>
+<li><strong>物理层</strong> ：考虑的是怎样在传输媒体上传输数据比特流，而不是指具体的传输媒体。物理层的作用是尽可能屏蔽传输媒体和通信手段的差异，使数据链路层感觉不到这些差异。</li>
+</ul>
+</blockquote>
+<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/02/24/Linux基础篇/" rel="next" title="Linux基础篇">
+                <i class="fa fa-chevron-left"></i> Linux基础篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/02/25/LeetCode分类解题记录/" rel="prev" title="LeetCode分类解题记录">
+                LeetCode分类解题记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络概述"><span class="nav-number">1.</span> <span class="nav-text">计算机网络概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络的网络"><span class="nav-number">2.</span> <span class="nav-text">网络的网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ISP"><span class="nav-number">2.1.</span> <span class="nav-text">ISP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#电路交换与分组交换"><span class="nav-number">2.2.</span> <span class="nav-text">电路交换与分组交换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#电路交换"><span class="nav-number">2.2.1.</span> <span class="nav-text">电路交换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分组交换"><span class="nav-number">2.2.2.</span> <span class="nav-text">分组交换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络核心"><span class="nav-number">2.2.3.</span> <span class="nav-text">网络核心</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时延"><span class="nav-number">2.3.</span> <span class="nav-text">时延</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机体系结构"><span class="nav-number">2.4.</span> <span class="nav-text">计算机体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#五层协议"><span class="nav-number">2.4.1.</span> <span class="nav-text">五层协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用层"><span class="nav-number">3.</span> <span class="nav-text">应用层</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

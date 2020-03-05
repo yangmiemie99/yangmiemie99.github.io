@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本人虽然一直应用Unbuntu16.04系统，但是没有对Linux基础开发做一些梳理，这篇文章进行梳理，并且查缺补漏。同时将这篇文章分享给大家做一个参考。 Linux简介什么是Linux计算机主机是由一堆硬件所组成的,为了有效率的控制这些硬件资源,于是乎就有操作系统的产生了。 操作系统除了有效率的控制这些硬件资源的分配,并提供计算机运作所需要的功能(如网络功能)之外, 为了要提供程序设计师更容易开">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux基础篇">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/02/24/Linux基础篇/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="本人虽然一直应用Unbuntu16.04系统，但是没有对Linux基础开发做一些梳理，这篇文章进行梳理，并且查缺补漏。同时将这篇文章分享给大家做一个参考。 Linux简介什么是Linux计算机主机是由一堆硬件所组成的,为了有效率的控制这些硬件资源,于是乎就有操作系统的产生了。 操作系统除了有效率的控制这些硬件资源的分配,并提供计算机运作所需要的功能(如网络功能)之外, 为了要提供程序设计师更容易开">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/24/Linux基础篇/1.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/24/Linux基础篇/2.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/24/Linux基础篇/3.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/24/Linux基础篇/%E8%AE%BE%E5%AE%9A%E5%8F%98%E9%87%8F.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/24/Linux基础篇/%E9%9D%99%E6%80%81%E5%BA%93%E7%94%9F%E6%88%90%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/24/Linux基础篇/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A0%E8%BD%BD.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/24/Linux基础篇/%E5%8A%A8%E6%80%81%E5%BA%93%E5%8A%A0%E8%BD%BD.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/24/Linux基础篇/makefile%E7%AC%AC%E4%B8%80%E4%B8%AA.png">
+<meta property="og:updated_time" content="2020-03-05T16:28:59.990Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux基础篇">
+<meta name="twitter:description" content="本人虽然一直应用Unbuntu16.04系统，但是没有对Linux基础开发做一些梳理，这篇文章进行梳理，并且查缺补漏。同时将这篇文章分享给大家做一个参考。 Linux简介什么是Linux计算机主机是由一堆硬件所组成的,为了有效率的控制这些硬件资源,于是乎就有操作系统的产生了。 操作系统除了有效率的控制这些硬件资源的分配,并提供计算机运作所需要的功能(如网络功能)之外, 为了要提供程序设计师更容易开">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/24/Linux基础篇/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/02/24/Linux基础篇/">
+
+
+
+
+
+  <title>Linux基础篇 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/02/24/Linux基础篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux基础篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-24T12:59:13+08:00">
+                2020-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本人虽然一直应用Unbuntu16.04系统，但是没有对Linux基础开发做一些梳理，这篇文章进行梳理，并且查缺补漏。同时将这篇文章分享给大家做一个参考。</p>
+<h1 id="Linux简介"><a href="#Linux简介" class="headerlink" title="Linux简介"></a>Linux简介</h1><h2 id="什么是Linux"><a href="#什么是Linux" class="headerlink" title="什么是Linux"></a>什么是Linux</h2><p>计算机主机是由一堆硬件所组成的,为了<strong>有效率的控制这些硬件资源</strong>,于是乎就有操作系统的产生了。 操作系统除了有效率的控制这些硬件资源的分配,并<strong>提供计算机运作所需要的功能</strong>(如网络功能)之外, 为了要提供程序设计师更容易开发软件的环境,所以操作系统也会<strong>提供一整组系统呼叫接口</strong>来给软件设计师开发用喔!没错,因为 <strong>Linux 就是一套操作系统</strong>!如同下图所示, Linux 就是核心与系统呼叫接口那两层。至于应用程序算不算 Linux 呢?当然不算啦</p>
+<p><img src="/yangmiemie99.github.io/2020/02/24/Linux基础篇/1.png" alt></p>
+<p>Linux 提供了<strong>一个完整的操作系统当中最底层的硬件控制与资源管理的完整架构</strong>, 这个架构是沿袭Unix 良好的传统来的,所以相当的稳定而功能强大!虽然 Linux 仅是其核心与核心提供的工具,不过由于核心、核心工具与这些软件开发者提供的软件的整合, 使得 Linux 成为一个更完整的、功能强大的操作系统啰!</p>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><p>我们都知道磁盘分区完毕之后还需要格式化，这样操作系统才能够使用这个文件系统。将磁盘格式化好的分区就成为了一个文件系统。现在的新技术可以将一个分区槽格式化为多个文件系统。</p>
+<h3 id="为什么需要格式化？"><a href="#为什么需要格式化？" class="headerlink" title="为什么需要格式化？"></a>为什么需要格式化？</h3><p>这是因为每种操作系统所设定的文件属性/权限并不相同, 为了存放这些文件所需的数据,因此就需要将分区槽进行格式化,以成为操作系统能够利用的『文件系统格式(filesystem)』。</p>
+<p>Linux 的正统文件系统则为 Ext2 (Linux second extended file system, ext2fs)</p>
+<h3 id="文件系统如何运作？"><a href="#文件系统如何运作？" class="headerlink" title="文件系统如何运作？"></a>文件系统如何运作？</h3><p>文件数据除了<strong>文件实际内容</strong>外, 通常含有非常多的<strong>属性</strong>,例如 Linux 操作系统的文件权限(rwx)与文件属性(拥有者、群组、时间参数等)。<strong>文件系统通常会将这两部份的数据分别存放在不同的区块,权限与属性放置到inode 中,至于实际数据则放置到 data block 区块中。</strong>还有一个超级区块 (superblock) 会记录整个文件系统的整体信息,包括 inode 与 block 的总量、使用量、剩余量，文件系统格式等信息。</p>
+<p>在 linux 系统中,系统内部并不是采用文件名查找文件,而是使用 inode 编号来识别文件。查找文件分为三个过程:系统找到这个 文件名对应的 inode 号码,通过inode 号码获得 inode 信息,根据 inode 信息找到文件数据所在的 block 读取数据;</p>
+<h3 id="Linux的EXT2文件系统"><a href="#Linux的EXT2文件系统" class="headerlink" title="Linux的EXT2文件系统"></a>Linux的EXT2文件系统</h3><p>filesystem 里面可能含有的 inode/block/superblock</p>
+<p>文件系统一开始就将 inode 与 block 规划好了,除非重新格式化(或者利用resize2fs 等指令变更文件系统大小),否则 inode 与 block 固定后就不再变动。</p>
+<ul>
+<li>data block (资料区块)<ul>
+<li>在 Ext2 文件系统中所支持的 block 大小有 1K, 2K 及4K 三种而已。</li>
+<li>每个 block 内最多只能够放置一个文件的数据;</li>
+<li>承上,如果文件大于 block 的大小,则一个文件会占用多个 block 数量;</li>
+<li>承上,若文件小于 block ,则该 block 的剩余容量就不能够再被使用了(磁盘空间会浪费)。</li>
+</ul>
+</li>
+<li>inode table (inode 表格)<ul>
+<li>该文件的存取模式(read/write/excute); </li>
+<li>该文件的拥有者与群组(owner/group); </li>
+<li>该文件的容量; </li>
+<li>该文件建立或状态改变的时间(ctime);</li>
+<li>最近一次的读取时间(atime); 最近修改的时间(mtime);</li>
+<li>定义文件特性的旗标(flag),如 SetUID…;</li>
+<li>该文件真正内容的指向 (pointer);</li>
+</ul>
+</li>
+<li>Superblock (超级区块)<ul>
+<li>block 与 inode 的总量;<br>未使用与已使用的 inode / block 数量; </li>
+<li>block 与 inode 的大小 (block 为 1, 2, 4K,inode 为 128bytes 或 256bytes);</li>
+<li>filesystem 的挂载时间、最近一次写入数据的时间、最近一次检验磁盘 (fsck) 的时间等文件系统的相关信息;</li>
+<li>一个 valid bit 数值,若此文件系统已被挂载,则 valid bit 为 0 ,若未被挂载,则 valid bit 为 1</li>
+</ul>
+</li>
+</ul>
+<h3 id="与目录树的关系"><a href="#与目录树的关系" class="headerlink" title="与目录树的关系"></a>与目录树的关系</h3><p>当我们在 Linux 下的文件系统建立一个目录时,文件系统会<strong>分配一个 inode 与至少一块 block 给该</strong><br><strong>目录。</strong>其中, inode 记录该目录的相关权限与属性,并可记录分配到的那块 block 号码; 而 <strong>block 则</strong><br><strong>是记录在这个目录下的文件名与该文件名占用的 inode 号</strong>码数据。</p>
+<p>经过上面的说明你也应该要很清楚的知道 <strong>inode 本身并不记录文件名,文件名的记录是在目录的 block 当中。</strong></p>
+<ul>
+<li>目录树的读取</li>
+</ul>
+<p>因为文件名是记录在目录的 block 当中, 因此当我们要读取某个文件时,就务必会经过目录的 inode 与 block ,然后才能够找到那个待读取文件的 inode 号码,最终才会读到正确的文件的 block 内的数据。<br>由<strong>于目录树是由根目录开始读起,因此系统透过挂载的信息可以找到挂载点的 inode 号码,</strong>此时就能够得到根目录的 inode 内容,并依据该 inode 读取根目录的 block 内的文件名数据,再一层一层的往下读到正确的档名。</p>
+<h3 id="增加一个文件过程"><a href="#增加一个文件过程" class="headerlink" title="增加一个文件过程"></a>增加一个文件过程</h3><ul>
+<li><p>先确定用户对于欲新增文件的目录是否具有 w 与 x 的权限,若有的话才能新增;</p>
+</li>
+<li><p>根据 inode bitmap 找到没有使用的 inode 号码,并将新文件的权限/属性写入;</p>
+</li>
+<li><p>根据 block bitmap 找到没有使用中的 block 号码,并将实际的数据写入 block 中,且更新 inode 的 block<br>指向数据;</p>
+</li>
+<li><p>将刚刚写入的 inode 与 block 数据同步更新 inode bitmap 与 block bitmap,并更新 superblock 的内容。</p>
+</li>
+</ul>
+<p>superblock, inode bitmap 及block bitmap 的数据是经常变动的,每次新增、移除、编辑时都可能会影响到这三个部分的数据,因此才被称为<strong>中介数据</strong>（metedata）</p>
+<h3 id="Linux-文件系统的运作"><a href="#Linux-文件系统的运作" class="headerlink" title="Linux 文件系统的运作"></a>Linux 文件系统的运作</h3><p>磁盘写入的速度要比内存慢很多, 因此你会常常耗在等待磁盘的写入/读取上。为了解决这个效率的问题,因此我们的 Linux 使用的方式是透过一个称为异步处理 (asynchronously)的方式。<strong>当系统加载一个文件到内存后,如果该文件没有被更动过,则在内存区段的文件数据会被设定为干净(clean)的。 但如果内存中的文件数据被更改过了(例如你用 nano 去编辑过这个文件),此时该内存中的数据会被设定为脏的 (Dirty)。此时所有的动作都还在内存中执行,并没有写入到磁盘中!</strong>系统会不定时的将内存中设定为『Dirty』的数据写回磁盘,以保持磁盘与内存数据的一致性。</p>
+<h3 id="挂载点的意义"><a href="#挂载点的意义" class="headerlink" title="挂载点的意义"></a>挂载点的意义</h3><p>每个 filesystem 都有独立的 inode / block /superblock 等信息,这个文件系统要能够链接到目录树才能被我们使用。 <strong>将文件系统与目录树结合的动作我们称为『挂载』。挂载点一定是目录,该目录为进入该文件系统的入口。</strong> 因此并不是你有任<br>何文件系统都能使用,必须要『挂载』到目录树的某个目录后,才能够使用该文件系统的。</p>
+<h3 id="实体链接与符号链接"><a href="#实体链接与符号链接" class="headerlink" title="实体链接与符号链接"></a>实体链接与符号链接</h3><p>在 Linux 底下的连结档有两种,一种是类似 Windows 的快捷方式功能的文件,可以让你快速的链接到目标文件(或目录); 另一种则是透过文件系统的 inode 连结来产生新档名,而不是产生新文件!这种称为</p>
+<p><strong>实体链接 (hard link)。</strong></p>
+<ul>
+<li>每个文件都会占用一个 inode ,文件内容由 inode 的记录来指向;</li>
+<li>想要读取该文件,必须要经过目录记录的文件名来指向到正确的 inode 号码才能读取。</li>
+</ul>
+<p><strong>hard link 只是在某个目录下新增一笔档名链接到某 inode 号码的关连记录而已。</strong>hard link 只是在某个目录下的 block 多写入一个关连数据而已,既不会增加 inode 也不会耗用 block 数量哩!</p>
+<p>所以 hard link 是有限制的:</p>
+<ul>
+<li>不能跨 Filesystem;</li>
+<li>不能 link 目录。</li>
+</ul>
+<p><strong>Symbolic Link (符号链接,亦即是快捷方式)</strong></p>
+<p>Symbolic link 就是在建立一个独立的文件,而这个文件会让数据的读取指向他 link 的那个文件的档名!</p>
+<p>Symbolic Link 与 Windows 的快捷方式可以给他划上等号,由 Symbolic link 所建立的文件为一个独立的新的文件,所以会占用掉 inode 与 block</p>
+<h2 id="Linux文件权限及目录设置"><a href="#Linux文件权限及目录设置" class="headerlink" title="Linux文件权限及目录设置"></a>Linux文件权限及目录设置</h2><p>Linux 最优秀的地方之一就在于他的多人多任务环境。而为了让各个使用者具有较保密的文件数据,因此文件的权限管理就 变 的 很 重 要 了 。 Linux 一 般 将 文 件 可 存 取 的 身 份 分 为 三 个 类 别 , 分 别 是 owner/group/others , 且 三 种 身 份 各 有read/write/execute 等权限。</p>
+<h2 id="群组概念"><a href="#群组概念" class="headerlink" title="群组概念"></a>群组概念</h2><p>群组最有用的功能之一,就是当你在团队开发资源的时候。在 Linux 底下这样的限制是很简单啦!我可以经由简易的文件权限设定,就能<strong>限制非自己团</strong>队(亦即是群组<br>啰) 的其他人<strong>不能够阅览内容</strong>而且亦可以让<strong>自己的团队</strong>成员<strong>可以修改</strong>我所建立的文件! 同时,如果我自己还有私人隐密的文件,仍然可以设定成让自己的团队成员也看不到我的文件数据。</p>
+<p>所有的系统上的账号与一般身份使用者,还有那个 root 的相关信息, 都是记录在/etc/passwd 这个文件内的。至于个人的密码则是记录在/etc/shadow 这个文件下。此外,Linux 所有的组名都纪录在/etc/group 内!这三个文件可以说是 Linux 系统里面账号、密码、群组信息的集中</p>
+<h2 id="文件权限概念"><a href="#文件权限概念" class="headerlink" title="文件权限概念"></a>文件权限概念</h2><p><img src="/yangmiemie99.github.io/2020/02/24/Linux基础篇/2.png" alt></p>
+<p>权限第一个字符代表这个文件是目录，文件或者是链接文件。</p>
+<p>o 当为[ d ]则是目录<br>o 当为[ - ]则是文件<br>o 若是[ l ]则表示为连结档(link file);<br>o 若是[ b ]则表示为装置文件里面的可供储存的接口设备(可随机存取装置);<br>o 若是[ c ]则表示为装置文件里面的串行端口设备,例如键盘、鼠标(一次性读取装置)。</p>
+<p>接下来的字符中,以三个为一组,且均为『rwx』 的三个参数的组合。其中,[ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute)。</p>
+<p>分别为文件拥有者权限，加入此群组的权限，非本人并且没有皎如本群组的其他帐号权限。</p>
+<p>如果档名之前多一个『 . 』,则代表这个文件为『隐藏档』</p>
+<p><strong>chgrp :改变文件所属群组</strong></p>
+<p>要被改变的组名必须要在/etc/group 文件内存在才行,否则就会显示错误!<br><strong>chown :改变文件拥有者</strong></p>
+<p>用户必须是已经存在系统中的账号,也就是在/etc/passwd 这个文件中有纪录的用户名称才能改变。<strong>如果要连目录下的所有次目录或文件同时更改文件拥有者的话,直接加上 -R</strong></p>
+<p><strong>chmod :改变文件的权限, SUID, SGID, SBIT 等等的特性</strong></p>
+<p>权限对文件的重要性<br>文件是实际含有数据的地方,包括一般文本文件、数据库内容文件、二进制可执行文件(binary program)<br>等等。 因此,<strong>权限对于文件</strong>来说,他的意义是这样的:<br> r (read):可读取此一文件的实际内容,如读取文本文件的文字内容等;<br> w (write):可以编辑、新增或者是修改该文件的内容(但不含删除该文件);<br>x (eXecute):该文件具有可以被系统执行的权限。</p>
+<p><strong>权限对目录</strong></p>
+<p>r (read contents in directory):<br>可以查询该目录下的文件名数据。 所以你就可以利用 ls 这个指令将该目录的内容列表显示出来!</p>
+<p>x 在目录当中是与『能否进入该目录』有关</p>
+<p>w 则具有相当重要的权限,因为他<strong>可以让使用者删除、更新、新建文件或目录</strong>, 是个很重要的参数啊!</p>
+<h2 id="常见文件扩展名"><a href="#常见文件扩展名" class="headerlink" title="常见文件扩展名"></a>常见文件扩展名</h2><p>*.sh : 脚本或批处理文件 (scripts),因为批处理文件为使用 shell 写成的,所以扩展名就编成 .sh 啰;<br> *Z, *.tar, *.tar.gz, *.zip, *.tgz: 经过打包的压缩文件。这是因为压缩软件分别为 gunzip, tar 等等的,由于不<br>同的压缩软件,而取其相关的扩展名啰!<br>*.html, *.php:网页相关文件,分别代表 HTML 语法与 PHP 语法的网页文件啰! .html 的文件可使用网<br>页浏览器来直接开启,至于 .php 的文件, 则可以透过 client 端的浏览器来 server 端浏览,以得到运算后的网页结果!</p>
+<h2 id="Linux-目录配置"><a href="#Linux-目录配置" class="headerlink" title="Linux 目录配置"></a>Linux 目录配置</h2><p>Linux 目录配置的依据–Filesystem Hierarchy Standard (FHS)标准。</p>
+<p>让使用者可以了解到已安装软件通常放置于那个目录下。</p>
+<p>FHS 依据文件系统使用的频繁与否与是否允许使用者随意更动, 而将目录定义成为四种交互作用的形态。</p>
+<p><strong>可分享的</strong>:可以分享给其他系统挂载使用的目录,所以包括执行文件与用户的邮件等数据, 是能够分享给网络上其他主机挂载用的目录;</p>
+<p><strong>不可分享的</strong>:自己机器上面运作的装置文件或者是与程序有关的 socket 文件等, 由于仅与自身机器有关,所以当然就不适合分享给其他主机了。</p>
+<p><strong>不变的</strong>:有些数据是不会经常变动的,跟随着 distribution 而不变动。 例如函式库、文件说明文件、系统管理员所管理的主机服务配置文件等等;</p>
+<p><strong>可变动的</strong>:经常改变的数据,例如登录文件、一般用户可自行收受的新闻组等。</p>
+<p><strong>FHS 针对目录树架构</strong>仅定义出三层目录底下应该放置什么数据而已</p>
+<h2 id="根目录下的常见目录"><a href="#根目录下的常见目录" class="headerlink" title="根目录下的常见目录"></a>根目录下的常见目录</h2><p><strong>/ (root, 根目录):与开机系统有关;</strong><br><strong>/usr (unix software resource):与软件安装/执行有关;</strong><br><strong>/var (variable):与系统运作过程有关。</strong></p>
+<p><img src="/yangmiemie99.github.io/2020/02/24/Linux基础篇/3.png" alt></p>
+<ul>
+<li><p>/bin:binary 二进制文件，可执行程序，shell命令</p>
+</li>
+<li><p>/dev: device(设备) ，在linux下的一切皆文件</p>
+<p>硬盘，显卡，显示器。。。都会被抽象称为一个文件</p>
+</li>
+<li><p>/lib /lib64: linux系统运行的时候需要加载的一些动态库</p>
+</li>
+<li><p>/mnt: 手动的挂载目录，一些设备没有自动挂载需要在这里看</p>
+</li>
+<li><p>/media: 外设的自动挂载目录</p>
+</li>
+<li><p>/root: linux的超级用户的家目录</p>
+</li>
+<li><p>/usr: unix software resource  资源目录</p>
+<p>头文件 -stdio.h stdlib.h   存放在/usr/include</p>
+<p>游戏</p>
+<p>用户安装的应用程序 usr/local</p>
+</li>
+<li><p>/etc:存放配置文件</p>
+<ul>
+<li>/etc/password  当前linux操作系统用户的一些信息man 5 passwd </li>
+<li>/etc/group 当前linux系统下的用户组</li>
+</ul>
+</li>
+<li><p>/opt: 安装第三方应用程序</p>
+</li>
+<li><p>/home:linux操作系统所有用户的家目录</p>
+<ul>
+<li>用户的家目录<ul>
+<li>/home/brook</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>/tmp: 存放临时文件，从启电脑清空</p>
+</li>
+</ul>
+<h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><p>只要能够操作应用程序的接口都能够称为壳程序(shell)。狭义的壳程序指的是指令列方面的软件,包括本章要介绍的 bash 等。 广义的壳程序则包括图形接口的软件!因为图形接口其实也能够操作各种应用程序来呼叫核心工作啊!</p>
+<h2 id="Shell-的变量功能"><a href="#Shell-的变量功能" class="headerlink" title="Shell 的变量功能"></a>Shell 的变量功能</h2><h3 id="什么是变量"><a href="#什么是变量" class="headerlink" title="什么是变量?"></a>什么是变量?</h3><p>什么是『变量』呢?简单的说,就是让某一个特定字符串代表不固定的内容就是了。</p>
+<p>用一个简单的 “字眼” 来取代另一个比较复杂或者是容易变动的数据</p>
+<h3 id="变量作用"><a href="#变量作用" class="headerlink" title="变量作用"></a>变量作用</h3><p>举例来说,我们每个账号的邮件信箱预设是以 MAIL 这个变量来进行存取的, 当 dmtsai 这个使用者登入时,他便会取得 MAIL 这个变量,而这个变量的内容其实就是 /var/spool/mail/dmtsai, 那如果 vbird 登入呢?他取得的 MAIL 这个变量的内容其实就是 /var/spool/mail/vbird</p>
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>影响 bash 环境操作的变量，举例来说,我们前面已经提到过很多次的那个 <strong>PATH 变量你能不能在任何目录下执行某个指令,与 PATH 这个变量有很大的关系。</strong>例如你下达 ls 这个指令时,系统就是透过 PATH 这个变量里面的内容所记录的路径顺序来搜寻指令的呢!如果在搜寻完PATH 变量内的路径还找不到 ls 这个指令时, 就会在屏幕上显示『 command not found 』的错误讯息了。</p>
+<p><strong>由于系统需要一些变量来提供他数据的存取 (或者是一些环境的设定参数值,</strong> 例如是否要显示彩色等等的) ,<strong>所以就有一些所谓的『环境变量』 需要来读入系统中了</strong>!这些环境变量例如 PATH、HOME、MAIL、SHELL 等等,都是很重要的, 为了区别与自定义变量的不同,<strong>环境变量通常以大写字符来表示</strong>呢!</p>
+<h3 id="脚本程序设计-shell-script"><a href="#脚本程序设计-shell-script" class="headerlink" title="脚本程序设计 (shell script)"></a>脚本程序设计 (shell script)</h3><p>个人的设定方面的应用呢:例如你要写一个大型的script 时,有些数据因为可能由于用户习惯的不同而有差异,比如说路径好了,由于该路径在 script 被使用在相当多的地方,如果下次换了一部主机,都要修改 script 里面的所有路径,那么我一定会疯掉! 这个时候如果使用变量,而将该变量的定义写在最前面,后面相关的路径名称都以变量来取代,<br>嘿嘿!那么你只要修改一行就等于修改整篇 script 了!</p>
+<h3 id="变量的取用和设定"><a href="#变量的取用和设定" class="headerlink" title="变量的取用和设定"></a>变量的取用和设定</h3><ul>
+<li><p>变量的取用: echo</p>
+<ul>
+<li>echo $  HOME</li>
+<li>echo $  MAIL </li>
+</ul>
+</li>
+<li><p>自定义变量</p>
+<ul>
+<li>myname=yangxinming</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/02/24/Linux基础篇/%E8%AE%BE%E5%AE%9A%E5%8F%98%E9%87%8F.png" alt></p>
+</li>
+<li><p>变量的设定规则</p>
+<ol>
+<li><p>变量与变量内容以一个等号『=』来连结,如下所示:<br> 『myname=VBird』</p>
+</li>
+<li><p>等号两边不能直接接空格符,如下所示为错误:<br> 『myname = VBird』或『myname=VBird Tsai』</p>
+</li>
+<li><p>变量名称只能是英文字母与数字,但是开头字符不能是数字,如下为错误:<br> 『2myname=VBird』</p>
+</li>
+<li><p>变量内容若有空格符可使用双引号『”』或单引号『’』将变量内容结合起来,但</p>
+<ul>
+<li><p><strong>双引号内的特殊字符如 $  等,</strong></p>
+<p><strong>可以保有原本的特性</strong>,如下所示:<br>『var=”lang is  $ LANG”』</p>
+<p>则『echo $ var』可得『lang is zh_TW.UTF-8』</p>
+</li>
+<li><p><strong>单引号内的特殊字符则仅为一般字符 (纯文本)</strong>,如下所示:<br>『var=’lang is $ LANG’』</p>
+<p>则『echo $ var』</p>
+<p>可得『 lang is$ LANG』</p>
+</li>
+</ul>
+</li>
+<li><p><strong>可用跳脱字符『 \ 』将特殊符号</strong>(如 [Enter], $, , 空格符, ‘等)变成一般字符,如:<br> 『myname=VBird\ Tsai』</p>
+<p>在一串指令的执行中,还需要藉由其他额外的指令所提供的信息时,可以使用反单引号『`指令 』或 </p>
+<p>『$(指令) 』特别注意,那个 ` 是键盘上方的数字键 1 左边那个按键,而不是单引号! 例如想要取得核心版本<br>的设定:</p>
+<p>『version=$ (uname -r)』</p>
+<p>再『echo $version』可得『3.10.0-229.el7.x86_64』</p>
+</li>
+<li><p>若该变量为扩增变量内容时,则可用 “ $ 变量名称”  </p>
+<p>或 $ {变量} 累加内容,如下所示:</p>
+<p>『PATH=”$PATH”:/home/bin』</p>
+<p>或『PATH=${PATH}:/home/bin』</p>
+</li>
+<li><p>若该变量需要在其他子程序执行,则需要以 export 来使变量变成环境变量:<br> 『export PATH』</p>
+</li>
+<li><p>通常大写字符为系统默认变量,自行设定变量可以使用小写字符,方便判断 (纯粹依照使用者兴趣与嗜好) ;</p>
+</li>
+<li><p>取消变量的方法为使用 unset :<br>『unset 变量名称』例如取消 myname 的设定:<br>『unset myname』</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="环境变量的功能"><a href="#环境变量的功能" class="headerlink" title="环境变量的功能"></a>环境变量的功能</h3><ul>
+<li>用 env 观察环境变量与常见环境变量说明<ul>
+<li>HOME<br>代表用户的家目录。还记得我们可以使用 cd ~ 去到自己的家目录吗?或者利用 cd 就可以直接回到用户家<br>目录了。那就是取用这个变量啦~ 有很多程序都可能会取用到这个变量的值!</li>
+<li>SHELL<br>告知我们,目前这个环境使用的 SHELL 是哪支程序? Linux 预设使用 /bin/bash 的啦!</li>
+<li>HISTSIZE<br>这个与『历史命令』有关,亦即是, 我们曾经下达过的指令可以被系统记录下来,而记录的『笔数』则是<br>由这个值来设定的。</li>
+<li>MAIL<br>当我们使用 mail 这个指令在收信时,系统会去读取的邮件信箱文件 (mailbox)。</li>
+<li>PATH<br>就是执行文件搜寻的路径啦~目录与目录中间以冒号(:)分隔, 由于文件的搜寻是依序由 PATH 的变量内的<br>目录来查询,所以,目录的顺序也是重要的喔。</li>
+<li>LANG<br>这个重要!就是语系数据啰~很多讯息都会用到他, 举例来说,当我们在启动某些 perl 的程序语言文件<br>时,他会主动的去分析语系数据文件, 如果发现有他无法解析的编码语系,可能会产生错误喔!一般来说,<br>我们中文编码通常是 zh_TW.Big5 或者是 zh_TW.UTF-8,这两个编码偏偏不容易被解译出来,所以,有的<br>时候,可能需要修订一下语系数据。 </li>
+<li>RANDOM<br>这个玩意儿就是『随机随机数』的变量啦!目前大多数的 distributions 都会有随机数生成器,那就是<br>/dev/random 这个文件。echo $RANDOM 时,<br>系统就会主动的随机取出一个介于 0~32767 的数值。</li>
+</ul>
+</li>
+<li>用 set 观察所有变量 (含环境变量与自定义变量)</li>
+<li>export: 自定义变量转成环境变量<br>谈了 env 与 set 现在知道有所谓的环境变量与自定义变量,那么这两者之间有啥差异呢?其实这两<br>者的差异在于『 <strong>该变量是否会被子程序所继续引用，子程序仅会继承父程序的环境变量, 子程序不</strong><br><strong>会继承父程序的自定义变量啦</strong>』啦!唔!那么啥是父程序?子程序? 这就得要<br>了解一下指令的下达行为了。<br>当你登入 Linux 并取得一个 bash 之后,你的 bash 就是一个独立的程序,这个程序的识别使用的是<br>一个称为程序标识符,被称为 PID 的就是。 接下来你在这个 bash 底下所下达的任何指令都是由这<br>个 bash 所衍生出来的,那些被下达的指令就被称为子程序了。<strong>export 变量名称</strong>分享自己的变量设定给后来呼叫的文件或其他程序</li>
+</ul>
+<h3 id="变量键盘读取、数组与宣告-read-array-declare"><a href="#变量键盘读取、数组与宣告-read-array-declare" class="headerlink" title="变量键盘读取、数组与宣告: read, array, declare"></a>变量键盘读取、数组与宣告: read, array, declare</h3><ul>
+<li><p>read</p>
+<ul>
+<li><p>read要读取来自键盘输入的变量,就是用 read 这个指令了。这个指令最常被用在 shell script 的撰写当中,<br>想要跟使用者对谈?用这个指令就对了。</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">范例一:让用户由键盘输入一内容,将该内容变成名为 atest 的变量</span><br><span class="line">[dmtsai@study ~]$ read atest</span><br><span class="line">This is a test</span><br><span class="line">&lt;==此时光标会等待你输入!请输入左侧文字看看</span><br><span class="line">[dmtsai@study ~]$ echo $&#123;atest&#125;</span><br><span class="line">This is a test</span><br><span class="line">&lt;==你刚刚输入的数据已经变成一个变量内容!</span><br><span class="line">范例二:提示使用者 30 秒内输入自己的大名,将该输入字符串作为名为 named 的变量内容</span><br><span class="line">[dmtsai@study ~]$ read -p &quot;Please keyin your name: &quot; -t 30 named</span><br><span class="line">Please keyin your name: VBird Tsai</span><br><span class="line">&lt;==注意看,会有提示字符喔!</span><br><span class="line">[dmtsai@study ~]$ echo $&#123;named&#125;</span><br><span class="line">VBird Tsai</span><br><span class="line">&lt;==输入的数据又变成一个变量的内容了!</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>declare / typeset</p>
+<ul>
+<li><p>declare 或 typeset 是一样的功能,就是在『宣告变量的类型』。如果使用 declare 后面并没有接任何参数,那么 bash 就会主动的将所有的变量名称与内容通通叫出来,就好像使用 set 一样</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[dmtsai@study ~]$ declare [-aixr] variable</span><br><span class="line">选项与参数:</span><br><span class="line">-a :将后面名为 variable 的变量定义成为数组 (array) 类型</span><br><span class="line">-i :将后面名为 variable 的变量定义成为整数数字 (integer) 类型</span><br><span class="line">-x :用法与 export 一样,就是将后面的 variable 变成环境变量;</span><br><span class="line">-r :将变量设定成为 readonly 类型,该变量不可被更改内容,也不能 unset</span><br><span class="line">范例一:让变量 sum 进行 100+300+50 的加总结果</span><br><span class="line">[dmtsai@study ~]$ sum=100+300+50</span><br><span class="line">[dmtsai@study ~]$ echo $&#123;sum&#125;</span><br><span class="line">100+300+50</span><br><span class="line">&lt;==咦!怎么没有帮我计算加总?因为这是文字型态的变量属性啊!</span><br><span class="line">[dmtsai@study ~]$ declare -i sum=100+300+50</span><br><span class="line">[dmtsai@study ~]$ echo $&#123;sum&#125;</span><br><span class="line">450范例二:将 sum 变成环境变量</span><br><span class="line">[dmtsai@study ~]$ declare -x sum</span><br><span class="line">[dmtsai@study ~]$ export | grep sum</span><br><span class="line">declare -ix sum=&quot;450&quot;</span><br><span class="line">&lt;==果然出现了!包括有 i 与 x 的宣告!</span><br><span class="line">范例三:让 sum 变成只读属性,不可更动!</span><br><span class="line">[dmtsai@study ~]$ declare -r sum</span><br><span class="line">[dmtsai@study ~]$ sum=tesgting</span><br><span class="line">-bash: sum: readonly variable</span><br><span class="line">&lt;==老天爷~不能改这个变数了!</span><br><span class="line">范例四:让 sum 变成非环境变量的自定义变量吧!</span><br><span class="line">[dmtsai@study ~]$ declare +x sum &lt;== 将 - 变成 + 可以进行『取消』动作</span><br><span class="line">[dmtsai@study ~]$ declare -p sum &lt;== -p 可以单独列出变量的类型</span><br><span class="line">declare -ir sum=&quot;450&quot; &lt;== 看吧!只剩下 i, r 的类型,不具有 x 啰!</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>数组 (array) 变量类型</p>
+<ul>
+<li>bash 里头,数组的设定方式是:<br>var[index]=content<br>意思是说,我有一个数组名为 var ,而这个数组的内容为 var[1]=小明, var[2]=大明, var[3]=好明 ….<br>等等,那个 index 就是一些数字啦,重点是用中刮号 ([ ]) 来设定的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Shell-常用指令"><a href="#Shell-常用指令" class="headerlink" title="Shell 常用指令"></a>Shell 常用指令</h2><h3 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h3><p>显示当前路径</p>
+<h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p> 显示当前目录文  </p>
+<p>ls /user/<br>ls ../        相对绝对都可以<br>ls -l    drwxr。。。。     d表示文件夹（蓝色）      -表示文件 （白色）<br>ls -lh        查看大小<br>ls -a        显示隐藏文件</p>
+<p>ls  -i   显示inode号 </p>
+<p>ls * .py        </p>
+<ul>
+<li>通配符* ，可以代表一个或多</li>
+<li>？只能代表一位</li>
+<li>【23】一位23都可以</li>
+<li>【1-4】1-4都可以</li>
+</ul>
+<h3 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h3><p>跳转路径     cd ..上一层<br>cd ~    回到家目录<br>cd -    快速回到上一次路径</p>
+<p>cd /bin/</p>
+<h3 id="查看帮助"><a href="#查看帮助" class="headerlink" title="查看帮助"></a>查看帮助</h3><p>ls –help    man ls    q键退出</p>
+<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p>查看历史代码    !2000   叹号加代码编号就能跳转</p>
+<h3 id="从定向命令-gt"><a href="#从定向命令-gt" class="headerlink" title="从定向命令 &gt;"></a>从定向命令 &gt;</h3><p>ls &gt; ls.txt  将ls获取的内容放入ls.txt中<br>ls -lha &gt;&gt; ls  继续放入ls.txt中<br>ls -lha &gt; ls     覆盖之前的内容</p>
+<h3 id="gedit"><a href="#gedit" class="headerlink" title="gedit"></a>gedit</h3><p>gedit ls.txt 执行文件<br>ctrl+s 保存</p>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>cat ls.txt  显示文件中内容     more ls.txt    根据终端显示内容多少</p>
+<p>cat 可以合并文件  cat 123.py 1.py &gt; 456.py</p>
+<h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><p>ls -lha | more      产生内容放入管道，从管道more</p>
+<h3 id="touch-mkdir-rm"><a href="#touch-mkdir-rm" class="headerlink" title="touch mkdir rm"></a>touch mkdir rm</h3><p>touch 1.py    touch hello.c 创建文件<br>mkdir yangge    创建文件夹<br>rmdir yangge    删除文件夹 目录必须是空目录<br>rm    删除文件<br>rm yangge -r 递归删除非空文件夹<br>rm yangge -rf 强制删除</p>
+<h3 id="软硬链接"><a href="#软硬链接" class="headerlink" title="软硬链接"></a>软硬链接</h3><p>创建连接（快捷方式）ln    -s 软连接     删除源文件后链接打不开<br>            ln 204.py 204link.py 硬链接 相当于给文件多加一个名字</p>
+<ul>
+<li><p>软连接</p>
+<ul>
+<li>ln -s 文件名 快捷方式的名字<ul>
+<li>文文件名使用绝对路径</li>
+<li>目录可以创建软连接</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>硬连接</p>
+<ul>
+<li>ln 文件名 硬连接的名字</li>
+</ul>
+</li>
+</ul>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><ul>
+<li>grep - r(递归查找) “查找的内容” 搜索的路径</li>
+<li>所说家目录中带helloword字符串的文件</li>
+<li>grep -r “helloword” ~</li>
+<li>grep -r “helloword” ~-n 显示在文件中第几行</li>
+</ul>
+<p>grep命令是文本搜索⼯具 grep ‘0’ 123.py     grep -n ‘0’ 123.py  显示行数</p>
+<p>find 查找文件 find ./ -name 123.py 查找当前目录<br>    find /home/ -name 123.py</p>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><ul>
+<li><p>按文件名查找</p>
+<ul>
+<li>find查找的目录 -<strong>name</strong> “查找的文件名” </li>
+</ul>
+</li>
+<li><p>文件类型查找</p>
+<ul>
+<li>find 查找目录 <strong>-type</strong> 文件类型</li>
+<li>普通文件 f</li>
+<li>目录  d</li>
+<li>符号链接 l</li>
+<li>管道 p</li>
+<li>套接字 s</li>
+<li>字符设备 c</li>
+<li>块设备 b</li>
+</ul>
+</li>
+<li><p>文件大小</p>
+<ul>
+<li><p>find查找目录 -size -10M</p>
+</li>
+<li><p>+大于</p>
+</li>
+<li><p>-小于</p>
+</li>
+<li><p>等于10k: 10k</p>
+</li>
+<li><p>大于10k小于100k   find ./ -size +10k -size -100k</p>
+</li>
+<li><p>创建日期：-ctime -n/+n</p>
+<ul>
+<li>-n n天以内，+n n天以上</li>
+</ul>
+</li>
+<li><p>修改日期 ： -mtime -n/+n</p>
+</li>
+<li><p>访问日期： -atime </p>
+</li>
+<li><p>深度</p>
+<ul>
+<li>-maxdepth  n (层数)最深搜索到第几层</li>
+<li>-mindepth n 搜索n层以上的目录</li>
+</ul>
+</li>
+<li><p>高级查找</p>
+<ul>
+<li>例子：查找指定目录，列出该目录中文件详细信息</li>
+<li><strong>find ./ -type d</strong> -exec ls -l {} ;</li>
+<li>find ./type d -ok ls -l {} ;  更安全，询问ls是否允许</li>
+<li>find ./ -type d | xargs ls -l(shell 命令)  </li>
+<li>管道 可以看成缓存区，内核空间分出来的一块缓存区</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="cp-mv"><a href="#cp-mv" class="headerlink" title="cp mv"></a>cp mv</h3><p>cp 拷贝命令 cp 123.py yangge/<br>cp yang yang2 -r 拷贝文件夹<br>mv 移动 mv 123.py laoyang     mv重命名 mv 123.py 1.py</p>
+<h3 id="压缩文件"><a href="#压缩文件" class="headerlink" title="压缩文件"></a>压缩文件</h3><p>tar打包 tar -cvf test.tar 1.py 2.py 3.py  解包tar -xvf test.tar<br>文件压缩 gzip -d 解压      gzip -r 压缩所有子目录<br>gzip test.tar</p>
+<p>压缩打包tar -zcvf test.tar.gz 1.py 2.py 3.py  解压打包tar -zxvf test.tar.gz<br>解压打包到指定路径 tar -zxvf test.tar.gz -C laoyang/</p>
+<p>从windows来的压缩文件为zip<br>压缩 zip myzip *        解压缩 unzip -d ./test mayzip.zip</p>
+<h3 id="which"><a href="#which" class="headerlink" title="which"></a>which</h3><p> which ls   显示ls指令的路径</p>
+<h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><p>查看文件格式</p>
+<h3 id="命令别名-alias-unalias"><a href="#命令别名-alias-unalias" class="headerlink" title="命令别名 alias,unalias"></a>命令别名 alias,unalias</h3><p>举个例子来说,如果你要查询<br>隐藏档,并且需要长的列出与一页一页翻看,那么需要下达『 ls -al | more 』这个指令那可不可以使用 lm 来简化呢?</p>
+<ul>
+<li>alias lm=’ls -al | more’</li>
+</ul>
+<p>oot 可以移除 (rm) 任何数<br>据!所以当你以 root 的身份在进行工作时,需要特别小心, 但是总有失手的时候,那么 rm 提供<br>了一个选项来让我们确认是否要移除该文件,那就是 -i 这个选项!所以,你可以这样做:</p>
+<ul>
+<li>alias rm=’rm -i’</li>
+</ul>
+<h3 id="linux-和系统相关的命令"><a href="#linux-和系统相关的命令" class="headerlink" title="linux 和系统相关的命令"></a>linux 和系统相关的命令</h3><p>cal 查看日历 cal 2018<br>date 显示时间  </p>
+<p>ps 显示当前进程 ps -aux<br>ctrl +shift +t 多界面  </p>
+<p>kill 12355 停止正在运行的软件</p>
+<p>kill -9 强制停止   </p>
+<p>reboot 从新启动  </p>
+<p>shutdown 关机 </p>
+<p>top资源利用率 q退出<br>df 查看磁盘 df -lh<br>ifconfig 显示ip地址  ping 192.168.21.22</p>
+<p>查看当前用户 who    几个用户who -q      whoami 我是谁<br>添加用户useradd laowang<br>修改用户名密码  passwd laowang<br>切换管理员 sudo -s  切换普通用户 su - laowang</p>
+<p>useradd laozhang -m 自动生成家目录   修改密码passwd</p>
+<p>删除用户 userdel laozhang 家目录没删除<br>userdel -r laozhang 删除家目录</p>
+<p>cat /etc/passwd 查看当前用户<br>查看用户组 cat /etc/group  groupmod 再按三下tab<br>添加删除组 groupadd , groupdel 查看用所在组 groups edu<br>cat /etc/group | grep ‘sudo’<br>修改默认分组usermod -g AAA laoyang<br>向其他的组添加usermod -a -G BBB laoyang<br>加入 adm 和sudo 分组后就可以sudo了<br>修改⽂件权限： chmod<br>chmod 修改⽂件权限有两种使⽤格式： 字母法与数字法。<br>字母法： chmod u/g/o/a +/-/= rwx 文件<br>整体修改chmod a=x 1.py     chmod u=r,g=w,o=x 1.py<br>4 2 1 r w x 成对应关系  chmod 761 1.py 执行程序 ./1.py<br>修改文件拥有着 chown  chown yangge 1.py<br>修改文件所属组 chgrp AAA 1.py</p>
+<h3 id="更新源"><a href="#更新源" class="headerlink" title="更新源"></a>更新源</h3><p>切换到超级管理员（也可以在命令之前添加sudo）<br>sudo apt-get update    apt-get install sl(软件的名字)<br>apt-get remove 软件 </p>
+<p>sudo apt-get source package 下载程序源码<br>vi /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<h3 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h3><p>编辑器vim 打开vi后，默认进入<strong>命令模式</strong><br>在命令模式下 输入i键  他由命令模式转换为<strong>编辑模式</strong><br>在这种模式下才可以保存<br><strong>末行模式</strong>  从编辑模式下按esc回到命令模式 在按：去到末行模式</p>
+<p>：wq保存退出             末行模式按esc回到命令模式<br>h j k l 上下左右     行数+G  快速定位到第几行 G快速定位到文件末尾<br>gg快速定位到首行    dd 把光标所在的行删除  n dd删除指定行数光标<br> u撤销    Ctrl-r反撤销<br>x向后删除   X向前删除<br>复制yy 粘贴p 剪切dd  r进行替换<br>：%s/main/MAIN/g 全部替换  ：5，15s/main/MAIN/g 改指定行<br>:17,27&gt;&gt;&gt;&gt;  整体缩进</p>
+<h1 id="GCC相关"><a href="#GCC相关" class="headerlink" title="GCC相关"></a>GCC相关</h1><h2 id="gcc工作流程"><a href="#gcc工作流程" class="headerlink" title="gcc工作流程"></a>gcc工作流程</h2><ul>
+<li>预处理  -E<ul>
+<li>宏替换</li>
+<li>头文件展开</li>
+<li>注释去掉</li>
+<li>xxx.c -&gt; xxx.i(还是一个c文件)</li>
+</ul>
+</li>
+<li>编译 -S<ul>
+<li>xxx.i -&gt; xxx.s(汇编文件）</li>
+</ul>
+</li>
+<li>汇编 -c<ul>
+<li>xxx.s -&gt; xxx.o (二进制文件)</li>
+</ul>
+</li>
+<li>链接<ul>
+<li>xxx.o -&gt; xxx(可执行) </li>
+</ul>
+</li>
+</ul>
+<h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><ul>
+<li><p>-v/–version</p>
+</li>
+<li><p>-I: 编译的时候指定头文件的路径</p>
+</li>
+<li><p>-c： 将汇编文件生成二进制文件，得到了一个.o文件</p>
+</li>
+<li><p>-o: 指定生成文件的名字</p>
+</li>
+<li><p>-g: gdb调试的时候需要添加</p>
+</li>
+<li><p>-D: 在编译的时候指定一个宏</p>
+<ul>
+<li>使用场景：测试程序的时候 eg. <code>gcc sum.c -I./include -D DEBUG -o app</code> 在程序里加一个DEBG宏定义</li>
+</ul>
+</li>
+<li><p>-Wall:  添加警告信息</p>
+</li>
+<li><p>-On: 优化代码，n是优化级别 1, 2 ，3</p>
+<ul>
+<li><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a =<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> b =a;</span><br><span class="line"><span class="keyword">int</span> c =b;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>,c);</span><br><span class="line">优化</span><br><span class="line"><span class="keyword">int</span> c=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%s"</span>,<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="库的介绍"><a href="#库的介绍" class="headerlink" title="库的介绍"></a>库的介绍</h1><h2 id="库是什么？"><a href="#库是什么？" class="headerlink" title="库是什么？"></a>库是什么？</h2><ul>
+<li>二进制文件</li>
+<li>将源代码 -&gt; 二进制格式的源代码</li>
+<li>加密</li>
+</ul>
+<h2 id="库文件制作出来之后，如何给用户使用？"><a href="#库文件制作出来之后，如何给用户使用？" class="headerlink" title="库文件制作出来之后，如何给用户使用？"></a>库文件制作出来之后，如何给用户使用？</h2><ul>
+<li>头文件</li>
+<li>制作出的库</li>
+</ul>
+<h2 id="静态库的制作和使用"><a href="#静态库的制作和使用" class="headerlink" title="静态库的制作和使用"></a>静态库的制作和使用</h2><ul>
+<li><p>命名规则： libtest.a</p>
+<ul>
+<li>lib(前缀)</li>
+<li>xxx (库的名字)</li>
+<li>.a </li>
+</ul>
+</li>
+<li><p>制作步骤：</p>
+<ul>
+<li>源代码  .c .cpp</li>
+<li>将.c文件生成.o<ul>
+<li>gcc a.c b.c -c 1</li>
+</ul>
+</li>
+<li>将.o 打包<ul>
+<li>ar -archive</li>
+<li>ar rcs 静态库的名字 原材料</li>
+<li>ar rcs libtest.a a.o b.o</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>库的使用：</p>
+<ul>
+<li>-L 指定静态库的路径， -l 指定静态库的名字(掐头去尾)</li>
+<li><code>gcc main.c -I ./include -L ./lib/ -l test -o app</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="动态库的制作和使用"><a href="#动态库的制作和使用" class="headerlink" title="动态库的制作和使用"></a>动态库的制作和使用</h2><ul>
+<li>命名规则<ul>
+<li>libXXX.so</li>
+</ul>
+</li>
+<li>制作步骤<ul>
+<li>将源文件生成.o，静态库加载到内存位置是固定的，动态库是不固定的，采用相对地址。<ul>
+<li>gcc a.c b.c -c -fpic(fPIC)</li>
+</ul>
+</li>
+<li>打包<ul>
+<li>gcc -shared -o libxxx.so a.o b.o</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>库的使用<ul>
+<li>头文件 a.h</li>
+<li>动态库 libtest.so</li>
+<li>参考函数声明编写测试程序 main.c</li>
+<li><code>gcc main.c -I ./include -L ./lib/ -l mytest -o app</code></li>
+</ul>
+</li>
+</ul>
+<p>上述指令执行后出现错误： while loading libraries: libmytest.so : cannt open shared object file: no such file or directory</p>
+<ul>
+<li><p>当系统加载可执行代码的时候，能够将其锁依赖的库的名字，但是还需要知道绝对路径。此时就需要系统<strong>动态载入器</strong>（dynamic linker/loader）</p>
+</li>
+<li><p>对于elf格式的可执行程序，是由ld-linux.so<em>（动态链接器）来完成的，它先后搜索elf文件的*</em>DT_RPATH段 ——环境变量LD_LIBRARY_PATH —— /etc/ld.so.cache文件列表 —— /lib/,/usr/lib** 目录找到库文件后将其载入内存。 </p>
+</li>
+<li><p>ldd app</p>
+<ul>
+<li>查看我们的应用程序执行的时候需要链接哪些库</li>
+</ul>
+</li>
+</ul>
+<h2 id="解决动态库加载失败的问题"><a href="#解决动态库加载失败的问题" class="headerlink" title="解决动态库加载失败的问题"></a>解决动态库加载失败的问题</h2><ul>
+<li><p>使用环境变量</p>
+<ul>
+<li>临时设置<ul>
+<li>在终端：export LD_LIBRARY_PATH=./lib (临时设置，关闭终端失效）</li>
+<li>不覆盖之前的值：export LD_LIBRARY_PATH=./lib:$LD_LIBRARY_PATH</li>
+</ul>
+</li>
+<li>永久设置<ul>
+<li>用户级别：~/.bashrc 打开终端首先读取这个配置文件,只针对当前用户<ul>
+<li>配置完成重启终端</li>
+<li>或者 source ~/.bashrc</li>
+</ul>
+</li>
+<li>系统级别：/etc/profile，对所有用户都有效<ul>
+<li>重启生效</li>
+<li>source /etc/profile （立刻生效）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>/etc/ld.so.cache文件列表</p>
+<ul>
+<li>找到一个配置文件<ul>
+<li>/etc/ld.so.conf</li>
+<li>把动态库的绝对路径添加到文件中</li>
+</ul>
+</li>
+<li>执行命令<ul>
+<li>sudo ldconfig -v (-v的作用，把配置信息打印到终端)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>dlopen,dlclose,dlsym</p>
+</li>
+</ul>
+<h2 id="动态库和静态库工作原理和优缺点"><a href="#动态库和静态库工作原理和优缺点" class="headerlink" title="动态库和静态库工作原理和优缺点"></a>动态库和静态库工作原理和优缺点</h2><h3 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h3><p><img src="/yangmiemie99.github.io/2020/02/24/Linux基础篇/%E9%9D%99%E6%80%81%E5%BA%93%E7%94%9F%E6%88%90%E8%BF%87%E7%A8%8B.png" alt></p>
+<ul>
+<li>优点<ul>
+<li>静态库被打包到应用程序中加载速度快</li>
+<li>发布程序无需提供静态库，移植方便</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li><strong>浪费系统资源，浪费内存</strong></li>
+<li>更新、部署、发布麻烦。只要对静态库中的内容有修改，就需要从新编译</li>
+</ul>
+</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/02/24/Linux基础篇/%E9%9D%99%E6%80%81%E5%BA%93%E5%8A%A0%E8%BD%BD.png" alt></p>
+<p>静态库在内存空间中存在<strong>多份拷贝</strong>导致空间浪费。</p>
+<p>假如，警惕啊库占用1M内存，有2000份这样的程序，将占用近2GB的空间</p>
+<h3 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h3><p><img src="/yangmiemie99.github.io/2020/02/24/Linux基础篇/%E5%8A%A8%E6%80%81%E5%BA%93%E5%8A%A0%E8%BD%BD.png" alt></p>
+<p>gcc test.c -L./ -ltest -o app</p>
+<p>./app</p>
+<ul>
+<li><p>app制作好了之后，动态库没有打包在app中</p>
+</li>
+<li><p>./app动态库不会被加载，当程序调用动态库中的函数的时候，动态库才会被加载</p>
+</li>
+<li><p>程序运行之前会先判断动态库是否存在</p>
+<ul>
+<li>动态链接器ldxxx.so,到哦那台链接器序哟知道动态库的路径</li>
+</ul>
+</li>
+<li><p>优点</p>
+<ul>
+<li>可实现进程间资源共享</li>
+<li>程序升级简单</li>
+<li>程序员可以控制何时加载动态库（dlopen,dlsym,dlcolse）</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>加载速度比静态库慢</li>
+<li>发布程序需要提供依赖的动态库</li>
+</ul>
+</li>
+</ul>
+<h1 id="makefile简单介绍"><a href="#makefile简单介绍" class="headerlink" title="makefile简单介绍"></a>makefile简单介绍</h1><h2 id="make"><a href="#make" class="headerlink" title="make"></a>make</h2><ul>
+<li><p>gcc- 编译器，按莫种规制编译我们的代码</p>
+</li>
+<li><p>make - linux 自带的构建器</p>
+<ul>
+<li>构建的规则在makefile中</li>
+</ul>
+</li>
+<li><p>makefile文件命名</p>
+<ul>
+<li>makefile</li>
+<li>Makefile</li>
+</ul>
+</li>
+<li><p>makefile中的规则</p>
+<ul>
+<li><p>gcc a..c b.c c.c -o app 将命令转化为makefile中的规则</p>
+</li>
+<li><p>三部分： 目标，依赖，命令</p>
+<ul>
+<li>目标：依赖</li>
+<li>（tab缩进）命令</li>
+</ul>
+</li>
+<li><p>app:a.c b.c c.c</p>
+<p>(tab)gcc a.c b.c c.c -o app</p>
+</li>
+<li><p>makefile中可以有多条规则</p>
+</li>
+</ul>
+</li>
+<li><p>makefile的编写</p>
+<ul>
+<li><strong>第一个版本</strong></li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/02/24/Linux基础篇/makefile%E7%AC%AC%E4%B8%80%E4%B8%AA.png" alt></p>
+<ul>
+<li><p>缺点：编译最耗时，只要修改一个cpp文件，所有文件都需要重新编译</p>
+</li>
+<li><p><strong>第二个版本</strong>：</p>
+<ul>
+<li><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">testNew(目标):main.o add.o sub.o mul.o div.o（依赖）</span></span><br><span class="line">	g++ main.o add.o sub.o mul.o div.o -std=c++11 -o testNew （命令） </span><br><span class="line"></span><br><span class="line"><span class="section">main.o:main.cpp</span></span><br><span class="line">	g++ main.cpp -c</span><br><span class="line"><span class="section">add.o:add.cpp</span></span><br><span class="line">	g++ add.cpp -c</span><br><span class="line"><span class="section">add.o:sub.cpp</span></span><br><span class="line">	g++ sub.cpp -c</span><br><span class="line"><span class="section">add.o:mul.cpp</span></span><br><span class="line">	g++ mul.cpp -c</span><br><span class="line"><span class="section">add.o:div.cpp</span></span><br><span class="line">	g++ div.cpp -c</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- 只编译修改过的文件</code></pre><ul>
+<li><p>工作原理</p>
+<ul>
+<li>检测依赖是否存在：<ul>
+<li>向下搜索下边的规则，如果有规则是用来生成查找的依赖的，执行规则中的命令</li>
+<li>依赖存在，判断是否需要更新<ul>
+<li>原则：目标修改时间 &gt; 依赖的修改时间</li>
+<li>反之，则更新</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>第三个版本</strong></p>
+<ul>
+<li><p>自定义变量： obj=a.o b.o c.o(没有数据类型)</p>
+</li>
+<li><p>变量的取值  aa=$(obj)</p>
+</li>
+<li><p>makefile自带的变量：大写</p>
+<ul>
+<li>CPPFLAGS</li>
+<li>CC</li>
+</ul>
+</li>
+<li><p>自动变量：</p>
+<ul>
+<li><p>$@ : 规则中的目标</p>
+</li>
+<li><p>$&lt;  ：规则中的第一个依赖</p>
+</li>
+<li><p>$^  ：规则中的所有依赖</p>
+</li>
+<li><p>只能在规则的命令中使用</p>
+</li>
+<li><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">obj=main.o add.o sub.o mul.o div.o</span><br><span class="line">target=testNew</span><br><span class="line"><span class="variable">$(target)</span>:<span class="variable">$(obj)</span></span><br><span class="line">	g++ <span class="variable">$(obj)</span> -std=c++11 -o testNew </span><br><span class="line">&#125;</span><br><span class="line"><span class="section">%.o:%.cpp</span></span><br><span class="line">	g++ -c <span class="variable">$&lt;</span> <span class="variable">$@</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- 模式匹配
+
+  - %o:%.c
+
+  - 第一次：main.o没有
+
+    <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">main.o:main.o</span></span><br><span class="line">	g++ mian.cpp -o main.o</span><br></pre></td></tr></table></figure>
+
+
+    之后同样的
+
+  - <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">obj=main.o add.o sub.o mul.o div.o</span><br><span class="line">target=testNew</span><br><span class="line"><span class="variable">$(target)</span>:<span class="variable">$(obj)</span></span><br><span class="line">	g++ <span class="variable">$^</span> -std=c++11 -o <span class="variable">$@</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="section">%.o:%.cpp</span></span><br><span class="line">	g++ -c <span class="variable">$&lt;</span> <span class="variable">$@</span></span><br></pre></td></tr></table></figure>
+
+
+- 可移植性较差</code></pre><ul>
+<li><p><strong>第四个版本</strong></p>
+<ul>
+<li><p>makefile所有的函数都有返回值</p>
+</li>
+<li><p>查找指定目录下指定类型文件</p>
+<ul>
+<li>src = $(wildcard ./*.c) 匹配当前目录下所有的.c文件</li>
+</ul>
+</li>
+<li><p>匹配替换</p>
+<ul>
+<li><code>obj = $(patsubst %.c,%.o,$(src))</code>     替换什么文件，替换为什么类型文件，提供替换前文件</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">src = <span class="variable">$(wlidcard ./*.c)</span></span><br><span class="line">obj = <span class="variable">$(<span class="built_in">patsubst</span> %.c,%.o,<span class="variable">$(src)</span>)</span></span><br><span class="line">target = cpp</span><br><span class="line"><span class="variable">$(target)</span>:<span class="variable">$(obj)</span></span><br><span class="line">	g++ <span class="variable">$^</span> -std=c++11 -o <span class="variable">$@</span></span><br><span class="line"><span class="section">%.o:%.c</span></span><br><span class="line">	g++ -c <span class="variable">$&lt;</span> - o <span class="variable">$@</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- 缺点：不能清理项目</code></pre><ul>
+<li><p>第五个版本</p>
+<ul>
+<li>让make生成不是终极目标的目标<ul>
+<li>make 目标名字（只有第一个目标是终极目标）</li>
+</ul>
+</li>
+<li>编写一个清理项目的规则<ul>
+<li>clean:<ul>
+<li>-rm *.o $(target) -f  </li>
+<li>(指令前加一个-    ，忽略执行失败的命令，执行失败了继续向下执行)</li>
+</ul>
+</li>
+<li>声明伪目标：不会做更新检查，直接执行命令 .PHONY: clean</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>:clean</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	-rm <span class="variable">$(obj)</span> <span class="variable">$(target)</span></span><br></pre></td></tr></table></figure>
+
+<p>​            </p>
+<h1 id="gdb调试"><a href="#gdb调试" class="headerlink" title="gdb调试"></a>gdb调试</h1><h2 id="生成可调试执行程序"><a href="#生成可调试执行程序" class="headerlink" title="生成可调试执行程序"></a>生成可调试执行程序</h2><p>gcc a.c b.c c.c -o app -g</p>
+<h2 id="启动gdb"><a href="#启动gdb" class="headerlink" title="启动gdb"></a>启动gdb</h2><p>gdb app</p>
+<ul>
+<li>传入参数  set args sss xxx  111</li>
+<li>执行 r  （停在第一个断点）</li>
+<li>start (停在main函数开始)</li>
+<li>查看文件内容 (list)  默认显示10行<ul>
+<li>显示默认行数 show listsize</li>
+<li>修改默认行数 set listsize 20</li>
+<li>查看当前文件：<ul>
+<li>l</li>
+<li>l 行号</li>
+<li>l 函数名</li>
+</ul>
+</li>
+<li>非当前文件：<ul>
+<li>l 文件名：行号</li>
+<li>l 文件名：函数名</li>
+</ul>
+</li>
+<li>查看断点<ul>
+<li>info(i) b</li>
+</ul>
+</li>
+<li>删除断点<ul>
+<li>d num(断点编号)</li>
+<li>删除多个：</li>
+<li>d num1 num2</li>
+<li>d num2-num6</li>
+</ul>
+</li>
+<li>设置断点无效<ul>
+<li>dis num (编号)</li>
+</ul>
+</li>
+<li>断点生效<ul>
+<li>ena num(编号)</li>
+</ul>
+</li>
+<li>设置条件断点<ul>
+<li>b 行号 if 变量 == var</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="调试程序"><a href="#调试程序" class="headerlink" title="调试程序"></a>调试程序</h2><ul>
+<li><p>让gdb跑起来</p>
+<ul>
+<li>start 运行一行，停止</li>
+<li>run - r:停在第一个断点的位置</li>
+</ul>
+</li>
+<li><p>打印变量的值</p>
+<ul>
+<li>p 变量名</li>
+</ul>
+</li>
+<li><p>打印变量的类型</p>
+<ul>
+<li>ptype 变量名</li>
+</ul>
+</li>
+<li><p>向下单步调试</p>
+<ul>
+<li>next -n<ul>
+<li>不会进入函数体</li>
+</ul>
+</li>
+<li>step -s<ul>
+<li>会进入函数体内部</li>
+<li>跳出函数体finish <ul>
+<li>如果出不来，看一下函数体中的循环中是否有断点，如果有则删掉，或者设置为无效</li>
+</ul>
+</li>
+<li>int a=3;</li>
+<li>int b=8;</li>
+<li>int c =a+b;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>继续运行gdb,停在下一个断点的位置</p>
+<ul>
+<li>continue -c</li>
+</ul>
+</li>
+<li><p>每次执行显示变量的值</p>
+<ul>
+<li>display 变量</li>
+<li>undisplay 编号  （i display 查看编号）</li>
+</ul>
+</li>
+<li><p>设置变量等于某个值</p>
+<ul>
+<li>set var i=5</li>
+</ul>
+</li>
+<li><p>跳出当前循环</p>
+<ul>
+<li>until <ul>
+<li>如果出不来，看一下函数体中的循环中是否有断点，如果有则删掉，或者设置为无效</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>退出gdb:</p>
+<ul>
+<li>quit - q</li>
+</ul>
+</li>
+</ul>
+<p>​    </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/02/22/剑指Offer-树中两个节点的最低公共点/" rel="next" title="剑指Offer树中两个节点的最低公共节点">
+                <i class="fa fa-chevron-left"></i> 剑指Offer树中两个节点的最低公共节点
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/02/25/计算机网络/" rel="prev" title="计算机网络总结">
+                计算机网络总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux简介"><span class="nav-number">1.</span> <span class="nav-text">Linux简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Linux"><span class="nav-number">1.1.</span> <span class="nav-text">什么是Linux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件系统"><span class="nav-number">1.2.</span> <span class="nav-text">文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要格式化？"><span class="nav-number">1.2.1.</span> <span class="nav-text">为什么需要格式化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件系统如何运作？"><span class="nav-number">1.2.2.</span> <span class="nav-text">文件系统如何运作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux的EXT2文件系统"><span class="nav-number">1.2.3.</span> <span class="nav-text">Linux的EXT2文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与目录树的关系"><span class="nav-number">1.2.4.</span> <span class="nav-text">与目录树的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加一个文件过程"><span class="nav-number">1.2.5.</span> <span class="nav-text">增加一个文件过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-文件系统的运作"><span class="nav-number">1.2.6.</span> <span class="nav-text">Linux 文件系统的运作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#挂载点的意义"><span class="nav-number">1.2.7.</span> <span class="nav-text">挂载点的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实体链接与符号链接"><span class="nav-number">1.2.8.</span> <span class="nav-text">实体链接与符号链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux文件权限及目录设置"><span class="nav-number">1.3.</span> <span class="nav-text">Linux文件权限及目录设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#群组概念"><span class="nav-number">1.4.</span> <span class="nav-text">群组概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件权限概念"><span class="nav-number">1.5.</span> <span class="nav-text">文件权限概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见文件扩展名"><span class="nav-number">1.6.</span> <span class="nav-text">常见文件扩展名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-目录配置"><span class="nav-number">1.7.</span> <span class="nav-text">Linux 目录配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根目录下的常见目录"><span class="nav-number">1.8.</span> <span class="nav-text">根目录下的常见目录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell"><span class="nav-number">2.</span> <span class="nav-text">Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell-的变量功能"><span class="nav-number">2.1.</span> <span class="nav-text">Shell 的变量功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是变量"><span class="nav-number">2.1.1.</span> <span class="nav-text">什么是变量?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量作用"><span class="nav-number">2.1.2.</span> <span class="nav-text">变量作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量"><span class="nav-number">2.1.3.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本程序设计-shell-script"><span class="nav-number">2.1.4.</span> <span class="nav-text">脚本程序设计 (shell script)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的取用和设定"><span class="nav-number">2.1.5.</span> <span class="nav-text">变量的取用和设定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量的功能"><span class="nav-number">2.1.6.</span> <span class="nav-text">环境变量的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量键盘读取、数组与宣告-read-array-declare"><span class="nav-number">2.1.7.</span> <span class="nav-text">变量键盘读取、数组与宣告: read, array, declare</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell-常用指令"><span class="nav-number">2.2.</span> <span class="nav-text">Shell 常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd"><span class="nav-number">2.2.1.</span> <span class="nav-text">pwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">2.2.2.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd"><span class="nav-number">2.2.3.</span> <span class="nav-text">cd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看帮助"><span class="nav-number">2.2.4.</span> <span class="nav-text">查看帮助</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#history"><span class="nav-number">2.2.5.</span> <span class="nav-text">history</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从定向命令-gt"><span class="nav-number">2.2.6.</span> <span class="nav-text">从定向命令 &gt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gedit"><span class="nav-number">2.2.7.</span> <span class="nav-text">gedit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-number">2.2.8.</span> <span class="nav-text">cat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管道"><span class="nav-number">2.2.9.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#touch-mkdir-rm"><span class="nav-number">2.2.10.</span> <span class="nav-text">touch mkdir rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软硬链接"><span class="nav-number">2.2.11.</span> <span class="nav-text">软硬链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">2.2.12.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">2.2.13.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cp-mv"><span class="nav-number">2.2.14.</span> <span class="nav-text">cp mv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩文件"><span class="nav-number">2.2.15.</span> <span class="nav-text">压缩文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#which"><span class="nav-number">2.2.16.</span> <span class="nav-text">which</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file"><span class="nav-number">2.2.17.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令别名-alias-unalias"><span class="nav-number">2.2.18.</span> <span class="nav-text">命令别名 alias,unalias</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux-和系统相关的命令"><span class="nav-number">2.2.19.</span> <span class="nav-text">linux 和系统相关的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新源"><span class="nav-number">2.2.20.</span> <span class="nav-text">更新源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim"><span class="nav-number">2.2.21.</span> <span class="nav-text">vim</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GCC相关"><span class="nav-number">3.</span> <span class="nav-text">GCC相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gcc工作流程"><span class="nav-number">3.1.</span> <span class="nav-text">gcc工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用参数"><span class="nav-number">3.2.</span> <span class="nav-text">常用参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#库的介绍"><span class="nav-number">4.</span> <span class="nav-text">库的介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#库是什么？"><span class="nav-number">4.1.</span> <span class="nav-text">库是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#库文件制作出来之后，如何给用户使用？"><span class="nav-number">4.2.</span> <span class="nav-text">库文件制作出来之后，如何给用户使用？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态库的制作和使用"><span class="nav-number">4.3.</span> <span class="nav-text">静态库的制作和使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态库的制作和使用"><span class="nav-number">4.4.</span> <span class="nav-text">动态库的制作和使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决动态库加载失败的问题"><span class="nav-number">4.5.</span> <span class="nav-text">解决动态库加载失败的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态库和静态库工作原理和优缺点"><span class="nav-number">4.6.</span> <span class="nav-text">动态库和静态库工作原理和优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态库"><span class="nav-number">4.6.1.</span> <span class="nav-text">静态库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态库"><span class="nav-number">4.6.2.</span> <span class="nav-text">动态库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#makefile简单介绍"><span class="nav-number">5.</span> <span class="nav-text">makefile简单介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#make"><span class="nav-number">5.1.</span> <span class="nav-text">make</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gdb调试"><span class="nav-number">6.</span> <span class="nav-text">gdb调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成可调试执行程序"><span class="nav-number">6.1.</span> <span class="nav-text">生成可调试执行程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动gdb"><span class="nav-number">6.2.</span> <span class="nav-text">启动gdb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试程序"><span class="nav-number">6.3.</span> <span class="nav-text">调试程序</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
