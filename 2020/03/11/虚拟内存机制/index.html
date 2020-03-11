@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="操作系统,虚拟内存,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="虚拟内存机制计算机的存储系统 虚拟内存（virtual memory，VM）又叫做虚拟存储（virtual storage)，是一种内存管理技术。它是操作系统提供的一种对主存的抽象。虚拟内存的实现由操作系统软件和硬件结合完成，包括硬件异常、地址翻译、磁盘文件、内核程序等。 为什么要有虚拟内存在早期的计算机中，是没有虚拟内存的概念的。我们运行一个程序，会把程序全部装入内存，然后运行。 当运行多个程序">
+<meta name="keywords" content="操作系统,虚拟内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟内存机制">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/03/11/虚拟内存机制/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="虚拟内存机制计算机的存储系统 虚拟内存（virtual memory，VM）又叫做虚拟存储（virtual storage)，是一种内存管理技术。它是操作系统提供的一种对主存的抽象。虚拟内存的实现由操作系统软件和硬件结合完成，包括硬件异常、地址翻译、磁盘文件、内核程序等。 为什么要有虚拟内存在早期的计算机中，是没有虚拟内存的概念的。我们运行一个程序，会把程序全部装入内存，然后运行。 当运行多个程序">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/home/brook/blog/source/_posts/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E6%9C%BA%E5%88%B6/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E5%92%8C%E9%A1%B5%E6%A1%86.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E8%A1%A8.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E6%98%A0%E5%B0%84.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E8%A1%A8%E5%85%B1%E4%BA%AB.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/swap1.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/swap2.png">
+<meta property="og:updated_time" content="2020-03-11T10:35:07.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="虚拟内存机制">
+<meta name="twitter:description" content="虚拟内存机制计算机的存储系统 虚拟内存（virtual memory，VM）又叫做虚拟存储（virtual storage)，是一种内存管理技术。它是操作系统提供的一种对主存的抽象。虚拟内存的实现由操作系统软件和硬件结合完成，包括硬件异常、地址翻译、磁盘文件、内核程序等。 为什么要有虚拟内存在早期的计算机中，是没有虚拟内存的概念的。我们运行一个程序，会把程序全部装入内存，然后运行。 当运行多个程序">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/home/brook/blog/source/_posts/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E6%9C%BA%E5%88%B6/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/03/11/虚拟内存机制/">
+
+
+
+
+
+  <title>虚拟内存机制 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">虚拟内存机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-11T11:04:08+08:00">
+                2020-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="虚拟内存机制"><a href="#虚拟内存机制" class="headerlink" title="虚拟内存机制"></a>虚拟内存机制</h1><h2 id="计算机的存储系统"><a href="#计算机的存储系统" class="headerlink" title="计算机的存储系统"></a>计算机的存储系统</h2><p><img src="/home/brook/blog/source/_posts/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E6%9C%BA%E5%88%B6/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png" alt></p>
+<p><strong>虚拟内存（virtual memory，VM）</strong>又叫做<strong>虚拟存储（virtual storage)</strong>，是一种内存管理技术。它是操作系统提供的一种对主存的抽象。虚拟内存的实现由操作系统软件和硬件结合完成，包括硬件异常、地址翻译、磁盘文件、内核程序等。</p>
+<h2 id="为什么要有虚拟内存"><a href="#为什么要有虚拟内存" class="headerlink" title="为什么要有虚拟内存"></a>为什么要有虚拟内存</h2><p>在早期的计算机中，是没有虚拟内存的概念的。我们运行一个程序，会把程序全部装入内存，然后运行。</p>
+<p>当运行多个程序的时候，经常会出现如下问题：</p>
+<ul>
+<li>地址空间不隔离，没有权限保护</li>
+</ul>
+<p>由于程序都是直接访问物理内存，所以一个进程可以修改其他进程的内存数据，甚至修改内核地址空间里的数据。</p>
+<ul>
+<li>内存使用效率底</li>
+</ul>
+<p>当内存空间不足的时候，杨将其他程序暂时拷贝到银盘，然后新城序装入内存运行。由于大量的数据会装入装出，内存效率会十分低下。</p>
+<ul>
+<li>程序运行地址不稳定</li>
+</ul>
+<p>因为程序内存地址都随机分配的，所以程序运行的地址也是不确定的。简化了链接器，加载器这样的程序的内存管理。</p>
+<h2 id="进程的虚拟地址空间"><a href="#进程的虚拟地址空间" class="headerlink" title="进程的虚拟地址空间"></a>进程的虚拟地址空间</h2><ol>
+<li>每个进程都有自己独立的4G内存空间</li>
+<li>虚拟内存空间通过MMU和知识的物理内存产生联系。</li>
+</ol>
+<p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png" alt></p>
+<p><strong>为什么有保留区</strong>：位于虚拟地址空间的最低部分，未赋予物理地址。任何对它的引用都是非法的，<strong>用于捕捉使用空指针和小整型值指针引用内存的异常情况</strong>。它并不是一个单一的内存区域，而是对<strong>地址空间中受到操作系统保护而禁止用户进程访问的地址区域的总称。</strong>大多数操作系统中，极小的地址通常都是不允许访问的，如NULL。C语言将无效指针赋值为0也是出于这种考虑，因为0地址上正常情况下不会存放有效的可访问数据。</p>
+<p>在32位X86架构的Linux系统中，用户进程可执行程序一般从虚拟地址空间0x08048000开始加载。该加载地址由ELF文件头决定</p>
+<h2 id="虚拟内存和物理内存是如何建立起来的呢？"><a href="#虚拟内存和物理内存是如何建立起来的呢？" class="headerlink" title="虚拟内存和物理内存是如何建立起来的呢？"></a>虚拟内存和物理内存是如何建立起来的呢？</h2><h3 id="Linux的虚拟内存技术"><a href="#Linux的虚拟内存技术" class="headerlink" title="Linux的虚拟内存技术"></a>Linux的虚拟内存技术</h3><p>Linux把虚拟内存空间分成若干个存储区域，Linux把这样的分区叫做页。为了换入，换出的方便，物理内存也得按照大小分成若干个块。由于物理内存中的块空间是容纳虚拟页的容器，所以物理内存中的页叫做页框。页与页框是linux实现虚拟内存技术的基础。</p>
+<h3 id="分页和分表"><a href="#分页和分表" class="headerlink" title="分页和分表"></a>分页和分表</h3><p>我们知道系统里的基本单位都是Bytes字节，如果将每一个虚拟内存的Byte都对应到物理内存的地址，每个条目至少需要8字节（32位虚拟地址-&gt;32位物理地址），在4G的情况下，就需要32GB空间来存放对照表，那么这张表真正的物理地址也放不下，所以就引入了<strong>页</strong>的概念。</p>
+<p>在系统启动的时候，操作系统将整个物理内存以4k为单位，划分为各个页。之后进行内存分配时，都已页为单位，那么虚拟内存页对应物理内存也的映射表就大大减小了，4G的内存只需要8M<strong>映射表</strong>就可以了。一些进程并没有使用到的虚拟内存，也并不需要保存映射关系，而且Linux还为了大内存设计了多级页表，可以进一步减少内存消耗。操作系统虚拟内存到物理内存的映射表，就被称之为<strong>页表。</strong></p>
+<h3 id="虚拟内存的页、物理内存的页框及页表"><a href="#虚拟内存的页、物理内存的页框及页表" class="headerlink" title="虚拟内存的页、物理内存的页框及页表"></a>虚拟内存的页、物理内存的页框及页表</h3><p>物理内存和虚拟内存被分为页框和页之后，其存储单元原来的地址也就自然的被分为两段:高位段分别叫做<strong>页框码和页码</strong>，他们是识别页和页框的编码;底段位分别叫做<strong>页内偏移量和页框偏移量</strong>，他们是存储单元在页框个和页内的地址编码。下图就是两段虚拟内存和物理内存之后的情况.</p>
+<p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E5%92%8C%E9%A1%B5%E6%A1%86.png" alt></p>
+<p>为了使系统可以正确的访问虚拟页在对应的页框中的镜像，再把一个页映射到莫个页框上的同时，就必须把页码和存放该页映射的页框码装进一个叫<strong>页表</strong>的表项中。</p>
+<p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E8%A1%A8.png" alt></p>
+<p>页模式下，虚拟地址、物理地址的转换关系如下。处理器拿到一个虚拟地址，p页码d偏移量。去页表里找对应的页框，偏移量不变的，组合起来页框码和偏移量，就找到了实际的物理地址。</p>
+<p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E6%98%A0%E5%B0%84.png" alt></p>
+<h3 id="页表（Page-Table-Entry）中的重要数据"><a href="#页表（Page-Table-Entry）中的重要数据" class="headerlink" title="页表（Page Table Entry）中的重要数据"></a>页表（Page Table Entry）中的重要数据</h3><p>PTE 记录了很多信息，这里列举几个重要的：</p>
+<ol>
+<li>有效位(P)，它标识对应的虚拟页面是否在物理内存中。</li>
+<li>关联的物理页地址（Base addr），它表示的是对应的虚拟页存储在物理内存中的哪一页。</li>
+<li>读写访问权限（R/W），表示对应的页是否为只读的，或者是可读可写的。</li>
+<li>超级权限（U/S）表示该页是否只允许内核模式访问，还是用户模式也可以访问。</li>
+<li>修改位（D），表示被加载到物理内存之后，页面的内容是否发生了修改。</li>
+</ol>
+<h3 id="页表共享"><a href="#页表共享" class="headerlink" title="页表共享"></a>页表共享</h3><p>在多个程序中，常常有多个程序需要共享一段代码或者数据的情况。在分页管理的存储器中，这个事情很好办，让多个程序共享同一个页面框即可。</p>
+<p>具体的方法是：使这些相关程序的虚拟空加的页面的页表中指向物理内存中的同一个页框。这样，当成序运行并且访问这些相关页面的时候，就是对同一个页框进行访问，而该页框中的页就是被这些程序所共享。</p>
+<p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E8%A1%A8%E5%85%B1%E4%BA%AB.png" alt></p>
+<h3 id="页命中"><a href="#页命中" class="headerlink" title="页命中"></a>页命中</h3><p>页命中指的是当 MMU 需要根据虚拟地址输出物理地址时，这个地址所在的页已经被装载到物理内存中了。即对应的 PTE 的有效为为 1。</p>
+<p>下面是页命中时的地址翻译的过程：</p>
+<ol>
+<li>处理器生成一个虚拟地址，并把它传送给 MMU</li>
+<li>MMU 生成根据虚拟地址生成 VPN，然后请求高速缓存/主存，获取 PTE 的数据。</li>
+<li>高速缓存/主存向 MMU 返回 PTE 的数据</li>
+<li>从 PTE 获取对应的物理页号 PPN。用物理页的基址加上页偏移 PPO（假设页大小为 4KB，那么页偏移就是虚拟地址的低 12 位，物理页的页偏移和虚拟页的页偏移相同），获取对应的物理地址。</li>
+<li>主存/高速缓存将数据返回给 CPU。</li>
+</ol>
+<h3 id="缺页"><a href="#缺页" class="headerlink" title="缺页"></a>缺页</h3><p>缺页是指当 CPU 请求一个虚拟地址时，虚拟地址所对应的页在物理内存中不存在。此时 MMU 会残生缺页错误，然后由内核的缺页处理程序从磁盘中调入对应的页到主存中。在处理完成后，CPU 会重新执行导致错误的指令，从而读取到对应的内存数据。</p>
+<p>下面是缺页时的地址翻译的过程（第 1 步到第 3 步与页命中时相同）：</p>
+<ol>
+<li>处理器生成一个虚拟地址，并把它传送给 MMU</li>
+<li>MMU 生成根据虚拟地址生成 VPN，然后请求高速缓存/主存，获取 PTE 的数据。</li>
+<li>高速缓存/主存向 MMU 返回 PTE 的数据</li>
+<li>由于判断出 PTE 的有效位是 0，所以 CPU 将出发一次异常，将控制权转移给内核中的缺页异常处理程序。</li>
+<li>缺页异常处理程序确定出物理内存中的牺牲页，如果这个页面被修改过了（D 标志位为 1），那么将牺牲页换出到磁盘。</li>
+<li>缺页处理程序从磁盘中调入新的页面到主存中，并且更新 PTE</li>
+<li>缺页处理程序将控制权返回给原来的进程，再次执行导致缺页的指令。再次执行后，就会产生页命中时的情况了。</li>
+</ol>
+<h2 id="虚拟内存的好处"><a href="#虚拟内存的好处" class="headerlink" title="虚拟内存的好处"></a>虚拟内存的好处</h2><h3 id="进程管理内存"><a href="#进程管理内存" class="headerlink" title="进程管理内存"></a>进程管理内存</h3><p>他有助于进程进行内存管理</p>
+<ul>
+<li>内容完整性：由于虚拟内存对进程的“欺骗”，每个进程都认为自己获取的内存是一块连续的地址。我们编写应用程序的时候，就不用考虑大块的地址分配，总是认为系统有足够大的大块内存即可。</li>
+<li>安全：由于进程访问内存时，都要通过页表来寻址，操作系统在页表的各个项目上添加各种的访问曲线标识位，就可以实现内存的权限控制。</li>
+</ul>
+<h3 id="数据共享"><a href="#数据共享" class="headerlink" title="数据共享"></a>数据共享</h3><p>通过虚拟内存更容易实现内存和数据的共享。</p>
+<p>在进程加载系统库的时候，总是先分配一块内存，将磁盘中的库文件加载到这块内存中，在直接使用物理内存时，由于物理内存地址唯一，即时系统发现同一个库在系统内加载了两次，由于每个进程指定的加载内存不一样，系统也无能为力。</p>
+<p>而在使用虚拟内存的时候，系统只需要将进程的虚拟内存指向相同的库文件所在的物理内存即可。</p>
+<h3 id="SWAP"><a href="#SWAP" class="headerlink" title="SWAP"></a>SWAP</h3><p>虚拟内存可以帮助进程”扩充“内存。</p>
+<p>虚拟内存通过缺页终端为进程分配物理内存，内存总是优先的，如果说有物理内存都被占用了怎么办呢？</p>
+<p>Linux提出了SWAP的概念，Linux中可以使用SWAP分区，在分配物理内存，但是可用内存不足时，<strong>将暂时不用的内先放到磁盘上</strong>，让有需要的进程先使用，等进程再需要这些数据的时候，再将这些数据加载到内存中，通过这种”交换“技术，Linux可以让进程使用更多的内存。</p>
+<p>实践和研究表明：一个应用程序总是被逐段运行的，而在一定时间内会稳定在某一段程序里。</p>
+<p>也就出现了一个方法：如下图，把运行的那一段程序从辅存中复制到内存中。其他暂时不用的程序段就留在辅存中。</p>
+<p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/swap1.png" alt></p>
+<p>当你需要执行另一没有在内存的程序段，如下图所示，既可以把程序段1的副本复制回辅存，在内存中倒腾出来必要的空间时，在把辅存中程序段2复制回到内存空间来执行。</p>
+<p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/swap2.png" alt></p>
+<p>经过不断的换入换出就可以运行一个大于时间物理内存的应用程序了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+            <a href="/yangmiemie99.github.io/tags/虚拟内存/" rel="tag"># 虚拟内存</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/03/08/GIT使用总结/" rel="next" title="GIT使用总结">
+                <i class="fa fa-chevron-left"></i> GIT使用总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟内存机制"><span class="nav-number">1.</span> <span class="nav-text">虚拟内存机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机的存储系统"><span class="nav-number">1.1.</span> <span class="nav-text">计算机的存储系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要有虚拟内存"><span class="nav-number">1.2.</span> <span class="nav-text">为什么要有虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的虚拟地址空间"><span class="nav-number">1.3.</span> <span class="nav-text">进程的虚拟地址空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存和物理内存是如何建立起来的呢？"><span class="nav-number">1.4.</span> <span class="nav-text">虚拟内存和物理内存是如何建立起来的呢？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux的虚拟内存技术"><span class="nav-number">1.4.1.</span> <span class="nav-text">Linux的虚拟内存技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分页和分表"><span class="nav-number">1.4.2.</span> <span class="nav-text">分页和分表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存的页、物理内存的页框及页表"><span class="nav-number">1.4.3.</span> <span class="nav-text">虚拟内存的页、物理内存的页框及页表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页表（Page-Table-Entry）中的重要数据"><span class="nav-number">1.4.4.</span> <span class="nav-text">页表（Page Table Entry）中的重要数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页表共享"><span class="nav-number">1.4.5.</span> <span class="nav-text">页表共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页命中"><span class="nav-number">1.4.6.</span> <span class="nav-text">页命中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺页"><span class="nav-number">1.4.7.</span> <span class="nav-text">缺页</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存的好处"><span class="nav-number">1.5.</span> <span class="nav-text">虚拟内存的好处</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程管理内存"><span class="nav-number">1.5.1.</span> <span class="nav-text">进程管理内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据共享"><span class="nav-number">1.5.2.</span> <span class="nav-text">数据共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SWAP"><span class="nav-number">1.5.3.</span> <span class="nav-text">SWAP</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
