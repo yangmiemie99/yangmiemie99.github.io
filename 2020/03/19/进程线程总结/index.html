@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="进程线程,操作系统,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="进程管理进程描述 进程定义：程序运行的执行过程，一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程。 进程应该包括： 程序代码 程序处理的数据 程序计数器中的值，指示下一条运行的指令 通用寄存器，堆栈 一组系统资源（打开的文件）状态信息   进程和程序的关系 程序是产生进程的基础 程序的每次运行构成不同的进程 进程是程序的功能体现 通过多次执行，一个程序可以对应多个进程 ;通过调用关系，">
+<meta name="keywords" content="进程线程,操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程线程总结">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/03/19/进程线程总结/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="进程管理进程描述 进程定义：程序运行的执行过程，一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程。 进程应该包括： 程序代码 程序处理的数据 程序计数器中的值，指示下一条运行的指令 通用寄存器，堆栈 一组系统资源（打开的文件）状态信息   进程和程序的关系 程序是产生进程的基础 程序的每次运行构成不同的进程 进程是程序的功能体现 通过多次执行，一个程序可以对应多个进程 ;通过调用关系，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E5%9B%BE.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/fork.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/%E5%8A%A0%E5%83%B5%E5%B0%B8%E7%8A%B6%E6%80%81.png">
+<meta property="og:updated_time" content="2020-03-21T17:35:00.724Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进程线程总结">
+<meta name="twitter:description" content="进程管理进程描述 进程定义：程序运行的执行过程，一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程。 进程应该包括： 程序代码 程序处理的数据 程序计数器中的值，指示下一条运行的指令 通用寄存器，堆栈 一组系统资源（打开的文件）状态信息   进程和程序的关系 程序是产生进程的基础 程序的每次运行构成不同的进程 进程是程序的功能体现 通过多次执行，一个程序可以对应多个进程 ;通过调用关系，">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E5%9B%BE.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/03/19/进程线程总结/">
+
+
+
+
+
+  <title>进程线程总结 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">进程线程总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-19T09:46:26+08:00">
+                2020-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><h2 id="进程描述"><a href="#进程描述" class="headerlink" title="进程描述"></a>进程描述</h2><ul>
+<li>进程定义：程序运行的执行过程，一个具有一定独立功能的<strong>程序</strong>在一个数据集合上的一次<strong>动态执行过程</strong>。</li>
+<li>进程应该包括：<ul>
+<li>程序代码</li>
+<li>程序处理的数据</li>
+<li>程序计数器中的值，指示下一条运行的指令</li>
+<li>通用寄存器，堆栈</li>
+<li>一组系统资源（打开的文件）状态信息</li>
+</ul>
+</li>
+<li>进程和程序的关系<ul>
+<li>程序是产生进程的基础</li>
+<li>程序的<strong>每次运行构成不同的进程</strong></li>
+<li>进程是程序的<strong>功能体现</strong></li>
+<li>通过多次执行，一个程序可以对应多个进程 ;通过调用关系，一个进程可以包括多个程序。</li>
+<li>区别:<ul>
+<li>进程是动态的，程序是静态的：程序是有序代码的集合；进程是程序的执行，<strong>进程有核心态（进程给操作系统发出请求，操作系统代表进程在内核中执行）/用户态</strong></li>
+<li>进程是暂时的，程序是永久的：进程是一个状态变化的过程。</li>
+<li>组成不同：进程的组成包括程序、数据和进程控制块（为了管理进程）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>进程的特点<ul>
+<li>动态型：可动态创建结束进程;</li>
+<li>并发型：进程可以被独立调度变并占用处理机与性;<ul>
+<li>并发：在一段时间内有多个进程 执行</li>
+<li>并行：在一个时刻有多个进程执行，多个CPU。  </li>
+</ul>
+</li>
+<li>独立性：不同进程的工作不相互影响；</li>
+<li>制约性：因访问共享数据/资源或者进程同步而产生制约（同步互斥）</li>
+</ul>
+</li>
+<li>程序 = 算法 + 数据结构<ul>
+<li>描述进程的数据结构：进程控制块</li>
+<li>(Process Cntrol block,PCB)</li>
+<li>保存进程有关的各种状态信息（状态变化，需要的资源，等等）。</li>
+</ul>
+</li>
+<li>进程控制结构<ul>
+<li>进程控制块：操作系统管理控制进程运行多用的信息集合。</li>
+<li>操作系统用PCB来描述进程的<strong>基本情况及运行变化的过程。</strong>PCB是进程存在的唯一标识</li>
+<li>PCB含有以下三大类信息：<ul>
+<li>进程标识信息：本进程标识，父进程表示，用户标识</li>
+<li>处理机状态信息保存区：<strong>保存进程的运行现场信息。</strong>用户可见的寄存器，控制和状态寄存器，栈指针（过程调用，系统调用，中断处理和返回需要用到）</li>
+<li>进程控制信息<ul>
+<li><strong>调度和状态信息</strong>：用于操作系统进程调度进程并站内用处理机使用。</li>
+<li><strong>进程通信信息</strong>：为支持进程间的通信相关的各种标识，信号，信件等，<strong>这些信息存放在接收方的进程控制块中</strong>。</li>
+<li><strong>存储管理信息</strong>：包含指向本进程映像存储空间的数据结构。</li>
+<li>进程所用资源：说明进程打开，使用的系统资源，如打开的文件等。</li>
+<li>有关数据结构连接信息：父子进程连接起来，进程可以连接到一个进程队列中，或连接到相关的其他进程PCB。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>PCB组织方式</li>
+</ul>
+<p>一般是链表:更好的完成动态插入删除。一个状态的进程对应PCB中的一个链表。如就绪链表，阻塞链表。</p>
+<h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><ul>
+<li><p>进程的生命期管理</p>
+<ul>
+<li>进程创建<ul>
+<li>系统初始化，用户请求创建，正在运行的进程执行了创建进程的系统调用。</li>
+</ul>
+</li>
+<li>进程运行<ul>
+<li>内核选择一个就绪的进程（就绪-运行）</li>
+</ul>
+</li>
+<li>进程等待（阻塞），一般由自身发起<ul>
+<li>请求并等待系统服务，无法马上完成</li>
+<li>启动某种操作，无法马上完成</li>
+<li>需要的数据没有到达 </li>
+</ul>
+</li>
+<li>进程唤醒，只能被其他进程或操作系统唤醒。<ul>
+<li>被阻塞进程需要的资源可以满足</li>
+<li>被阻塞的进程等待的事件到达</li>
+<li>将该进程的pCB插入就绪队列</li>
+</ul>
+</li>
+<li>进程结束<ul>
+<li>正常退出（自愿）</li>
+<li>错误退出（自愿）</li>
+<li>致命错误（强制性的），比如访问其他进程的地址空间</li>
+<li>被其他进程杀死（强制杀死），比如管理进程发现一个进程占用内存过多</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>进程的三种基本状态</strong></p>
+<ul>
+<li>运行状态：当一个进程正在处理机上运行的时候。</li>
+<li>就绪状态：一个进程获得了处理处理机之外的一切所需资源，一旦得到处理机即可运行。</li>
+<li>等待状态（阻塞）：一个进程正在等待某一事件暂时停止运行。如等待某资源，等待输入/输出完成。</li>
+<li>创建状态：一个进程正在被创建，还没有转到就绪状态之前的状态。</li>
+<li>结束状态：一个进程正在进程结束的处理过程。</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/03/19/进程线程总结/%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E5%9B%BE.png" alt></p>
+</li>
+</ul>
+<h3 id="进程挂起"><a href="#进程挂起" class="headerlink" title="进程挂起"></a>进程挂起</h3><p>挂起:把一个进程从内存转到外存。</p>
+<p>进程挂起意味着进程没有占用额外的内存空间。处于挂起状态的进程映射在磁盘上。</p>
+<ul>
+<li>阻塞挂起状态：进程在外存并等待某事件出现</li>
+<li>就绪挂起状态：进程在外存，但<strong>只要进入内存，即可运行。</strong></li>
+</ul>
+<p>解挂：把一个进程从外存转到内存。</p>
+<ul>
+<li>就绪挂起到就绪：没有就绪进程或挂起就绪进程高于就绪进程的时候，就会进行这种转化。</li>
+<li>阻塞挂起到阻塞：当<strong>一个进程释放足够内存时</strong>，系统就会把一个高优先级的阻塞挂起进程转换为阻塞进程;</li>
+</ul>
+<h3 id="状态队列"><a href="#状态队列" class="headerlink" title="状态队列"></a>状态队列</h3><ul>
+<li>操作系统维护一组队列，用来表示系统当中所有进程的状态。</li>
+<li>不同状态用不同队列维护</li>
+<li>每个进程根据他的状态加入相应的队列中，当一个进程的状态发生变化时，他的PCB从一个状态队列跳出转到另一个队列。</li>
+</ul>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><h3 id="为什么使用线程？"><a href="#为什么使用线程？" class="headerlink" title="为什么使用线程？"></a>为什么使用线程？</h3><p>单进程各个函数之间不是并发执行，影响资源使用效率，利用多进程解决，问题：进程间通信，共享数据？另外<strong>维护进程系统开销大</strong>：创建进程时，分配资源，建立PCB，进程撤销时，回收资源，撤销PCB;进程切换，保存当前进程的状态信息。</p>
+<p><strong>可以共享相同的地址空间</strong></p>
+<h3 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h3><p><strong>进程中执行的一条流程</strong>，线程 = 进程-共享资源</p>
+<p>从资源的角度：进程把一组组相关的资源组合起来，构成一个资源平台，包括地址空间（代码段，数据段），打开的文件等各种资源。</p>
+<p>从运行的角度：代码在这个资源平台上的一条执行流程。（线程）</p>
+<h3 id="线程控制块TCB"><a href="#线程控制块TCB" class="headerlink" title="线程控制块TCB"></a>线程控制块TCB</h3><p>PC程序计数器，SP堆栈，State,Register,…</p>
+<p><img src="/yangmiemie99.github.io/2020/03/19/进程线程总结/%E7%BA%BF%E7%A8%8B.png" alt></p>
+<h3 id="线程的实现"><a href="#线程的实现" class="headerlink" title="线程的实现"></a>线程的实现</h3><p>用户线程：在用户空间实现（操作系统看不到，用户线程库来管理）</p>
+<p>内核线程：在内核中实现（操作系统管理起来）</p>
+<p>轻量级进程:在内核中实现，支持用户线程</p>
+<p><img src="/yangmiemie99.github.io/2020/03/19/进程线程总结/%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86.png" alt></p>
+<p>在用户空间实现的线程机制，它不依赖操作系统内核。由一组用户级的线程库函数来完成线程管理，无用户态/内核态切换，所以速度特别快。允许每个进程拥有自己的调度算法。</p>
+<p><img src="/yangmiemie99.github.io/2020/03/19/进程线程总结/%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B.png" alt></p>
+<p>Window操作系统这么设计的，由内核来维护进程和线程的上下文信息（TCB和PCB）。 </p>
+<p>在一个进程中，如果莫个内核线程发起系统调用被堵塞，并不会影响其他内核线程。时间片直接分给线程。</p>
+<p><strong>轻量级进程（Linux）</strong></p>
+<p>一个进程可以有一个或者多个轻量级进程，每个量级的进程右一个单独内核线程支持。</p>
+<h3 id="线程优点"><a href="#线程优点" class="headerlink" title="线程优点"></a>线程优点</h3><ul>
+<li>一个进程可以同时存在多个线程</li>
+<li>各个线程可并发执行</li>
+<li>各个线程之间可以共享地址空间和资源文件</li>
+</ul>
+<h3 id="线程缺点"><a href="#线程缺点" class="headerlink" title="线程缺点"></a>线程缺点</h3><ul>
+<li>一个线程崩溃，会导致所属进程的所有线程崩溃。</li>
+</ul>
+<p>用户线程：</p>
+<ul>
+<li>一个线程发起系统调用而阻塞，整个进程等待。</li>
+<li>当一个线程开始运行后，除非主动交出CPU使用权，否则它所在的进程中其他线程将无法运行。</li>
+<li>时间片分给进程，在多线程执行的时候时间片就更少了，频繁切换，也会执行会变慢。</li>
+</ul>
+<p>内核线程windows：</p>
+<ul>
+<li>创建终止切换都是通过系统调用/内核函数的方式来进行，因此系统开销较大。</li>
+</ul>
+<h2 id="线程进程比较"><a href="#线程进程比较" class="headerlink" title="线程进程比较"></a>线程进程比较</h2><ul>
+<li>进程是资源分配单位，线程是CPU调度的单位</li>
+<li>进程拥有一个完成的资源平台，而线程只独享必不可少的资源，如寄存器，栈。</li>
+<li>进程同样有就绪满阻塞和执行三种基本状态</li>
+<li>线程能减少并发时间和空间的开销：<ul>
+<li>线程创建终止时间比进程短</li>
+<li>统一进程的线程切换时间比近进程短（进程切换涉及到页表的切换）</li>
+<li>统一进程的线程之间共享内存文件资源，可<strong>直接进行不通过内核的通信。</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h2><p>停止当前运行进程（从运行状态改变成其他状态），调度其进程（转变成运行状态）</p>
+<p>上下文：进程用到的寄存器（PC,SP…）CPU状态….</p>
+<h2 id="进程创建加载等待终止"><a href="#进程创建加载等待终止" class="headerlink" title="进程创建加载等待终止"></a>进程创建加载等待终止</h2><p>fork()创建一个<strong>继承的子进程</strong></p>
+<ul>
+<li><p>父进程返回子进程id，子进程返回0，不成功id&lt;0</p>
+</li>
+<li><p>复制父进程所有的变量和内存</p>
+</li>
+<li><p>复制父进程所有CPU寄存器</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> pid = fork(); <span class="comment">//创建子进程</span></span><br><span class="line"><span class="keyword">if</span>(pid == <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="comment">//做什么都行（关闭网络连接。。）</span></span><br><span class="line">    <span class="comment">//调用exec()加载新程序取代当前运行进程，地址空间，代码数据咱也换掉了</span></span><br><span class="line">    exec(<span class="string">"program"</span>,argc,arvc0,argv1..)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//等待子进程结束</span></span><br><span class="line">child_status = wait(pid);</span><br></pre></td></tr></table></figure>
+
+<p>vfork()轻量级fork,创建进程时不再<strong>创建同样的内存映像</strong></p>
+<ul>
+<li>子进程立即调用exec()</li>
+<li>现在使用<strong>COPY on Write</strong> （写的时候在进行复制），在实际地址空间复制的时候并没有真实的复制，而只是复制父进程地址空间所需要的元数据（页表），指向同一块地址空间，当父进程或者子进程对某一个地址单元写操作会触发一个异常，使得触发异常的页复制成两份。只有写的时候才会复制成两份。</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/03/19/进程线程总结/fork.png" alt></p>
+<p>wait()系统带调用是被父进程用来等子进程的结束</p>
+<ul>
+<li><p>一个子进程向父进程返回一个值，父进程必须接受这个值并处理。</p>
+</li>
+<li><p>wait()系统调用担任这个要求</p>
+<ul>
+<li>父进程睡眠等待子进程结束</li>
+<li>父进程帮助子进程完成最后一步，内存中资源释放掉（PCB）</li>
+</ul>
+</li>
+</ul>
+<p>进程执行结束后，它调用exit()</p>
+<ul>
+<li>这个系统调用：<ul>
+<li>将程序的结果作为一个参数</li>
+<li>关闭所有打开的文加，连接等</li>
+<li>释放内存</li>
+<li>释放大部分支持进程的操作系统结构</li>
+<li>检查是否附近父进程是否活着：<ul>
+<li>如果活着，他保留结果的值直到父进程需要他;在这种情况里，进程没有真正死亡，进入了僵尸状态。</li>
+<li>如果没有，父进程并不等待直接退出，剩下的子进程会被init(pid=1)继承呢还跟你接收，称为孤儿进程。</li>
+</ul>
+</li>
+<li>最初进程定期扫描，检查是否有进程处于讲师状态，带领父进程对子进程回收操作。清理等待的僵尸进程。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/03/19/进程线程总结/%E5%8A%A0%E5%83%B5%E5%B0%B8%E7%8A%B6%E6%80%81.png" alt></p>
+<p>exec() 加载程序，可能处于阻塞态和运行态</p>
+<h2 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h2><h2 id="进程互斥和同步"><a href="#进程互斥和同步" class="headerlink" title="进程互斥和同步"></a>进程互斥和同步</h2><h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/进程线程/" rel="tag"># 进程线程</a>
+          
+            <a href="/yangmiemie99.github.io/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/" rel="next" title="虚拟内存机制">
+                <i class="fa fa-chevron-left"></i> 虚拟内存机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程管理"><span class="nav-number">1.</span> <span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程描述"><span class="nav-number">1.1.</span> <span class="nav-text">进程描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程状态"><span class="nav-number">1.2.</span> <span class="nav-text">进程状态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程挂起"><span class="nav-number">1.2.1.</span> <span class="nav-text">进程挂起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态队列"><span class="nav-number">1.2.2.</span> <span class="nav-text">状态队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">1.3.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用线程？"><span class="nav-number">1.3.1.</span> <span class="nav-text">为什么使用线程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程？"><span class="nav-number">1.3.2.</span> <span class="nav-text">什么是线程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程控制块TCB"><span class="nav-number">1.3.3.</span> <span class="nav-text">线程控制块TCB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的实现"><span class="nav-number">1.3.4.</span> <span class="nav-text">线程的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程优点"><span class="nav-number">1.3.5.</span> <span class="nav-text">线程优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程缺点"><span class="nav-number">1.3.6.</span> <span class="nav-text">线程缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程进程比较"><span class="nav-number">1.4.</span> <span class="nav-text">线程进程比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上下文切换"><span class="nav-number">1.5.</span> <span class="nav-text">上下文切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程创建加载等待终止"><span class="nav-number">1.6.</span> <span class="nav-text">进程创建加载等待终止</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程间通信"><span class="nav-number">1.7.</span> <span class="nav-text">进程间通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程互斥和同步"><span class="nav-number">1.8.</span> <span class="nav-text">进程互斥和同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">1.9.</span> <span class="nav-text">死锁</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
