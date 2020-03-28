@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="操作系统,虚拟内存,">
+  <meta name="keywords" content="操作系统,虚拟内存,页面置换算法,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="虚拟内存机制计算机的存储系统 虚拟内存（virtual memory，VM）又叫做虚拟存储（virtual storage)，是一种内存管理技术。它是操作系统提供的一种对主存的抽象。虚拟内存的实现由操作系统软件和硬件结合完成，包括硬件异常、地址翻译、磁盘文件、内核程序等。 为什么要有虚拟内存在早期的计算机中，是没有虚拟内存的概念的。我们运行一个程序，会把程序全部装入内存，然后运行。 当运行多个程序">
-<meta name="keywords" content="操作系统,虚拟内存">
+<meta name="keywords" content="操作系统,虚拟内存,页面置换算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟内存机制">
 <meta property="og:url" content="https://yangmiemie99.github.io/2020/03/11/虚拟内存机制/index.html">
@@ -95,7 +95,9 @@
 <meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E8%A1%A8%E5%85%B1%E4%BA%AB.png">
 <meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/swap1.png">
 <meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/swap2.png">
-<meta property="og:updated_time" content="2020-03-11T10:35:07.811Z">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E8%A1%A8%E9%A1%B9.png">
+<meta property="og:updated_time" content="2020-03-28T17:10:56.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟内存机制">
 <meta name="twitter:description" content="虚拟内存机制计算机的存储系统 虚拟内存（virtual memory，VM）又叫做虚拟存储（virtual storage)，是一种内存管理技术。它是操作系统提供的一种对主存的抽象。虚拟内存的实现由操作系统软件和硬件结合完成，包括硬件异常、地址翻译、磁盘文件、内核程序等。 为什么要有虚拟内存在早期的计算机中，是没有虚拟内存的概念的。我们运行一个程序，会把程序全部装入内存，然后运行。 当运行多个程序">
@@ -387,7 +389,7 @@
 <h2 id="虚拟内存和物理内存是如何建立起来的呢？"><a href="#虚拟内存和物理内存是如何建立起来的呢？" class="headerlink" title="虚拟内存和物理内存是如何建立起来的呢？"></a>虚拟内存和物理内存是如何建立起来的呢？</h2><h3 id="Linux的虚拟内存技术"><a href="#Linux的虚拟内存技术" class="headerlink" title="Linux的虚拟内存技术"></a>Linux的虚拟内存技术</h3><p>Linux把虚拟内存空间分成若干个存储区域，Linux把这样的分区叫做页。为了换入，换出的方便，物理内存也得按照大小分成若干个块。由于物理内存中的块空间是容纳虚拟页的容器，所以物理内存中的页叫做页框。页与页框是linux实现虚拟内存技术的基础。</p>
 <h3 id="分页和分表"><a href="#分页和分表" class="headerlink" title="分页和分表"></a>分页和分表</h3><p>我们知道系统里的基本单位都是Bytes字节，如果将每一个虚拟内存的Byte都对应到物理内存的地址，每个条目至少需要8字节（32位虚拟地址-&gt;32位物理地址），在4G的情况下，就需要32GB空间来存放对照表，那么这张表真正的物理地址也放不下，所以就引入了<strong>页</strong>的概念。</p>
 <p>在系统启动的时候，操作系统将整个物理内存以4k为单位，划分为各个页。之后进行内存分配时，都已页为单位，那么虚拟内存页对应物理内存也的映射表就大大减小了，4G的内存只需要8M<strong>映射表</strong>就可以了。一些进程并没有使用到的虚拟内存，也并不需要保存映射关系，而且Linux还为了大内存设计了多级页表，可以进一步减少内存消耗。操作系统虚拟内存到物理内存的映射表，就被称之为<strong>页表。</strong></p>
-<h3 id="虚拟内存的页、物理内存的页框及页表"><a href="#虚拟内存的页、物理内存的页框及页表" class="headerlink" title="虚拟内存的页、物理内存的页框及页表"></a>虚拟内存的页、物理内存的页框及页表</h3><p>物理内存和虚拟内存被分为页框和页之后，其存储单元原来的地址也就自然的被分为两段:高位段分别叫做<strong>页框码和页码</strong>，他们是识别页和页框的编码;底段位分别叫做<strong>页内偏移量和页框偏移量</strong>，他们是存储单元在页框个和页内的地址编码。下图就是两段虚拟内存和物理内存之后的情况.</p>
+<h3 id="虚拟内存的页、物理内存的页框及页表"><a href="#虚拟内存的页、物理内存的页框及页表" class="headerlink" title="虚拟内存的页、物理内存的页框及页表"></a>虚拟内存的页、物理内存的页框及页表</h3><p>物理内存和虚拟内存被分为页框和页之后，其存储单元原来的地址也就自然的被分为两段:高位段分别叫做<strong>页框码和页码</strong>，他们是识别页和页框的编码;低段位分别叫做<strong>页内偏移量和页框偏移量</strong>，他们是存储单元在页框个和页内的地址编码。下图就是两段虚拟内存和物理内存之后的情况.</p>
 <p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E5%92%8C%E9%A1%B5%E6%A1%86.png" alt></p>
 <p>为了使系统可以正确的访问虚拟页在对应的页框中的镜像，再把一个页映射到莫个页框上的同时，就必须把页码和存放该页映射的页框码装进一个叫<strong>页表</strong>的表项中。</p>
 <p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E8%A1%A8.png" alt></p>
@@ -408,7 +410,7 @@
 <p>下面是页命中时的地址翻译的过程：</p>
 <ol>
 <li>处理器生成一个虚拟地址，并把它传送给 MMU</li>
-<li>MMU 生成根据虚拟地址生成 VPN，然后请求高速缓存/主存，获取 PTE 的数据。</li>
+<li>MMU 生成根据虚拟地址生成 VPN(页码)，然后请求高速缓存/主存，获取 PTE 的数据。</li>
 <li>高速缓存/主存向 MMU 返回 PTE 的数据</li>
 <li>从 PTE 获取对应的物理页号 PPN。用物理页的基址加上页偏移 PPO（假设页大小为 4KB，那么页偏移就是虚拟地址的低 12 位，物理页的页偏移和虚拟页的页偏移相同），获取对应的物理地址。</li>
 <li>主存/高速缓存将数据返回给 CPU。</li>
@@ -441,6 +443,29 @@
 <p>当你需要执行另一没有在内存的程序段，如下图所示，既可以把程序段1的副本复制回辅存，在内存中倒腾出来必要的空间时，在把辅存中程序段2复制回到内存空间来执行。</p>
 <p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/swap2.png" alt></p>
 <p>经过不断的换入换出就可以运行一个大于时间物理内存的应用程序了。</p>
+<h2 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h2><p>该部分为转载该<a href="https://www.jianshu.com/p/18285ecffbfb" target="_blank" rel="noopener">博客</a></p>
+<p>上文提到缺页，但是当内存满了的时候，就需要从内存中按照一定的置换算法决定内存把哪个页面放弃，存入新的页。</p>
+<p><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95.png" alt></p>
+<h3 id="最佳置换算法OPT"><a href="#最佳置换算法OPT" class="headerlink" title="最佳置换算法OPT"></a>最佳置换算法OPT</h3><p>算法思想：每次选择<strong>淘汰的页面</strong>将是<strong>以后永不使用</strong>，或者<strong>在最长时间内不再被访问的页面</strong>，这样可以保证最低的缺页率。  最佳置换算法可以保证最低的缺页率，但是实际上，只有进程执行的过程中才能知道接下来会访问到的是哪个页面。操作系统无法提前预判页面的访问序列。因此，<strong>最佳置换算法是无法实现的</strong>。</p>
+<h3 id="先入现出置换算法FIFO"><a href="#先入现出置换算法FIFO" class="headerlink" title="先入现出置换算法FIFO"></a>先入现出置换算法FIFO</h3><p>总是选择在主存中停留时间最长（即最老）的一页置换，即先进入内存的页，先退出内存。</p>
+<p>当为进程分配的物理块数增大时，缺页次数不减反增的异常现象称为<strong>贝莱迪（Belay）异常</strong>。<br>  <strong>只有FIFO算法会产生Belay异常。</strong>另外，FIFO算法虽然实现简单，但是该算法与进程实际运行时的规律不适应。因为先进入的页面也有可能最经常被访问。因此，<strong>算法性能差。</strong></p>
+<h3 id="最长时间未用置换算法LRU"><a href="#最长时间未用置换算法LRU" class="headerlink" title="最长时间未用置换算法LRU"></a>最长时间未用置换算法LRU</h3><p>  算法思想：<strong>每次淘汰的页面是最近最久未使用的页面。</strong><br>  实现方法：赋予每个页面对应的页表项中，用<strong>访问字段记录该页面自上次被访问以来所经历的时间t。</strong>当需要淘汰一个页面时，选择现有页面中t最大的页面，即最近最久未使用。<br><img src="/yangmiemie99.github.io/2020/03/11/虚拟内存机制/%E9%A1%B5%E8%A1%A8%E9%A1%B9.png" alt></p>
+<p>LRU 置换算法虽然是一种比较好的算法，但要求系统有较多的支持硬件。为了了解一个进程在内存中的各个页面各有多少时间未被进程访问，以及如何快速地知道哪一页是最近最久未使用的页面，须有两类硬件之一的支持：寄存器或栈。</p>
+<p><strong>寄存器</strong></p>
+<p>为了记录某进程在内存中各页的使用情况，须为每个在内存中的页面配置一个移位寄存器，可表示为</p>
+<p>R = Rn-1 Rn-2 Rn-3 … R2 R1 R0</p>
+<p>当进程访问某物理块时，要将相应寄存器的 R n -1 位置成 1。此时，定时信号将每隔一定时间(例如 100 ms)将寄存器右移一位。 如果我们把 n 位寄存器的数看做是一个整数， 那么，具有最小数值的寄存器所对应的页面，就是最近最久未使用的页面。</p>
+<p><strong>栈</strong></p>
+<p>可利用一个特殊的栈来保存当前使用的各个页面的页面号。每当进程访问某页面时，便将该页面的页面号从栈中移出，将它压入栈顶。因此，栈顶始终是最新被访问页面的编号，而栈底则是最近最久未使用页面的页面号。</p>
+<h3 id="时钟置换算法"><a href="#时钟置换算法" class="headerlink" title="时钟置换算法"></a>时钟置换算法</h3><p>最佳置换算法那性能最好，但无法实现。先进先出置换算法实现简单，但是算法性能差。最近最久未使用置换算法性能好，是最接近OPT算法性能的，但是实现起来需要专门的硬件支持，算法开销大。<strong>时钟置换算法</strong>是一种<strong>性能和开销均平衡</strong>的算法。又称<strong>CLOCK算法</strong>，或<strong>最近未用算法</strong>（<strong>NRU</strong>，Not Recently Used）</p>
+<p>  <strong>简单CLOCK算法</strong>算法思想：为每个页面设置一个<strong>访问位</strong>，再将内存中的页面都通过<strong>链接指针链接成一个循环队列</strong>。当某个页被访问时，其访问位置1.当需要淘汰一个页面时，只需检查页的访问位。如果是0，就选择该页换出；如果是1，暂不换出，将访问位改为0，继续检查下一个页面，若第一轮扫描中所有的页面都是1，则将这些页面的访问位一次置为0后，再进行第二轮扫描（第二轮扫描中一定会有访问位为0的页面，因此简单的CLOCK算法选择一个淘汰页面最多会经过<strong>两轮扫描</strong>）。</p>
+<h3 id="改进型的时钟置换算法"><a href="#改进型的时钟置换算法" class="headerlink" title="改进型的时钟置换算法"></a>改进型的时钟置换算法</h3><p>  简单的时钟置换算法仅考虑到了一个页面最近是否被访问过。事实上，如果淘汰的页面没有被修改过，就不需要执行I/O操作写回外存。<strong>只有淘汰的页面被修改过时，才需要写回外存。</strong><br>  因此，除了考虑一个页面最近有没有被访问过之外，操作系统还需要考虑页面有没有被修改过。<br>  改进型时钟置换算法的<strong>算法思想</strong>：<strong>在其他在条件相同时，应该优先淘汰没有被修改过的页面，</strong>从而来避免I/O操作。  为了方便讨论，用（访问位，修改位）的形式表示各页面的状态。</p>
+<p>如（1,1）表示一个页面近期被访问过，且被修改过。<br>   <strong>算法规则</strong>：将所有可能被置换的页面排成一个循环队列</p>
+<blockquote>
+<p>第一轮：从当前位置开始扫描第一个（0,0）的页用于替换，本轮扫描不修改任何标志位。<br> 第二轮：若第一轮扫描失败，则重新扫描，查找第一个（0,1）的页用于替换。本轮将所有扫描的过的页访问位设为0。<br> 第三轮：若第二轮扫描失败，则重新扫描，查找第一个（0,0）的页用于替换。本轮扫描不修改任何标志位。<br> 第四轮：若第三轮扫描失败，则重新扫描，查找第一个（0,1）的页用于替换。</p>
+</blockquote>
+<p>  由于第二轮已将所有的页的访问位都设为0，因此第三轮、第四轮扫描一定会选中一个页，因此<strong>改进型CLOCK置换算法最多会进行四轮扫描。</strong></p>
+<p>  (1) 第一优先级淘汰的是<strong>最近没有访问且没有修改</strong>的页面。<br>  (2) 第二优先级淘汰的是<strong>最近没有访问但修改</strong>的页面。<br>  (3) 第三优先级淘汰的是<strong>最近访问但没有修改</strong>的页面。<br>  (4) 第四优先级淘汰的是<strong>最近访问且修改</strong>的页面。</p>
 
       
     </div>
@@ -461,6 +486,8 @@
             <a href="/yangmiemie99.github.io/tags/操作系统/" rel="tag"># 操作系统</a>
           
             <a href="/yangmiemie99.github.io/tags/虚拟内存/" rel="tag"># 虚拟内存</a>
+          
+            <a href="/yangmiemie99.github.io/tags/页面置换算法/" rel="tag"># 页面置换算法</a>
           
         </div>
       
@@ -586,7 +613,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/yangmiemie99.github.io/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -629,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟内存机制"><span class="nav-number">1.</span> <span class="nav-text">虚拟内存机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机的存储系统"><span class="nav-number">1.1.</span> <span class="nav-text">计算机的存储系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要有虚拟内存"><span class="nav-number">1.2.</span> <span class="nav-text">为什么要有虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的虚拟地址空间"><span class="nav-number">1.3.</span> <span class="nav-text">进程的虚拟地址空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存和物理内存是如何建立起来的呢？"><span class="nav-number">1.4.</span> <span class="nav-text">虚拟内存和物理内存是如何建立起来的呢？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux的虚拟内存技术"><span class="nav-number">1.4.1.</span> <span class="nav-text">Linux的虚拟内存技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分页和分表"><span class="nav-number">1.4.2.</span> <span class="nav-text">分页和分表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存的页、物理内存的页框及页表"><span class="nav-number">1.4.3.</span> <span class="nav-text">虚拟内存的页、物理内存的页框及页表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页表（Page-Table-Entry）中的重要数据"><span class="nav-number">1.4.4.</span> <span class="nav-text">页表（Page Table Entry）中的重要数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页表共享"><span class="nav-number">1.4.5.</span> <span class="nav-text">页表共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页命中"><span class="nav-number">1.4.6.</span> <span class="nav-text">页命中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺页"><span class="nav-number">1.4.7.</span> <span class="nav-text">缺页</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存的好处"><span class="nav-number">1.5.</span> <span class="nav-text">虚拟内存的好处</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程管理内存"><span class="nav-number">1.5.1.</span> <span class="nav-text">进程管理内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据共享"><span class="nav-number">1.5.2.</span> <span class="nav-text">数据共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SWAP"><span class="nav-number">1.5.3.</span> <span class="nav-text">SWAP</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟内存机制"><span class="nav-number">1.</span> <span class="nav-text">虚拟内存机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机的存储系统"><span class="nav-number">1.1.</span> <span class="nav-text">计算机的存储系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要有虚拟内存"><span class="nav-number">1.2.</span> <span class="nav-text">为什么要有虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的虚拟地址空间"><span class="nav-number">1.3.</span> <span class="nav-text">进程的虚拟地址空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存和物理内存是如何建立起来的呢？"><span class="nav-number">1.4.</span> <span class="nav-text">虚拟内存和物理内存是如何建立起来的呢？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux的虚拟内存技术"><span class="nav-number">1.4.1.</span> <span class="nav-text">Linux的虚拟内存技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分页和分表"><span class="nav-number">1.4.2.</span> <span class="nav-text">分页和分表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存的页、物理内存的页框及页表"><span class="nav-number">1.4.3.</span> <span class="nav-text">虚拟内存的页、物理内存的页框及页表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页表（Page-Table-Entry）中的重要数据"><span class="nav-number">1.4.4.</span> <span class="nav-text">页表（Page Table Entry）中的重要数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页表共享"><span class="nav-number">1.4.5.</span> <span class="nav-text">页表共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页命中"><span class="nav-number">1.4.6.</span> <span class="nav-text">页命中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺页"><span class="nav-number">1.4.7.</span> <span class="nav-text">缺页</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存的好处"><span class="nav-number">1.5.</span> <span class="nav-text">虚拟内存的好处</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程管理内存"><span class="nav-number">1.5.1.</span> <span class="nav-text">进程管理内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据共享"><span class="nav-number">1.5.2.</span> <span class="nav-text">数据共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SWAP"><span class="nav-number">1.5.3.</span> <span class="nav-text">SWAP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面置换算法"><span class="nav-number">1.6.</span> <span class="nav-text">页面置换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最佳置换算法OPT"><span class="nav-number">1.6.1.</span> <span class="nav-text">最佳置换算法OPT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先入现出置换算法FIFO"><span class="nav-number">1.6.2.</span> <span class="nav-text">先入现出置换算法FIFO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最长时间未用置换算法LRU"><span class="nav-number">1.6.3.</span> <span class="nav-text">最长时间未用置换算法LRU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时钟置换算法"><span class="nav-number">1.6.4.</span> <span class="nav-text">时钟置换算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进型的时钟置换算法"><span class="nav-number">1.6.5.</span> <span class="nav-text">改进型的时钟置换算法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
