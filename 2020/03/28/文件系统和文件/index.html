@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="操作系统,文件系统,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="#  文件系统和文件文件系统：一种用于持久性存储的系统抽象  在存储器上：组织、控制带行访问和检索数据 大多数计算机系统包含文件系统  文件：文件系统中一个单元的相关数据在操作系统中的抽象 文件系统的功能分配文件磁盘空间 管理文件块（哪块属于哪一个文件） 管理空闲块 （哪一块是空闲的） 分配算法  管理文件集合 定位文件及内容 命名：通过名字找到文件的接口 最常见：分层文件系统 文件系统类型（组织">
+<meta name="keywords" content="操作系统,文件系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件系统和文件">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/03/28/文件系统和文件/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="#  文件系统和文件文件系统：一种用于持久性存储的系统抽象  在存储器上：组织、控制带行访问和检索数据 大多数计算机系统包含文件系统  文件：文件系统中一个单元的相关数据在操作系统中的抽象 文件系统的功能分配文件磁盘空间 管理文件块（哪块属于哪一个文件） 管理空闲块 （哪一块是空闲的） 分配算法  管理文件集合 定位文件及内容 命名：通过名字找到文件的接口 最常见：分层文件系统 文件系统类型（组织">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E9%A1%B5%E7%BC%93%E5%AD%98.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E5%A4%9A%E7%A3%81%E7%9B%98.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/28/文件系统和文件/RAID0.png">
+<meta property="og:updated_time" content="2020-03-28T13:15:16.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文件系统和文件">
+<meta name="twitter:description" content="#  文件系统和文件文件系统：一种用于持久性存储的系统抽象  在存储器上：组织、控制带行访问和检索数据 大多数计算机系统包含文件系统  文件：文件系统中一个单元的相关数据在操作系统中的抽象 文件系统的功能分配文件磁盘空间 管理文件块（哪块属于哪一个文件） 管理空闲块 （哪一块是空闲的） 分配算法  管理文件集合 定位文件及内容 命名：通过名字找到文件的接口 最常见：分层文件系统 文件系统类型（组织">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/03/28/文件系统和文件/">
+
+
+
+
+
+  <title>文件系统和文件 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/28/文件系统和文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文件系统和文件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-28T12:55:56+08:00">
+                2020-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p># </p>
+<h1 id="文件系统和文件"><a href="#文件系统和文件" class="headerlink" title="文件系统和文件"></a>文件系统和文件</h1><p>文件系统：一种用于持久性存储的系统抽象</p>
+<ul>
+<li>在存储器上：组织、控制带行访问和检索数据</li>
+<li>大多数计算机系统包含文件系统</li>
+</ul>
+<p>文件：文件系统中<strong>一个单元的相关数据</strong>在操作系统中的抽象</p>
+<h1 id="文件系统的功能"><a href="#文件系统的功能" class="headerlink" title="文件系统的功能"></a>文件系统的功能</h1><h2 id="分配文件磁盘空间"><a href="#分配文件磁盘空间" class="headerlink" title="分配文件磁盘空间"></a>分配文件磁盘空间</h2><ul>
+<li>管理文件块（哪块属于哪一个文件）</li>
+<li>管理空闲块 （哪一块是空闲的）</li>
+<li>分配算法</li>
+</ul>
+<h2 id="管理文件集合"><a href="#管理文件集合" class="headerlink" title="管理文件集合"></a>管理文件集合</h2><ul>
+<li><strong>定位</strong>文件及内容</li>
+<li><strong>命名</strong>：通过名字找到文件的接口</li>
+<li>最常见：<strong>分层</strong>文件系统</li>
+<li>文件系统类型（组织文件的不同方式）</li>
+</ul>
+<h2 id="提供的便利及特性"><a href="#提供的便利及特性" class="headerlink" title="提供的便利及特性"></a>提供的便利及特性</h2><ul>
+<li>保护：分层来保护数据安全</li>
+<li>可靠性/持久性：保持文件的持久即时发生崩溃，媒体错误，攻击等。</li>
+</ul>
+<h1 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h1><p>名称，类型，位置，大小，保护，创建者，创建时间，最近修改时间…</p>
+<h1 id="文件头"><a href="#文件头" class="headerlink" title="文件头"></a>文件头</h1><ul>
+<li>在存储元数据中保存了每个文件的信息</li>
+<li>保存文件属性</li>
+<li>跟踪<strong>哪一块存储属于</strong>逻辑上文件结构的<strong>哪个偏移</strong></li>
+</ul>
+<h1 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h1><p>内核跟踪每个进程打开的文件</p>
+<ul>
+<li>操作系统为每个进程维护一个<strong>打开文件表</strong></li>
+<li>一个打开文件描述符是这个表中的索引</li>
+</ul>
+<h1 id="需要元数据来管理打开文件"><a href="#需要元数据来管理打开文件" class="headerlink" title="需要元数据来管理打开文件"></a>需要元数据来管理打开文件</h1><ul>
+<li>文件指针：指向最近的一次读写位置</li>
+<li>文件打开次数：所有进程都关闭了文件，润序将其从打开文件表中删除</li>
+<li>文件的磁盘位置：缓存数据访问信息</li>
+<li>访问权限：每个程序访问模式信息</li>
+</ul>
+<h1 id="怎么实现？"><a href="#怎么实现？" class="headerlink" title="怎么实现？"></a>怎么实现？</h1><p>高层操作系统不用关心具体存在什么地方，只是对buffer的一个读写，最后由文件系统将堆在内存中的buffer 对应到磁盘中去，完成对磁盘的读写,最后体现在用户对磁盘的持久访问。</p>
+<p>在操作系统内部：</p>
+<p><strong>怎么将文件和 磁盘块 数据</strong>对应起来，一般扇区512字节，内存中页4k，怎么对应起来？在用户角度不用管这件事，操作系统看到的是底层的一个一个磁盘块，用户看到的是一个抽象的一维线性的数据空间。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><ul>
+<li>当用户说给我2-12字节空间时发生什么？<ul>
+<li>获取字节所在的磁盘块</li>
+<li>返回块内对应部分</li>
+</ul>
+</li>
+<li>当空户要写2-12字节呢？<ul>
+<li>获取相应块</li>
+<li>修改块对对应部分</li>
+<li>写回块 </li>
+</ul>
+</li>
+</ul>
+<h1 id="用户怎么访问文件"><a href="#用户怎么访问文件" class="headerlink" title="用户怎么访问文件"></a>用户怎么访问文件</h1><p>在系统层面需要直到用户的访问模式</p>
+<ul>
+<li>顺序访问：按字节依次读取<ul>
+<li>几乎所有的访问都是这种方式</li>
+</ul>
+</li>
+<li>随机访问：从中间读写<ul>
+<li>不常用，但是仍然重要，例如，虚拟</li>
+<li>内存支持文件：内存页存储在文件中</li>
+<li>加速：不希望获取其他无用的字节</li>
+</ul>
+</li>
+<li>基于内容的访问：通过特征<ul>
+<li>例如数据库是建立在索引内容的磁盘访问上</li>
+</ul>
+</li>
+</ul>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p>文件以目录的方式组织起来</p>
+<p>目录是一类特殊的文件</p>
+<ul>
+<li>每个目录包含了一张表&lt; name ,pointer to file header&gt;</li>
+<li>目录和文件是一种树形结构</li>
+</ul>
+<h2 id="典型操作"><a href="#典型操作" class="headerlink" title="典型操作"></a>典型操作</h2><ul>
+<li>搜索文件</li>
+<li>创建文加</li>
+<li>删除文件</li>
+<li>枚举目录</li>
+<li>重命名文件</li>
+<li>在文件系统中遍历一个路径</li>
+</ul>
+<p>操作系统中只允许内核模式修改目录</p>
+<ul>
+<li>确保映射完整性</li>
+<li>应用程序能够读目录</li>
+</ul>
+<h2 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h2><p>概念：根文件系统之外的其他文件要想能够被访问，都必须通过”关联“置根文件系统上的某个目录来实现，这个关联此操作就是挂载，此目录即为挂载点，解除此关联关系的过程称之为”挂载“。</p>
+<p>一个文件系统需要先挂载才能被访问</p>
+<p>一个没有挂载的文件系统被挂载在挂载点上。</p>
+<p>挂载点：用户看来就是一个目录，代表文件系统根的起始位置，访问文件存储的入口。</p>
+<h1 id="文件别名"><a href="#文件别名" class="headerlink" title="文件别名"></a>文件别名</h1><ul>
+<li>硬链接：多个文件项指向一个文件</li>
+<li>软连接：以快捷方式指向其他文件</li>
+</ul>
+<h1 id="虚拟文件系统"><a href="#虚拟文件系统" class="headerlink" title="虚拟文件系统"></a>虚拟文件系统</h1><p>分层结构</p>
+<ul>
+<li>上层：虚拟（逻辑）文件系统</li>
+<li>底层：特定文件系统模块</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.png" alt></p>
+<p>目的</p>
+<ul>
+<li>对所有不同文件系统的抽象</li>
+</ul>
+<p>功能</p>
+<ul>
+<li>提供相同的文件和文件系统<strong>接口</strong></li>
+<li>管理所有文件和文件系统关联的<strong>数据结构</strong></li>
+<li>高校查询<strong>例程</strong>，遍历文件系统</li>
+<li>与特定文件系统模块的<strong>交互</strong></li>
+</ul>
+<p>完全是内存中的概念，不存在硬盘上。当操作系统创建后，会把虚拟文件系统创建好。</p>
+<h2 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h2><ul>
+<li>卷控制块（UNIX:superblock）<ul>
+<li>每个文件系统一个</li>
+<li>文件系统详细信息</li>
+<li>块、块大小、空余块、计数/指针等</li>
+</ul>
+</li>
+<li>文件控制块（inode）<ul>
+<li>每个文件一个</li>
+<li>文件详细信息</li>
+<li>许可，拥有者，大小，数据位置等</li>
+</ul>
+</li>
+<li>目录节点（dentry）<ul>
+<li>每个目录一个</li>
+<li>将目录项数据结构及属性布局编码成数据结构</li>
+<li>指向文件控制块，父节点，项目录列表等</li>
+</ul>
+</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png" alt></p>
+<p>当需要时加载进内存</p>
+<ul>
+<li>卷控制块：：当文件系统挂载时进入内存</li>
+<li>文件控制块：当文件被访问时进入内存</li>
+<li>目录节点：在遍历一个文件路径时进入内存</li>
+</ul>
+<h1 id="数据缓存"><a href="#数据缓存" class="headerlink" title="数据缓存"></a>数据缓存</h1><p>数据块按需读入内存</p>
+<ul>
+<li>提供read()操作</li>
+<li>预读：预读取后面的数据块</li>
+</ul>
+<p>数据块使用后被缓存</p>
+<ul>
+<li>假设数据将会再次被使用</li>
+<li>写操作可能被缓存和延迟写入</li>
+</ul>
+<p>两种数据块缓存方式</p>
+<ul>
+<li>普通缓冲区缓存</li>
+<li>页缓存：统一缓存数据块和内存页</li>
+</ul>
+<p>分页要求</p>
+<ul>
+<li>当需要一个页时才将其载入内存</li>
+</ul>
+<p>支持存储</p>
+<ul>
+<li>一个页（在虚拟地址空间中）可以被映射到一个本地文件中（在耳机存储中）</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E9%A1%B5%E7%BC%93%E5%AD%98.png" alt></p>
+<p>文件数据块的页缓存</p>
+<ul>
+<li>在虚拟内存中的文件数据被映射成页</li>
+<li>文件的读/写操作被转换成对内存的访问</li>
+<li>可能导致缺页/设置为脏页</li>
+<li>问题：页置换-从进程或文件页缓存中？</li>
+</ul>
+<h1 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h1><p>找到文件，把<strong>文件控制块</strong>中内容读到内存，把文件控制块的关键信息放到打开文件表中，文件表中设置一个项，将这个项的索引返回给我们的应用程序，基于index进行读写就可以了。文件读写时inode信息会指出文件到底在什么地方，读写时会有一个offset 指出这个文件哪个位置起哪个数据，offset经过文件控制块里的一些转换，将offset转化成磁盘扇区的一个编号。</p>
+<p><img src="/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6.png" alt></p>
+<h1 id="文件分配"><a href="#文件分配" class="headerlink" title="文件分配"></a>文件分配</h1><ul>
+<li><p>连续分配</p>
+<ul>
+<li>文件头指定<strong>起始块</strong>和<strong>长度</strong></li>
+<li>优点：<ul>
+<li>文件读取表现好</li>
+<li>高效的顺序和随机访问</li>
+</ul>
+</li>
+<li>劣势：<ul>
+<li>碎片</li>
+<li>文件增长，不得不移动后面的文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>链式分配</p>
+<ul>
+<li>文件数据块链表方式存储</li>
+<li>文件头包含了第一块和最后一块指针</li>
+<li>优点<ul>
+<li>创建，增大，缩小很容易</li>
+<li>没有碎片</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>不可能真正的随机访问</li>
+<li>可靠性不好，比如断了一个链。。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>索引分配</p>
+<ul>
+<li>为每个文件创建一个名为<strong>索引数据块</strong>的非数据数据块<ul>
+<li>到文件数据块的指针列表</li>
+</ul>
+</li>
+<li>文件头包含了索引数据块</li>
+<li>优点<ul>
+<li>创建，增大，缩小很容易</li>
+<li>没有碎片</li>
+<li>支持直接访问</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>当文件很小时，存储索引的<strong>开销</strong></li>
+<li>如何处理大文件？索引块有容量限制，多级索引   </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="空闲空间列表"><a href="#空闲空间列表" class="headerlink" title="空闲空间列表"></a>空闲空间列表</h1><ul>
+<li>用位图代表空闲数据块列表<ul>
+<li>1111111110001111101010001111…..</li>
+<li>如果i = 0代表数据块是空闲的</li>
+</ul>
+</li>
+<li>使用简单但可能回事一个big vector<ul>
+<li>160GBdisk -&gt; 40Mblock -&gt; 5Mb bits</li>
+<li>然而，如果空闲空间在磁盘中均匀分布，那么找到”0“之前需要扫描n/r<ul>
+<li>n = 磁盘上数据块总数</li>
+<li>r = 空闲数据块总数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>出现问题，分配磁盘块，相应位置为1，还没写回磁盘，掉电。访问出现不一致性问题<ul>
+<li>解决：先把将磁盘中的bit设置为1,再去分配磁盘块，在将内存中的bit设这为1。</li>
+</ul>
+</li>
+</ul>
+<h1 id="多磁盘管理RAID"><a href="#多磁盘管理RAID" class="headerlink" title="多磁盘管理RAID"></a>多磁盘管理RAID</h1><ul>
+<li>分区：硬件磁盘的一种适合操作系统指定格式的划分</li>
+<li>卷：一个拥有一个文件系统实例的可访问的存储空间。</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/03/28/文件系统和文件/%E5%A4%9A%E7%A3%81%E7%9B%98.png" alt></p>
+<p>问题：单个磁盘访问效率低，可靠性低</p>
+<ul>
+<li>使用多个并行磁盘来增加<ul>
+<li>吞吐量</li>
+<li>可靠性和可用性</li>
+</ul>
+</li>
+<li>RAID - 冗余磁盘阵列<ul>
+<li>各种磁盘管理技术</li>
+<li>RAID levels:不同RAID分类（RAID-0,RAID-1,RAID-5）</li>
+</ul>
+</li>
+<li>实现<ul>
+<li>在操作系统内核：存储/卷管理</li>
+<li>RAID硬件控制器（i/O）</li>
+</ul>
+</li>
+<li>RAID0，数据分成多个子块，独立存储，提升访问效率</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/03/28/文件系统和文件/RAID0.png" alt></p>
+<ul>
+<li>RAID1，向两个磁盘写相同数据，从任何磁盘读数据。</li>
+<li>RAID4，既能提高性能，又能提高速度。数据块级磁盘配有专用一个奇偶校验磁盘。允许从任意一个故障磁盘中恢复。问题：奇偶校验磁盘频繁写操作。</li>
+<li>RAID5，将奇偶校验块均匀分布在每个磁盘里。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+            <a href="/yangmiemie99.github.io/tags/文件系统/" rel="tag"># 文件系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/03/25/踩坑日记-键盘输入问题/" rel="next" title="踩坑日记-键盘输入问题">
+                <i class="fa fa-chevron-left"></i> 踩坑日记-键盘输入问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件系统和文件"><span class="nav-number">1.</span> <span class="nav-text">文件系统和文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件系统的功能"><span class="nav-number">2.</span> <span class="nav-text">文件系统的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分配文件磁盘空间"><span class="nav-number">2.1.</span> <span class="nav-text">分配文件磁盘空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理文件集合"><span class="nav-number">2.2.</span> <span class="nav-text">管理文件集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供的便利及特性"><span class="nav-number">2.3.</span> <span class="nav-text">提供的便利及特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件属性"><span class="nav-number">3.</span> <span class="nav-text">文件属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件头"><span class="nav-number">4.</span> <span class="nav-text">文件头</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件描述符"><span class="nav-number">5.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#需要元数据来管理打开文件"><span class="nav-number">6.</span> <span class="nav-text">需要元数据来管理打开文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么实现？"><span class="nav-number">7.</span> <span class="nav-text">怎么实现？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">7.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户怎么访问文件"><span class="nav-number">8.</span> <span class="nav-text">用户怎么访问文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">9.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#典型操作"><span class="nav-number">9.1.</span> <span class="nav-text">典型操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挂载"><span class="nav-number">9.2.</span> <span class="nav-text">挂载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件别名"><span class="nav-number">10.</span> <span class="nav-text">文件别名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟文件系统"><span class="nav-number">11.</span> <span class="nav-text">虚拟文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本数据结构"><span class="nav-number">11.1.</span> <span class="nav-text">基本数据结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据缓存"><span class="nav-number">12.</span> <span class="nav-text">数据缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打开文件"><span class="nav-number">13.</span> <span class="nav-text">打开文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件分配"><span class="nav-number">14.</span> <span class="nav-text">文件分配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#空闲空间列表"><span class="nav-number">15.</span> <span class="nav-text">空闲空间列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多磁盘管理RAID"><span class="nav-number">16.</span> <span class="nav-text">多磁盘管理RAID</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
