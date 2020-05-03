@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/%E9%93%B6%E8%A1%8C%E5%AE%B6%E6%B5%81%E7%A8%8B.png">
 <meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/%E5%8C%BF%E5%90%8D%E7%AE%A1%E9%81%93.png">
 <meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/03/19/进程线程总结/%E4%BC%98%E5%85%88%E7%BA%A7%E5%8F%8D%E9%A6%88%E9%98%9F%E5%88%97.png">
-<meta property="og:updated_time" content="2020-03-28T04:40:06.694Z">
+<meta property="og:updated_time" content="2020-04-23T09:05:56.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="进程线程总结">
 <meta name="twitter:description" content="进程线程进程描述 进程定义：程序运行的执行过程，一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程。 进程应该包括： 程序代码 程序处理的数据 程序计数器中的值，指示下一条运行的指令 通用寄存器，堆栈 一组系统资源（打开的文件）状态信息   进程和程序的关系 程序是产生进程的基础 程序的每次运行构成不同的进程 进程是程序的功能体现 通过多次执行，一个程序可以对应多个进程 ;通过调用关系，">
@@ -748,7 +748,7 @@
 </li>
 <li>操作读者优先</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//writer</span></span><br><span class="line">sem_wait(WriteMutex);</span><br><span class="line">write;</span><br><span class="line">sem_post(WriteMutex);</span><br><span class="line"></span><br><span class="line"><span class="comment">//reader,多个读者</span></span><br><span class="line"><span class="comment">// 现在没一个读者</span></span><br><span class="line"><span class="keyword">if</span>(Rcount == <span class="number">0</span>)</span><br><span class="line">    <span class="comment">// 确保数据进行读的时候，没有写者存在</span></span><br><span class="line">    sem_wait(WriteMutex)</span><br><span class="line">++Rcount;</span><br><span class="line">sem_post(CountMutex);</span><br><span class="line">read;</span><br><span class="line">sem_wait(CountMutex);</span><br><span class="line">--Rcount;</span><br><span class="line"><span class="keyword">if</span>(Rcount == <span class="number">0</span>)</span><br><span class="line">    sem_post(WriteMutex)</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//writer</span></span><br><span class="line">sem_wait(WriteMutex);</span><br><span class="line">write;</span><br><span class="line">sem_post(WriteMutex);</span><br><span class="line"></span><br><span class="line"><span class="comment">//reader,多个读者</span></span><br><span class="line"><span class="comment">//RCount也是共享变量，需要保护</span></span><br><span class="line">sem_wait(CountMutex);</span><br><span class="line"><span class="comment">// 现在没一个读者</span></span><br><span class="line"><span class="keyword">if</span>(Rcount == <span class="number">0</span>)</span><br><span class="line">    <span class="comment">// 确保数据进行读的时候，没有写者存在</span></span><br><span class="line">    sem_wait(WriteMutex)</span><br><span class="line">++Rcount;</span><br><span class="line">sem_post(CountMutex);</span><br><span class="line"></span><br><span class="line">read;</span><br><span class="line"></span><br><span class="line">sem_wait(CountMutex);</span><br><span class="line">--Rcount;</span><br><span class="line"><span class="keyword">if</span>(Rcount == <span class="number">0</span>)</span><br><span class="line">    sem_post(WriteMutex)</span><br><span class="line">sem_post(CountMutex);</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>写者优先（正在执行写操作，等待队列中有写者也优先），一旦写者就绪，那么写着就会尽快执行写操作。用管程来设计一下。</p>
@@ -1095,7 +1095,7 @@
               
                 <a href="/yangmiemie99.github.io/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
