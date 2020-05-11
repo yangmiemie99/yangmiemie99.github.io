@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文参考博客 什么是STLSTL（Standard Template Library），即标准模板库，是一个具有工业强度的，高效的C++程序库。该库包含了诸多在计算机科学领域里所常用的基本数据结构和基本算法。为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。 STL的一个重要特点是数据结构和算法的分离。尽管这是个简单的概念，但这种分离确实使得STL变得非常通用。例如，由于S">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++中STL标准库">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/05/08/C-中STL标准库/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="本文参考博客 什么是STLSTL（Standard Template Library），即标准模板库，是一个具有工业强度的，高效的C++程序库。该库包含了诸多在计算机科学领域里所常用的基本数据结构和基本算法。为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。 STL的一个重要特点是数据结构和算法的分离。尽管这是个简单的概念，但这种分离确实使得STL变得非常通用。例如，由于S">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/08/C-中STL标准库/%E5%85%AD%E5%A4%A7%E7%BB%84%E4%BB%B6.png">
+<meta property="og:updated_time" content="2020-05-10T16:37:22.742Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++中STL标准库">
+<meta name="twitter:description" content="本文参考博客 什么是STLSTL（Standard Template Library），即标准模板库，是一个具有工业强度的，高效的C++程序库。该库包含了诸多在计算机科学领域里所常用的基本数据结构和基本算法。为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。 STL的一个重要特点是数据结构和算法的分离。尽管这是个简单的概念，但这种分离确实使得STL变得非常通用。例如，由于S">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/08/C-中STL标准库/%E5%85%AD%E5%A4%A7%E7%BB%84%E4%BB%B6.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/05/08/C-中STL标准库/">
+
+
+
+
+
+  <title>C++中STL标准库 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/08/C-中STL标准库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++中STL标准库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-08T13:11:45+08:00">
+                2020-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文参考<a href="https://blog.csdn.net/u010183728/article/details/81913729" target="_blank" rel="noopener">博客</a></p>
+<h1 id="什么是STL"><a href="#什么是STL" class="headerlink" title="什么是STL"></a>什么是STL</h1><p>STL（Standard Template Library），即标准模板库，是一个具有工业强度的，高效的C++程序库。该库包含了诸多在计算机科学领域里<strong>所常用的基本数据结构和基本算法。</strong>为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。</p>
+<p><strong>STL的一个重要特点是数据结构和算法的分离。</strong>尽管这是个简单的概念，但这种分离确实使得STL变得非常通用。例如，由于STL的sort()函数是完全通用的，你可以用它来操作几乎任何数据集合，包括链表，容器和数组；</p>
+<p><strong>STL另一个重要特性是它不是面向对象的。</strong>为了具有足够通用性，<strong>STL主要依赖于模板而不是封装</strong>，继承和虚函数（多态性）——OOP的三个要素。你在STL中找不到任何明显的类继承关系。这好像是一种倒退，但这正好是使得STL的组件具有广泛通用性的底层特征。另外，由于STL是基于模板，内联函数的使用使得生成的代码短小高效；所以说STL是泛型编程最成功的作品。</p>
+<h1 id="STL内容介绍"><a href="#STL内容介绍" class="headerlink" title="STL内容介绍"></a>STL内容介绍</h1><p>STL中六大组件：</p>
+<ul>
+<li>容器（Container），是一种<strong>数据结构</strong>，如list，vector，和deques ，<strong>以模板类的方法提供</strong>。容器要放东西，那么就需要内存。容器好的一点是将内存问题都处理好了。所以就需要分配器支持它。(allocator)为了访问容器中的数据，可以使用由容器类输出的迭代器；</li>
+<li>迭代器（Iterator），<strong>提供了访问容器中对象的方法。</strong>是容器和算法的桥梁。例如，可以使用一对迭代器指定list或vector中的一定范围的对象。<strong>迭代器就如同一个泛化的指针。</strong>事实上，C++的指针也是一种迭代器。但是，迭代器也可以是那些定义operator*()以及其他类似于指针的操作符地方法的类对象；</li>
+<li>算法（Algorithm），是用来操作容器中的数据的<strong>模板函数</strong>。例如，STL用sort()来对一个vector中的数据进行排序，用find()来搜索一个list中的对象，函数本身与他们操作的数据的结构和类型无关，因此他们可以在从简单数组到高度复杂容器的任何数据结构上使用；</li>
+<li>仿函数（Functor）:行为类函数，可作为算法的某种策略，从实现角度看，仿函数是一种重载了operator()的class或class template。</li>
+<li>适配器（Adaptor）:帮我我们转换容器，迭代器，仿函数进行适配。一种用来修饰容器或者仿函数或迭代器接口的东西。比如queue和stack，看着像容器，其实就是deque包了一层皮。</li>
+<li>分配器（allocator）:一般用在容器中，作为容器的一个成员，但一般是用模版参数传入，这样才可以让我们换成我们自定义的allocator；分配器用于封装STL容器在内存管理上的低层细节</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/05/08/C-中STL标准库/%E5%85%AD%E5%A4%A7%E7%BB%84%E4%BB%B6.png" alt></p>
+<p>通过一个小例子来看一下六大组件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ia[<span class="number">6</span>] = &#123;<span class="number">27</span>,<span class="number">210</span>,<span class="number">12</span>,<span class="number">47</span>,<span class="number">109</span>,<span class="number">83</span>&#125;;</span><br><span class="line">    <span class="comment">//vector容器，allocator分配器分配内存</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>,allocator&lt;<span class="keyword">int</span>&gt;&gt; vi(ia,ia+<span class="number">6</span>);</span><br><span class="line">    <span class="comment">// count_if 算法</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; count_if(vi.begin(),vi.end(),</span><br><span class="line">    	<span class="comment">// less&lt;int&gt;() function object 仿函数，比较两个数小的</span></span><br><span class="line">    	<span class="comment">// bind2nd function adapter 仿函数适配器，将第二个数绑定为40</span></span><br><span class="line">    	<span class="comment">// not1 function adapter 仿函数适配器，否定，整体变为大于等于40返回true</span></span><br><span class="line">    	not1(bind2nd(less&lt;<span class="keyword">int</span>&gt;(),<span class="number">40</span>)));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p><strong>序列式容器（Sequence containers）</strong>，每个元素都有固定位置－－<strong>取决于插入时机和地点，和元素值无关</strong>，vector、deque、list；<br>       Vector：将元素置于一个动态数组中加以管理，可以随机存取元素（用索引直接存取），数组尾部添加或移除元素非常快速。但是在中部或头部安插元素比较费时；<br>       Deque：是“double-ended queue”的缩写，可以随机存取元素（用索引直接存取），数组头部和尾部添加或移除元素都非常快速。但是在中部或头部安插元素比较费时；<br>       List：双向链表，不提供随机存取（按顺序走到需存取的元素，O(n)），在任何位置上执行插入或删除动作都非常迅速，内部只需调整一下指针；<br><strong>关联式容器（Associated containers）</strong>，<strong>元素位置取决于特定的排序准则</strong>，和插入顺序无关，set、multiset、map、multimap等。<br>       Set/Multiset：内部的元素依据其值自动排序，Set内的相同数值的元素只能出现一次，Multisets内可包含多个数值相同的元素，内部由二叉树实现，便于查找；<br>       Map/Multimap：Map的元素是成对的键值/实值，内部的元素依据其值自动排序，Map内的相同数值的元素只能出现一次，Multimaps内可包含多个数值相同的元素，内部由二叉树实现，便于查找；</p>
+<p>容器类自动申请和释放内存，无需new和delete操作。</p>
+<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p>Iterator（迭代器）模式又称Cursor（游标）模式，用于提供一种方法顺序访问一个聚合对象中各个元素, 而又不需暴露该对象的内部表示。STL迭代器是<strong>模版类</strong>，重载了<em>，＋＋，＝＝，！＝，＝运算符。从某种程度上说，他们是范泛型指针。这些模版类能够让程序员对STL容器进行操作，注意，操作也可以是函数模板提供的STL算法。容器提供迭代器，算法使用迭代器。迭代器是一座桥梁，*</em>模板函数能够以一致而无缝的方式处理容器。**</p>
+<p>对于STL数据结构和算法，你可以使用五种迭代器。下面简要说明了这五种类型：</p>
+<ul>
+<li><p>Input iterators 提供对数据的只读访问。</p>
+</li>
+<li><p>Output iterators 提供对数据的只写访问</p>
+</li>
+<li><p>Forward iterators 提供读写操作，并能向前推进迭代器。</p>
+</li>
+<li><p>Bidirectional iterators提供读写操作，并能向前和向后操作。</p>
+</li>
+<li><p>Random access iterators提供读写操作，并能在数据中随机移动。</p>
+</li>
+</ul>
+<p>尽管各种不同的STL实现细节方面有所不同，还是可以将上面的迭代器想象为一种类继承关系。从这个意义上说，下面的迭代器继承自上面的迭代器。由于这种继承关系，你可以将一个Forward迭代器作为一个output或input迭代器使用。同样，如果一个算法要求是一个bidirectional 迭代器，那么只能使用该种类型和随机访问迭代器。</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>算法部分主要由头文件<algorithm>，<numeric>和<functional>组成。<br>&lt; algorithm &gt;是所有STL头文件中最大的一个（尽管它很好理解），它是由一大堆<strong>模版函数</strong>组成的，可以认为每个函数在很大程度上都是独立的，其中常用到的<strong>功能范围涉及到比较、交换、查找、遍历操作、复制、修改、移除、反转、排序、合并等等。</strong><br>&lt; numeric &gt;体积很小，只包括几个在序列上面进行简单数学运算的模板函数，包括加法和乘法在序列上的一些操作。<br>&lt; functional &gt;中则定义了一些模板类，用以声明函数对象。<br>STL中算法大致分为四类：</functional></numeric></algorithm></p>
+<p>非可变序列算法：指不直接修改其所操作的容器内容的算法。<br>可变序列算法：指可以修改它们所操作的容器内容的算法。<br>排序算法：对序列进行排序和合并的算法、搜索算法以及有序序列上的集合操作。<br>数值算法：对容器内容进行数值计</p>
+<p><strong>&lt;一&gt;查找算法(13个)：判断容器中是否包含某个值</strong></p>
+<p>adjacent_find:   在iterator对标识元素范围内，查找一对相邻重复元素，找到则返回指向这对元素的第一个元素的                                                 ForwardIterator。否则返回last。重载版本使用输入的二元操作符代替相等的判断。<br>binary_search: 在有序序列中查找value，找到返回true。重载的版本实用指定的比较函数对象或函数指针来判断相等。<br>count:                利用等于操作符，把标志范围内的元素与输入值比较，返回相等元素个数。<br>count_if:            利用输入的操作符，对标志范围内的元素进行操作，返回结果为true的个数。<br>equal_range:     功能类似equal，返回一对iterator，第一个表示lower_bound，第二个表示upper_bound。<br>find:                   利用底层元素的等于操作符，对指定范围内的元素与输入值进行比较。当匹配时，结束搜索，返回该元素的一个InputIterator。<br>find_end:          在指定范围内查找”由输入的另外一对iterator标志的第二个序列”的最后一次出现。找到则返回最后一对的第一个ForwardIterator，否则返回输入的”另外一对”的第一个ForwardIterator。重载版本使用用户输入的操作符代替等于操作。<br>find_first_of:     在指定范围内查找”由输入的另外一对iterator标志的第二个序列”中任意一个元素的第一次出现。重载版本中使用了用户自定义操作符。<br>find_if: 使用输入的函数代替等于操作符执行find。<br>lower_bound:   返回一个ForwardIterator，指向在有序序列范围内的可以插入指定值而不破坏容器顺序的第一个位置。重载函数使用自定义比较操作。<br>upper_bound:  返回一个ForwardIterator，指向在有序序列范围内插入value而不破坏容器顺序的最后一个位置，该位置标志一个大于value的值。重载函数使用自定义比较操作。<br>search: 给出两个范围，返回一个ForwardIterator，查找成功指向第一个范围内第一次出现子序列(第二个范围)的位 置，查找失败指向last1。重载版本使用自定义的比较操作。<br>search_n: 在指定范围内查找val出现n次的子序列。重载版本使用自定义的比较操作。</p>
+<p><strong>&lt;二&gt;排序和通用算法(14个)：提供元素排序策略</strong><br>inplace_merge:      合并两个有序序列，结果序列覆盖两端范围。重载版本使用输入的操作进行排序。<br>merge: 合并两个有序序列，存放到另一个序列。重载版本使用自定义的比较。<br>nth_element: 将范围内的序列重新排序，使所有小于第n个元素的元素都出现在它前面，而大于它的都出现在后面。重载版本使用自定义的比较操作。<br>partial_sort: 对序列做部分排序，被排序元素个数正好可以被放到范围内。重载版本使用自定义的比较操作。<br>partial_sort_copy: 与partial_sort类似，不过将经过排序的序列复制到另一个容器。<br>partition: 对指定范围内元素重新排序，使用输入的函数，把结果为true的元素放在结果为false的元素之前。<br>random_shuffle:    对指定范围内的元素随机调整次序。重载版本输入一个随机数产生操作。<br>reverse:                  将指定范围内元素重新反序排序。<br>reverse_copy:        与reverse类似，不过将结果写入另一个容器。<br>rotate:                     将指定范围内元素移到容器末尾，由middle指向的元素成为容器第一个元素。<br>rotate_copy:           与rotate类似，不过将结果写入另一个容器。<br>sort:                         以升序重新排列指定范围内的元素。重载版本使用自定义的比较操作。<br>stable_sort:            与sort类似，不过保留相等元素之间的顺序关系。<br>stable_partition:    与partition类似，不过不保证保留容器中的相对顺序。</p>
+<p><strong>&lt;三&gt;删除和替换算法(15个)</strong><br>copy:                    复制序列<br>copy_backward: 与copy相同，不过元素是以相反顺序被拷贝。<br>iter_swap:           交换两个ForwardIterator的值。<br>remove:               删除指定范围内所有等于指定元素的元素。注意，该函数不是真正删除函数。内置函数不适合使用remove和remove_if函数。remove()返回一个指向容器末尾的迭代器<br>remove_copy:     将所有不匹配元素复制到一个制定容器，返回OutputIterator指向被拷贝的末元素的下一个位置。<br>remove_if:           删除指定范围内输入操作结果为true的所有元素。<br>remove_copy_if: 将所有不匹配元素拷贝到一个指定容器。<br>replace:               将指定范围内所有等于vold的元素都用vnew代替。<br>replace_copy:     与replace类似，不过将结果写入另一个容器。<br>replace_if:           将指定范围内所有操作结果为true的元素用新值代替。<br>replace_copy_if: 与replace_if，不过将结果写入另一个容器。<br>swap:                   交换存储在两个对象中的值。<br>swap_range:       将指定范围内的元素与另一个序列元素值进行交换。<br>unique:                清除序列中重复元素，和remove类似，它也不能真正删除元素。重载版本使用自定义比较操作。<br>unique_copy:      与unique类似，不过把结果输出到另一个容器。</p>
+<p>注意：</p>
+<p>使用算法remove(),remove_if(),unique()后，务必使用erase调整容器的大小</p>
+<p>使用find(),find_if(),search(),search_n()返回的迭代器之前，务必与容器的end()进行比较</p>
+<p>仅当元素的相对顺序很重要时，才因该使用stable_partition()</p>
+<p>调用unique()删除重复元素之前，先sort保证相邻的元素彼此相临。</p>
+<p><strong>&lt;四&gt;排列组合算法(2个)</strong>：提供计算给定集合按一定顺序的所有可能排列组合<br>next_permutation: 取出当前范围内的排列，并重新排序为下一个排列。重载版本使用自定义的比较操作。<br>prev_permutation: 取出指定范围内的序列并将它重新排序为上一个序列。如果不存在上一个序列则返回false。重载版本使用 自定义的比较操作。</p>
+<p><strong>&lt;五&gt;算术算法(4个)</strong><br>accumulate:   iterator对标识的序列段元素之和，加到一个由val指定的初始值上。重载版本不再做加法，而是传进来的二元操作符被应用到元素上。<br>partial_sum:   创建一个新序列，其中每个元素值代表指定范围内<strong>该位置前所有元素之和</strong>。重载版本使用自定义操作代替加法。<br>inner_product:  对两个序列做内积(对应元素相乘，再求和)并将内积加到一个输入的初始值上。重载版本使用用户定义 的操作。<br>adjacent_difference: 创建一个新序列，新序列中每个新值代表当前元素与上一个元素的差。重载版本用指定二元操作计算相邻元素的差。</p>
+<p><strong>&lt;六&gt;生成和异变算法(6个)</strong><br>fill:                 将输入值赋给标志范围内的所有元素。<br>fill_n:            将输入值赋给first到first+n范围内的所有元素。<br>for_each:      用指定函数依次对指定范围内所有元素进行迭代访问，返回所指定的函数类型。该函数不得修改序列中的元素。<br>generate:      连续调用输入的函数来填充指定的范围。<br>generate_n: 与generate函数类似，填充从指定iterator开始的n个元素。<br>transform:    将输入的操作作用与指定范围内的每个元素，并产生一个新的序列。重载版本将操作作用在一对元素上，另外一 个元素来自输入的另外一个序列。结果输出到指定容器。</p>
+<p><strong>&lt;七&gt;关系算法(8个)</strong><br>equal:                                  如果两个序列在标志范围内元素都相等，返回true。重载版本使用输入的操作符代替默认的等于操                                               作符。<br>includes:                             判断第一个指定范围内的所有元素是否都被第二个范围包含，使用底层元素的&lt;操作符，成功返回                                                true。重载版本使用用户输入的函数。<br>lexicographical_compare: 比较两个序列。重载版本使用用户自定义比较操作。<br>max:返回两个元素中较大一个。重载版本使用自定义比较操作。<br>max_element: 返回一个ForwardIterator，指出序列中最大的元素。重载版本使用自定义比较操作。<br>min: 返回两个元素中较小一个。重载版本使用自定义比较操作。<br>min_element: 返回一个ForwardIterator，指出序列中最小的元素。重载版本使用自定义比较操作。<br>mismatch:   并行比较两个序列，指出第<strong>一个不匹配的位置，返回一对iterator</strong>，标志第一个不匹配元素位置。如果都匹配，返回每个容器的last。重载版本使用自定义的比较操作。</p>
+<p><strong>&lt;八&gt;集合算法(4个)</strong><br>set_union: 构造一个有序序列，包含两个序列中所有的不重复元素。重载版本使用自定义的比较操作。<br>set_intersection:构造一个有序序列，其中元素在两个序列中都存在。重载版本使用自定义的比较操作。<br>set_difference:构造一个有序序列，该序列仅保留第一个序列中存在的而第二个中不存在的元素。重载版本使用自定义的比较操作。<br>set_symmetric_difference: 构造一个有序序列，该序列取两个序列的对称差集(并集-交集)。</p>
+<p><strong>&lt;九&gt;堆算法(4个)</strong><br>make_heap: 把指定范围内的元素生成一个堆。重载版本使用自定义比较操作。<br>pop_heap:   并不真正把最大元素从堆中弹出，而是重新排序堆。它把first和last-1交换，然后重新生成一个堆。可使用容器的                       back来访问被”弹出”的元素或者使用pop_back进行真正的删除。重载版本使用自定义的比较操作。<br>push_heap: 假设first到last-1是一个有效堆，要被加入到堆的元素存放在位置last-1，重新生成堆。在指向该函数前，必须先把                       元素插入容器后。重载版本使用指定的比较操作。<br>sort_heap:  对指定范围内的序列重新排序，它假设该序列是个有序堆。重载版本使用自定义比较操作。</p>
+<h2 id="仿函数"><a href="#仿函数" class="headerlink" title="仿函数"></a>仿函数</h2><p>​       仿函数(functor)，就是使一个类的使用看上去象一个函数。其实现就是类中实现一个operator()，这个类就有了类似函数的行为，就是一个仿函数类了。</p>
+<p>要使用STL内建的仿函数，必须包含&lt; functional &gt;头文件。而头文件中包含的仿函数分类包括</p>
+<table>
+<thead>
+<tr>
+<th>算术运算</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/plus" target="_blank" rel="noopener">plus</a></td>
+<td>实现 x + y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/minus" target="_blank" rel="noopener">minus</a></td>
+<td>实现 x - y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/multiplies" target="_blank" rel="noopener">multiplies</a></td>
+<td>实现 x * y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/divides" target="_blank" rel="noopener">divides</a></td>
+<td>实现 x / y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/modulus" target="_blank" rel="noopener">modulus</a></td>
+<td>实现 x % y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/negate" target="_blank" rel="noopener">negate</a></td>
+<td>实现 -x 的函数对象  (类模板)</td>
+</tr>
+</tbody></table>
+<p>例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ia[] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span> &#125;;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; iv(ia, ia + <span class="number">5</span>);</span><br><span class="line">	<span class="comment">//120</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; accumulate(iv.begin(), iv.end(), <span class="number">1</span>, multiplies&lt;<span class="keyword">int</span>&gt;()) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="comment">//15</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; multiplies&lt;<span class="keyword">int</span>&gt;()(<span class="number">3</span>, <span class="number">5</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	modulus&lt;<span class="keyword">int</span>&gt;  modulusObj;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; modulusObj(<span class="number">3</span>, <span class="number">5</span>) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 3 </span></span><br><span class="line"></span><br><span class="line">	sort(iv.begin(), iv.end(), greater&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">	for_each(iv.begin(), iv.end(), display&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>比较</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/equal_to" target="_blank" rel="noopener">equal_to</a></td>
+<td>实现 x == y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/not_equal_to" target="_blank" rel="noopener">not_equal_to</a></td>
+<td>实现 x != y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/greater" target="_blank" rel="noopener">greater</a></td>
+<td>实现 x &gt; y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/less" target="_blank" rel="noopener">less</a></td>
+<td>实现 x &lt; y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/greater_equal" target="_blank" rel="noopener">greater_equal</a></td>
+<td>实现 x &gt;= y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/less_equal" target="_blank" rel="noopener">less_equal</a></td>
+<td>实现 x &lt;= y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>逻辑运算</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/logical_and" target="_blank" rel="noopener">logical_and</a></td>
+<td>实现 x &amp;&amp; y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/logical_or" target="_blank" rel="noopener">logical_or</a></td>
+<td>实现 x || y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/logical_not" target="_blank" rel="noopener">logical_not</a></td>
+<td>实现 !x 的函数对象  (类模板)</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>逐位运算</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/bit_and" target="_blank" rel="noopener">bit_and</a></td>
+<td>实现 x &amp; y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/bit_or" target="_blank" rel="noopener">bit_or</a></td>
+<td>实现 x | y 的函数对象  (类模板)</td>
+</tr>
+<tr>
+<td><a href="https://zh.cppreference.com/w/cpp/utility/functional/bit_xor" target="_blank" rel="noopener">bit_xor</a></td>
+<td>实现 x ^ y 的函数对象  (类模板)</td>
+</tr>
+</tbody></table>
+<h2 id="容器适配器"><a href="#容器适配器" class="headerlink" title="容器适配器"></a>容器适配器</h2><p>标准库提供了三种顺序容器适配器：queue(FIFO队列)、priority_queue(优先级队列)、stack(栈)</p>
+<p>什么是容器适配器？<br>   ”适配器是使一种事物的行为类似于另外一种事物行为的一种机制”，适配器对容器进行包装，使其表现出另外一种行为。例如，stack&lt;int, vector<int> &gt;实现了栈的功能，但其内部使用顺序容器vector<int>来存储数据。（相当于是vector<int>表现出      了栈的行为）。</int></int></int></p>
+<p>  要使用适配器，需要加入一下头文件：</p>
+<p>​    #include &lt; stack&gt;        //stack</p>
+<p>​    #include&lt; queue &gt;       //queue、priority_queue</p>
+<table>
+<thead>
+<tr>
+<th>种类</th>
+<th>默认顺序容器</th>
+<th>可用顺序容器</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stack</td>
+<td>deque</td>
+<td>vector、list、deque</td>
+<td></td>
+</tr>
+<tr>
+<td>queue</td>
+<td>deque</td>
+<td>list、deque</td>
+<td>基础容器必须提供push_front()运算</td>
+</tr>
+<tr>
+<td>priority_queue</td>
+<td>vector</td>
+<td>vector、deque</td>
+<td>基础容器必须提供随机访问功能</td>
+</tr>
+</tbody></table>
+<p>  覆盖默认容器类型<code>stack&lt;int,vector&lt;int&gt; &gt; stk;</code></p>
+<h2 id="分配器"><a href="#分配器" class="headerlink" title="分配器"></a>分配器</h2><p>allocator是STL的重要组成，但是一般用户不怎么熟悉他，因为allocator隐藏在所有容器（包括vector）身后，默默<strong>完成内存配置与释放，对象构造和析构的工作</strong>。。allocator类声明、定义于头文件<code>&lt;memory&gt;</code>中的<code>std</code>命名空间内。</p>
+<h3 id="malloc和new"><a href="#malloc和new" class="headerlink" title="malloc和new"></a>malloc和new</h3><p>再此之前，我只知道两种开辟内存的方式。</p>
+<p>其一，可以使用C语言的函数malloc、realloc、calloc开辟内存，举个例子：</p>
+<p><code>int* ptr = (int *)malloc(10 * sizeof(int));</code>    /* 进行强制类型转换 */<br>其二，可以使用C++方式开辟内存，比如：</p>
+<p><code>int* ptr = new int[10];</code></p>
+<p>对于，C风格的内存管理这里不做讨论。但是，对于C++的new风格，这里总结一下它的局限性。对于我个人来说，我一般写成这样<code>new int[ 10 ]()</code>，也就是在最后加一对小括号，因为C++保证这样可以将int[10]中内存全部初始化为0。</p>
+<h3 id="C-中new的局限性"><a href="#C-中new的局限性" class="headerlink" title="C++中new的局限性"></a>C++中new的局限性</h3><p>对于以上这一段话，有一个话题需要弄清楚的，就是——内存构造。</p>
+<p>对C++的new而言，它首先会(1)<strong>分配内存</strong>，然后自动的完成(2)<strong>对象构造</strong>。这里可以用侯捷先生翻译的《深度探索C++对象模型》一书中的伪代码来表示new的过程：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Point* heap = __new(<span class="keyword">sizeof</span>(Point));<span class="comment">//开辟内存</span></span><br><span class="line"><span class="keyword">if</span> (head != <span class="number">0</span>) &#123;</span><br><span class="line">	head-&gt;Point::Point();<span class="comment">//对象构造（内存构造）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，__new不表示new（它只是完成内存申请），以上整个伪代码过程为new所完成的功能。<br>正是因为new的这一连串的操作，造成了性能的下降。比如，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> p = <span class="keyword">new</span> <span class="built_in">string</span>[<span class="number">100</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i)&#123;</span><br><span class="line">	p[i] = <span class="string">"balaba..."</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际上，我只需要5个string，而new把100个对象全部构造好了（每个string已经被初始化为空字符串，也就是<code>&quot;&quot;</code>）。</p>
+<p>然后，接着又将p[0-4]赋值为balaba…</p>
+<p><strong>也就是前面将p[0-4]赋值为空字符串的操作</strong>，变得毫无意义。</p>
+<h3 id="使用allocator将内存分配、对象构造分离开"><a href="#使用allocator将内存分配、对象构造分离开" class="headerlink" title="使用allocator将内存分配、对象构造分离开"></a>使用allocator将内存分配、对象构造分离开</h3><p>既然，new有它自身的局限性。对于性能要求极高的STL肯定是不会使用new的。好在有一个allocator类——它也是一个模板类，同时就是用来处理内存问题的。</p>
+<p>allocator类将new的内存分配、对象构造，视作两个独立的过程，并由独立的函数负责。举个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">allocator&lt;<span class="keyword">char</span>&gt; str;</span><br><span class="line"><span class="keyword">char</span>* base = str.allocate(<span class="number">10</span>), *p = base; <span class="comment">//内存分配</span></span><br><span class="line">str.construct(p++, <span class="string">'a'</span>);  <span class="comment">//对象构造并初始化</span></span><br><span class="line">str.construct(p++, <span class="string">'b'</span>);</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; base[<span class="number">0</span>] &lt;&lt; base[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+
+<p>因为allocator是模板类，所以需要指定类型。接着，调用<code>allocate(10)</code>函数来分配内存（申请了10个char内存）。然后，使用<code>construct</code>函数构造base[0]这块内存，并赋以初值<code>a</code>。</p>
+<p>这就将new内存分配、内存构造给分离开了。一切，都像我们看到的那样。</p>
+<p>同样，将delete的过程也拆分了开来。这是必须的，我们不能用delete去释放allocate分配的内存。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">str.destroy(--p); <span class="comment">//销毁对象</span></span><br><span class="line">str.destroy(--p);</span><br><span class="line">str.deallocate(base, <span class="number">10</span>); <span class="comment">//释放内存</span></span><br></pre></td></tr></table></figure>
+
+<p>小结：如果要使用allocate返回的内存，那么就必须先construct构造它。否则，你后续的行为都是未定义的（造成的后果也是严重的）。</p>
+<p>但是，有几个例外。它们是uninitialized_copy、uninitialized_copy_n、uninitialized_fill和uninitialized_fill_n。从名字就知道uninitialized（未初始化的），它们的参数必须指向的是未构造的内存，比如uninitialized_copy会在给定位置构造元素。</p>
+<p>针对不同的应用场合，STL中实现了不同的Allocator，如下（gcc-3.4：<a href="http://www.cs.huji.ac.il/~etsman/Docs/gcc-3.4-base/libstdc++/html/20_util/allocator.html）" target="_blank" rel="noopener">http://www.cs.huji.ac.il/~etsman/Docs/gcc-3.4-base/libstdc++/html/20_util/allocator.html）</a>:</p>
+<p><strong>__gnu_cxx::new_allocator<t></t></strong> Simply wraps ::operator new and ::operator delete.<br><strong>__gnu_cxx::malloc_allocator<t></t></strong> Simply wraps malloc and free. There is also a hook for an out-of-memory handler<br><strong>__gnu_cxx::debug_allocator<t></t></strong> A wrapper around an arbitrary allocator A. It passes on slightly increased size requests to A, and uses the extra memory to store size information.<br><strong><strong>gnu_cxx::</strong>pool_alloc&lt;bool, int&gt;</strong> A high-performance, single pool allocator. The reusable memory is shared among identical instantiations of this type.<br><strong><strong>gnu_cxx::</strong>mt_alloc<t></t></strong> A high-performance fixed-size allocatorthat was initially developed specifically to suit the needs of multi threaded applications<br><strong>__gnu_cxx::bitmap_allocato</strong> A high-performance allocator that uses a bit-map to keep track of the used and unused memory locations</p>
+<p>例如，在多线程环境下，可以使用：</p>
+<p>#include <vector> #include &lt;mt_allocator.h&gt; std::vector&lt;int, <strong>gnu_cxx::</strong>mt_alloc<int>&gt; Array(100);</int></vector></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例子</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"allocator.hpp"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">namespace</span> allocator_ &#123;</span><br><span class="line"> </span><br><span class="line"><span class="comment">////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">// reference: C++ Primer(Fifth Edition) 12.2.2</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test_allocator_1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::allocator&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; alloc; <span class="comment">// 可以分配string的allocator对象</span></span><br><span class="line">	<span class="keyword">int</span> n&#123; <span class="number">5</span> &#125;;</span><br><span class="line">	<span class="keyword">auto</span> <span class="keyword">const</span> p = alloc.allocate(n); <span class="comment">// 分配n个未初始化的string</span></span><br><span class="line"> </span><br><span class="line">	<span class="keyword">auto</span> q = p; <span class="comment">// q指向最后构造的元素之后的位置</span></span><br><span class="line">	alloc.construct(q++); <span class="comment">// *q为空字符串</span></span><br><span class="line">	alloc.construct(q++, <span class="number">10</span>, <span class="string">'c'</span>); <span class="comment">// *q为cccccccccc</span></span><br><span class="line">	alloc.construct(q++, <span class="string">"hi"</span>); <span class="comment">// *q为hi</span></span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; *p &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; <span class="comment">// 正确：使用string的输出运算符</span></span><br><span class="line">	<span class="comment">//std::cout &lt;&lt; *q &lt;&lt; std::endl; // 灾难：q指向未构造的内存</span></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; p[<span class="number">0</span>] &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; p[<span class="number">1</span>] &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; p[<span class="number">2</span>] &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">while</span> (q != p) &#123;</span><br><span class="line">		alloc.destroy(--q); <span class="comment">// 释放我们真正构造的string</span></span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	alloc.deallocate(p, n);</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test_allocator_2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi&#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 分配比vi中元素所占用空间大一倍的动态内存</span></span><br><span class="line">	<span class="built_in">std</span>::allocator&lt;<span class="keyword">int</span>&gt; alloc;</span><br><span class="line">	<span class="keyword">auto</span> p = alloc.allocate(vi.size() * <span class="number">2</span>);</span><br><span class="line">	<span class="comment">// 通过拷贝vi中的元素来构造从p开始的元素</span></span><br><span class="line">	<span class="comment">/* 类似拷贝算法，uninitialized_copy接受三个迭代器参数。前两个表示输入序列，第三个表示</span></span><br><span class="line"><span class="comment">	这些元素将要拷贝到的目的空间。传递给uninitialized_copy的目的位置迭代器必须指向未构造的</span></span><br><span class="line"><span class="comment">	内存。与copy不同，uninitialized_copy在给定目的位置构造元素。</span></span><br><span class="line"><span class="comment">	类似copy，uninitialized_copy返回(递增后的)目的位置迭代器。因此，一次uninitialized_copy调用</span></span><br><span class="line"><span class="comment">	会返回一个指针，指向最后一个构造的元素之后的位置。</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	<span class="keyword">auto</span> q = <span class="built_in">std</span>::uninitialized_copy(vi.begin(), vi.end(), p);</span><br><span class="line">	<span class="comment">// 将剩余元素初始化为42</span></span><br><span class="line">	<span class="built_in">std</span>::uninitialized_fill_n(q, vi.size(), <span class="number">42</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">////////////////////////////////////////////////////////////</span></span><br><span class="line"><span class="comment">// reference: http://www.modernescpp.com/index.php/memory-management-with-std-allocator</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test_allocator_3</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::allocator&lt;<span class="keyword">int</span>&gt; intAlloc;</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"intAlloc.max_size(): "</span> &lt;&lt; intAlloc.max_size() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">int</span>* intArray = intAlloc.allocate(<span class="number">100</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"intArray[4]: "</span> &lt;&lt; intArray[<span class="number">4</span>] &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	intArray[<span class="number">4</span>] = <span class="number">2011</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"intArray[4]: "</span> &lt;&lt; intArray[<span class="number">4</span>] &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	intAlloc.deallocate(intArray, <span class="number">100</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::allocator&lt;<span class="keyword">double</span>&gt; doubleAlloc;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"doubleAlloc.max_size(): "</span> &lt;&lt; doubleAlloc.max_size() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::allocator&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; stringAlloc;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"stringAlloc.max_size(): "</span> &lt;&lt; stringAlloc.max_size() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">string</span>* myString = stringAlloc.allocate(<span class="number">3</span>);</span><br><span class="line"> </span><br><span class="line">	stringAlloc.construct(myString, <span class="string">"Hello"</span>);</span><br><span class="line">	stringAlloc.construct(myString + <span class="number">1</span>, <span class="string">"World"</span>);</span><br><span class="line">	stringAlloc.construct(myString + <span class="number">2</span>, <span class="string">"!"</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; myString[<span class="number">0</span>] &lt;&lt; <span class="string">" "</span> &lt;&lt; myString[<span class="number">1</span>] &lt;&lt; <span class="string">" "</span> &lt;&lt; myString[<span class="number">2</span>] &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	stringAlloc.destroy(myString);</span><br><span class="line">	stringAlloc.destroy(myString + <span class="number">1</span>);</span><br><span class="line">	stringAlloc.destroy(myString + <span class="number">2</span>);</span><br><span class="line">	stringAlloc.deallocate(myString, <span class="number">3</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="常用容器用法介绍"><a href="#常用容器用法介绍" class="headerlink" title="常用容器用法介绍"></a>常用容器用法介绍</h1><h2 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h2><h3 id="基本函数"><a href="#基本函数" class="headerlink" title="基本函数"></a>基本函数</h3><p>1.构造函数</p>
+<p>vector():创建一个空vector<br>vector(int nSize):创建一个vector,元素个数为nSize<br>vector(int nSize,const t&amp; t):创建一个vector，元素个数为nSize,且值均为t<br>vector(const vector&amp;):复制构造函数<br>vector(begin,end):复制[begin,end)区间内另一个数组的元素到vector中<br>2.增加函数</p>
+<p>void push_back(const T&amp; x):向量尾部增加一个元素X<br>iterator insert(iterator it,const T&amp; x):向量中迭代器指向元素前增加一个元素x<br>iterator insert(iterator it,int n,const T&amp; x):向量中迭代器指向元素前增加n个相同的元素x<br>iterator insert(iterator it,const_iterator first,const_iterator last):向量中迭代器指向元素前插入另一个相同类型向量的[first,last)间的数据<br>3.删除函数</p>
+<p>iterator erase(iterator it):删除向量中迭代器指向元素<br>iterator erase(iterator first,iterator last):删除向量中[first,last)中元素<br>void pop_back():删除向量中最后一个元素<br>void clear():清空向量中所有元素<br>4.遍历函数</p>
+<p>reference at(int pos):返回pos位置元素的引用<br>reference front():返回首元素的引用<br>reference back():返回尾元素的引用<br>iterator begin():返回向量头指针，指向第一个元素<br>iterator end():返回向量尾指针，指向向量最后一个元素的下一个位置<br>reverse_iterator rbegin():反向迭代器，指向最后一个元素<br>reverse_iterator rend():反向迭代器，指向第一个元素之前的位置<br>5.判断函数</p>
+<p>bool empty() const:判断向量是否为空，若为空，则向量中无元素<br>6.大小函数</p>
+<p>int size() const:返回向量中元素的个数<br>int capacity() const:返回当前向量张红所能容纳的最大元素值<br>int max_size() const:返回最大可允许的vector元素数量值</p>
+<p>void reserve( size_type new_cap );增加 vector 的容量到大于或等于 <code>new_cap</code> 的值。若 <code>new_cap</code> 大于当前的 <a href="https://zh.cppreference.com/w/cpp/container/vector/capacity" target="_blank" rel="noopener">capacity()</a> ，则分配新存储，否则该方法不做任何事。</p>
+<p><code>reserve()</code> 不更改 vector 的 size 。</p>
+<p>若 <code>new_cap</code> 大于 <a href="https://zh.cppreference.com/w/cpp/container/vector/capacity" target="_blank" rel="noopener">capacity()</a> ，则所有迭代器，包含尾后迭代器和所有到元素的引用都被非法化。否则，没有迭代器或引用被非法化。</p>
+<p>7.其他函数</p>
+<p>void swap(vector&amp;):交换两个同类型向量的数据<br>void assign(int n,const T&amp; x):设置向量中第n个元素的值为x<br>void assign(const_iterator first,const_iterator last):向量中[first,last)中元素设置成当前向量元素</p>
+<p>如果要去掉容器中多余的容量，例如不再向容器中添加新元素，那么可以通过使用成 员函数 shrink_to_fit() 来实现。</p>
+<h2 id="deque"><a href="#deque" class="headerlink" title="deque"></a>deque</h2><p>所谓的deque是”double ended queue”的缩写，双端队列不论在尾部或头部插入元素，都十分迅速。而在中间插入元素则会比较费时，因为必须移动中间其他的元素。双端队列是一种随机访问的数据类型，提供了在序列两端快速插入和删除操作的功能，它可以在需要的时候改变自身大小，完成了标准的C++数据结构中队列的所有功能。 </p>
+<p>Vector是单向开口的连续线性空间，deque则是一种双向开口的连续线性空间。deque对象在队列的两端放置元素和删除元素是高效的，而向量vector只是在插入序列的末尾时操作才是高效的。deque和vector的最大差异，<strong>一在于deque允许于常数时间内对头端进行元素的插入或移除操作，二在于deque没有所谓的capacity观念，因为它是动态地以分段连续空间组合而成，随时可以增加一段新的空间并链接起来。换句话说，像vector那样“因旧空间不足而重新配置一块更大空间，然后复制元素，再释放旧空间”这样的事情在deque中是不会发生的。也因此，deque没有必要提供所谓的空间预留（reserved）功能。</strong> </p>
+<p>虽然deque也提供Random Access Iterator，<strong>但它的迭代器并不是普通指针，其复杂度和vector不可同日而语</strong>，这当然涉及到各个运算层面。因此，除非必要，我们应尽可能选择使用vector而非deque。对deque进行的排序操作，为了最高效率，可将deque先完整复制到一个vector身上，将vector排序后（利用STL的sort算法），再复制回deque。 </p>
+<p>deque是一种优化了的对序列两端元素进行添加和删除操作的基本序列容器。<strong>通常由一些独立的区块组成，第一区块朝某方向扩展，最后一个区块朝另一方向扩展。</strong>它允许较为快速地随机访问但它不像vector一样把所有对象保存在一个连续的内存块，而是多个连续的内存块。并且<strong>在一个映射结构中保存对这些块以及顺序的跟踪。</strong></p>
+<h3 id="基本函数-1"><a href="#基本函数-1" class="headerlink" title="基本函数"></a>基本函数</h3><p>构造方法与vector类似</p>
+<p>deque的常用成员函数</p>
+<p>deq[ ]：用来访问双向队列中单个的元素。<br>deq.front()：返回第一个元素的引用。<br>deq.back()：返回最后一个元素的引用。<br>deq.push_front(x)：把元素x插入到双向队列的头部。<br>deq.pop_front()：弹出双向队列的第一个元素。<br>deq.push_back(x)：把元素x插入到双向队列的尾部。<br>deq.pop_back()：弹出双向队列的最后一个元素。</p>
+<h3 id="deque的一些特点"><a href="#deque的一些特点" class="headerlink" title="deque的一些特点"></a>deque的一些特点</h3><p>支持随机访问，即支持[ ]以及at()，但是性能没有vector好。<br>可以在内部进行插入和删除操作，但性能不及list。<br>deque两端都能够快速插入和删除元素，而vector只能在尾端进行。<br>deque的元素存取和迭代器操作会稍微慢一些，因为deque的内部结构会多一个间接过程。<br>deque<strong>迭代器是特殊的智能指针，而不是一般指针，它需要在不同的区块之间跳转。</strong><br>deque可以包含更多的元素，其max_size可能更大，因为不止使用一块内存。<br>deque<strong>不支持对容量和内存分配时机的控制。</strong><br>在除了首尾两端的其他地方插入和删除元素，都将会导致指向deque元素的任何pointers、references、iterators失效。不过，deque的内存重分配优于vector，因为其内部结构显示不需要复制所有元素。<br>deque的内存区块不再被使用时，会被释放，deque的内存大小是可缩减的。不过，是不是这么做以及怎么做由实际操作版本定义。<br>deque不提供容量操作：capacity()和reverse()，但是vector可以。</p>
+<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><p>List是stl实现的双向链表，与向量(vector)相比, 它允许快速的插入和删除，但是随机访问却比较慢。</p>
+<h3 id="基本函数-2"><a href="#基本函数-2" class="headerlink" title="基本函数"></a>基本函数</h3><p>list定义和初始化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;lst1;          <span class="comment">//创建空list</span></span><br><span class="line"><span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; lst2(<span class="number">5</span>);       <span class="comment">//创建含有5个元素的list</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;lst3(<span class="number">3</span>,<span class="number">2</span>);  <span class="comment">//创建含有3个元素的list</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;lst4(lst2);    <span class="comment">//使用lst2初始化lst4</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;lst5(lst2.begin(),lst2.end());  <span class="comment">//同lst4</span></span><br></pre></td></tr></table></figure>
+
+<p>常用操作函数</p>
+<p>Lst1.assign() 给list赋值<br>Lst1.back() 返回最后一个元素<br>Lst1.begin() 返回指向第一个元素的迭代器<br>Lst1.clear() 删除所有元素<br>Lst1.empty() 如果list是空的则返回true<br>Lst1.end() 返回末尾的迭代器<br>Lst1.erase() 删除一个元素<br>Lst1.front() 返回第一个元素<br>Lst1.get_allocator() 返回list的配置器<br>Lst1.insert() 插入一个元素到list中<br>Lst1.max_size() 返回list能容纳的最大元素数量<br>Lst1.merge() 合并两个list<br>Lst1.pop_back() 删除最后一个元素<br>Lst1.pop_front() 删除第一个元素<br>Lst1.push_back() 在list的末尾添加一个元素<br>Lst1.push_front() 在list的头部添加一个元素<br>Lst1.rbegin() 返回指向第一个元素的逆向迭代器<br>Lst1.remove() 从list删除元素<br>Lst1.remove_if() 按指定条件删除元素<br>Lst1.rend() 指向list末尾的逆向迭代器<br>Lst1.resize() 改变list的大小<br>Lst1.reverse() 把list的元素倒转<br>Lst1.size() 返回list中的元素个数<br>Lst1.sort() 给list排序<br>Lst1.splice() 合并两个list<br>Lst1.swap() 交换两个list<br>Lst1.unique() 删除list中相邻重复的元素</p>
+<p>综合例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list&gt; </span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; INTLIST;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//从前向后显示list队列的全部元素 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">put_list</span><span class="params">(INTLIST <span class="built_in">list</span>, <span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	INTLIST::iterator plist;</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"The contents of "</span> &lt;&lt; name &lt;&lt; <span class="string">" : "</span>;</span><br><span class="line">	<span class="keyword">for</span> (plist = <span class="built_in">list</span>.begin(); plist != <span class="built_in">list</span>.end(); plist++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; *plist &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//测试list容器的功能 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//list1对象初始为空 </span></span><br><span class="line">	INTLIST list1;</span><br><span class="line">	<span class="function">INTLIST <span class="title">list2</span><span class="params">(<span class="number">5</span>, <span class="number">1</span>)</span></span>;</span><br><span class="line">	<span class="function">INTLIST <span class="title">list3</span><span class="params">(list2.begin(), --list2.end())</span></span>;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//声明一个名为i的双向迭代器 </span></span><br><span class="line">	INTLIST::iterator i;</span><br><span class="line"> </span><br><span class="line">	put_list(list1, <span class="string">"list1"</span>);</span><br><span class="line">	put_list(list2, <span class="string">"list2"</span>);</span><br><span class="line">	put_list(list3, <span class="string">"list3"</span>);</span><br><span class="line"> </span><br><span class="line">	list1.push_back(<span class="number">7</span>);</span><br><span class="line">	list1.push_back(<span class="number">8</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1.push_back(7) and list1.push_back(8):"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	put_list(list1, <span class="string">"list1"</span>);</span><br><span class="line"> </span><br><span class="line">	list1.push_front(<span class="number">6</span>);</span><br><span class="line">	list1.push_front(<span class="number">5</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1.push_front(6) and list1.push_front(5):"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	put_list(list1, <span class="string">"list1"</span>);</span><br><span class="line"> </span><br><span class="line">	list1.insert(++list1.begin(), <span class="number">3</span>, <span class="number">9</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1.insert(list1.begin()+1,3,9):"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	put_list(list1, <span class="string">"list1"</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//测试引用类函数 </span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1.front()="</span> &lt;&lt; list1.front() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1.back()="</span> &lt;&lt; list1.back() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	list1.pop_front();</span><br><span class="line">	list1.pop_back();</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1.pop_front() and list1.pop_back():"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	put_list(list1, <span class="string">"list1"</span>);</span><br><span class="line"> </span><br><span class="line">	list1.erase(++list1.begin());</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1.erase(++list1.begin()):"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	put_list(list1, <span class="string">"list1"</span>);</span><br><span class="line"> </span><br><span class="line">	list2.assign(<span class="number">8</span>, <span class="number">1</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list2.assign(8,1):"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	put_list(list2, <span class="string">"list2"</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1.max_size(): "</span> &lt;&lt; list1.max_size() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1.size(): "</span> &lt;&lt; list1.size() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1.empty(): "</span> &lt;&lt; list1.empty() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	put_list(list1, <span class="string">"list1"</span>);</span><br><span class="line">	put_list(list3, <span class="string">"list3"</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1&gt;list3: "</span> &lt;&lt; (list1 &gt; list3) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"list1&lt;list3: "</span> &lt;&lt; (list1 &lt; list3) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">	list1.sort();</span><br><span class="line">	put_list(list1, <span class="string">"list1"</span>);</span><br><span class="line"> </span><br><span class="line">	list1.splice(++list1.begin(), list3);</span><br><span class="line">	put_list(list1, <span class="string">"list1"</span>);</span><br><span class="line">	put_list(list3, <span class="string">"list3"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">The contents of list1 : </span><br><span class="line">The contents of list2 : <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> </span><br><span class="line">The contents of list3 : <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> </span><br><span class="line">list1.push_back(<span class="number">7</span>) <span class="keyword">and</span> list1.push_back(<span class="number">8</span>):</span><br><span class="line">The contents of list1 : <span class="number">7</span> <span class="number">8</span> </span><br><span class="line">list1.push_front(<span class="number">6</span>) <span class="keyword">and</span> list1.push_front(<span class="number">5</span>):</span><br><span class="line">The contents of list1 : <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> </span><br><span class="line">list1.insert(list1.begin()+<span class="number">1</span>,<span class="number">3</span>,<span class="number">9</span>):</span><br><span class="line">The contents of list1 : <span class="number">5</span> <span class="number">9</span> <span class="number">9</span> <span class="number">9</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> </span><br><span class="line">list1.front()=<span class="number">5</span></span><br><span class="line">list1.back()=<span class="number">8</span></span><br><span class="line">list1.pop_front() <span class="keyword">and</span> list1.pop_back():</span><br><span class="line">The contents of list1 : <span class="number">9</span> <span class="number">9</span> <span class="number">9</span> <span class="number">6</span> <span class="number">7</span> </span><br><span class="line">list1.erase(++list1.begin()):</span><br><span class="line">The contents of list1 : <span class="number">9</span> <span class="number">9</span> <span class="number">6</span> <span class="number">7</span> </span><br><span class="line">list2.assign(<span class="number">8</span>,<span class="number">1</span>):</span><br><span class="line">The contents of list2 : <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> </span><br><span class="line">list1.max_size(): <span class="number">768614336404564650</span></span><br><span class="line">list1.size(): <span class="number">4</span></span><br><span class="line">list1.empty(): <span class="number">0</span></span><br><span class="line">The contents of list1 : <span class="number">9</span> <span class="number">9</span> <span class="number">6</span> <span class="number">7</span> </span><br><span class="line">The contents of list3 : <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> </span><br><span class="line">list1&gt;list3: <span class="number">1</span></span><br><span class="line">list1&lt;list3: <span class="number">0</span></span><br><span class="line">The contents of list1 : <span class="number">6</span> <span class="number">7</span> <span class="number">9</span> <span class="number">9</span> </span><br><span class="line">The contents of list1 : <span class="number">6</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">7</span> <span class="number">9</span> <span class="number">9</span> </span><br><span class="line">The contents of list3 :</span><br></pre></td></tr></table></figure>
+
+<h2 id="map-multimap"><a href="#map-multimap" class="headerlink" title="map/multimap"></a>map/multimap</h2><p>map和multimap都需要#include&lt; map &gt;，唯一的不同是，map的键值key不可重复，而multimap可以，也正是由于这种区别，map支持[ ]运算符，multimap不支持[ ]运算符。在用法上没什么区别。</p>
+<h3 id="基本函数-3"><a href="#基本函数-3" class="headerlink" title="基本函数"></a>基本函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">begin()         <span class="comment">//返回指向map头部的迭代器</span></span><br><span class="line">clear(）        <span class="comment">//删除所有元素</span></span><br><span class="line"></span><br><span class="line">count()         <span class="comment">//返回指定元素出现的次数</span></span><br><span class="line"></span><br><span class="line">empty()         <span class="comment">//如果map为空则返回true</span></span><br><span class="line"></span><br><span class="line">end()           <span class="comment">//返回指向map末尾的迭代器</span></span><br><span class="line"></span><br><span class="line">equal_range()  <span class="comment">// 返回特殊条目的迭代器对返回容器中所有拥有给定关键的元素范围。范围以二个迭代器定义，一个指向首个不小于 key 的元素，另一个指向首个大于 key 的元素。首个迭代器可以换用 lower_bound() 获得，而第二迭代器可换用 upper_bound() 获得。</span></span><br><span class="line"></span><br><span class="line">erase()         <span class="comment">//删除一个元素</span></span><br><span class="line"></span><br><span class="line">find()          <span class="comment">//查找一个元素</span></span><br><span class="line">count()       <span class="comment">//返回匹配特定键的元素数量 </span></span><br><span class="line">get_allocator() <span class="comment">//返回map的配置器</span></span><br><span class="line"></span><br><span class="line">insert()        <span class="comment">//插入元素</span></span><br><span class="line"></span><br><span class="line">key_comp()     <span class="comment">// 返回比较元素key的函数</span></span><br><span class="line"></span><br><span class="line">lower_bound()   <span class="comment">//返回键值&gt;=给定元素的第一个位置</span></span><br><span class="line"></span><br><span class="line">max_size()      <span class="comment">//返回可以容纳的最大元素个数</span></span><br><span class="line"></span><br><span class="line">rbegin()        <span class="comment">//返回一个指向map尾部的逆向迭代器</span></span><br><span class="line"></span><br><span class="line">rend()         <span class="comment">// 返回一个指向map头部的逆向迭代器</span></span><br><span class="line"></span><br><span class="line">size()          <span class="comment">//返回map中元素的个数</span></span><br><span class="line"></span><br><span class="line">swap()           <span class="comment">//交换两个map</span></span><br><span class="line"></span><br><span class="line">upper_bound()    <span class="comment">//返回键值&gt;给定元素的第一个位置</span></span><br><span class="line"></span><br><span class="line">value_comp()     <span class="comment">//返回比较元素value的函数</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="迭代器-1"><a href="#迭代器-1" class="headerlink" title="迭代器"></a>迭代器</h3><p>共有八个获取迭代器的函数：* begin, end, rbegin,rend* 以及对应的 * cbegin, cend, crbegin,crend*。</p>
+<p>二者的区别在于，后者一定返回 const_iterator，而前者则根据map的类型返回iterator 或者 const_iterator。const情况下，不允许对值进行修改。</p>
+<p>小例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//头文件</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt; ID_Name;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 使用&#123;&#125;赋值是从c++11开始的，</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt; ID_Name = &#123;</span><br><span class="line">                &#123; <span class="number">2015</span>, <span class="string">"Jim"</span> &#125;,</span><br><span class="line">                &#123; <span class="number">2016</span>, <span class="string">"Tom"</span> &#125;,</span><br><span class="line">                &#123; <span class="number">2017</span>, <span class="string">"Bob"</span> &#125; &#125;;</span><br><span class="line"><span class="comment">// 插入操作</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt; mapStudent;  </span><br><span class="line">    mapStudent.insert(pair&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt;(<span class="number">1</span>, <span class="string">"student_one"</span>));  </span><br><span class="line">    mapStudent.insert(pair&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt;(<span class="number">2</span>, <span class="string">"student_two"</span>));  </span><br><span class="line">    mapStudent.insert(pair&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt;(<span class="number">3</span>, <span class="string">"student_three"</span>));  </span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt;::iterator iter;  </span><br><span class="line">    <span class="keyword">for</span>(iter = mapStudent.begin(); iter != mapStudent.end(); iter++)  </span><br><span class="line">       <span class="built_in">cout</span>&lt;&lt;iter-&gt;first&lt;&lt;<span class="string">' '</span>&lt;&lt;iter-&gt;second&lt;&lt;<span class="built_in">endl</span>;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 用insert函数插入value_type数据 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>    </span></span><br><span class="line"><span class="function"></span>&#123;    </span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt; mapStudent;    </span><br><span class="line">    mapStudent.insert(<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt;::value_type (<span class="number">1</span>, <span class="string">"student_one"</span>));    </span><br><span class="line">    mapStudent.insert(<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt;::value_type (<span class="number">2</span>, <span class="string">"student_two"</span>));    </span><br><span class="line">    mapStudent.insert(<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt;::value_type (<span class="number">3</span>, <span class="string">"student_three"</span>));    </span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt;::iterator iter;    </span><br><span class="line">    <span class="keyword">for</span>(iter = mapStudent.begin(); iter != mapStudent.end(); iter++)  </span><br><span class="line">         <span class="built_in">cout</span>&lt;&lt;iter-&gt;first&lt;&lt;<span class="string">' '</span>&lt;&lt;iter-&gt;second&lt;&lt;<span class="built_in">endl</span>;    </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//insert共有4个重载函数：</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; mymap;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 插入单个值</span></span><br><span class="line">    mymap.insert(<span class="built_in">std</span>::pair&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;(<span class="string">'a'</span>, <span class="number">100</span>));</span><br><span class="line">    mymap.insert(<span class="built_in">std</span>::pair&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;(<span class="string">'z'</span>, <span class="number">200</span>));</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//返回插入位置以及是否插入成功</span></span><br><span class="line">    <span class="built_in">std</span>::pair&lt;<span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;::iterator, <span class="keyword">bool</span>&gt; ret;</span><br><span class="line">    ret = mymap.insert(<span class="built_in">std</span>::pair&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;(<span class="string">'z'</span>, <span class="number">500</span>));</span><br><span class="line">    <span class="keyword">if</span> (ret.second == <span class="literal">false</span>) &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"element 'z' already existed"</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">" with a value of "</span> &lt;&lt; ret.first-&gt;second &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//指定位置插入</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;::iterator it = mymap.begin();</span><br><span class="line">    mymap.insert(it, <span class="built_in">std</span>::pair&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;(<span class="string">'b'</span>, <span class="number">300</span>));  <span class="comment">//效率更高</span></span><br><span class="line">    mymap.insert(it, <span class="built_in">std</span>::pair&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;(<span class="string">'c'</span>, <span class="number">400</span>));  <span class="comment">//效率非最高</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">//范围多值插入</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; anothermap;</span><br><span class="line">    anothermap.insert(mymap.begin(), mymap.find(<span class="string">'c'</span>));</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 列表形式插入</span></span><br><span class="line">    anothermap.insert(&#123; &#123; <span class="string">'d'</span>, <span class="number">100</span> &#125;, &#123;<span class="string">'e'</span>, <span class="number">200</span>&#125; &#125;);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//用数组方式插入数据 ,用insert函数插入数据，在数据的 插入上涉及到集合的唯一性这个概念，即当map中有这个关键字时，insert操作是插入数据不了的，但是用数组方式就不同了，它可以覆盖以前该关键字对 应的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//容量</span></span><br><span class="line"><span class="comment">// 查询map是否为空</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 查询map中键值对的数量</span></span><br><span class="line"><span class="keyword">size_t</span> size();</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 查询map所能包含的最大键值对数量，和系统和应用库有关。</span></span><br><span class="line"><span class="comment">// 此外，这并不意味着用户一定可以存这么多，很可能还没达到就已经开辟内存失败了</span></span><br><span class="line"><span class="keyword">size_t</span> max_size();</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 查询关键字为key的元素的个数，在map里结果非0即1</span></span><br><span class="line"><span class="keyword">size_t</span> count( <span class="keyword">const</span> Key&amp; key ) <span class="keyword">const</span>; /</span><br></pre></td></tr></table></figure>
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>map中的元素是自动按Key升序排序，所以不能对map用sort函数；</p>
+<p>这里要讲的是一点比较高深的用法了,排序问题，STL中默认是采用小于号来排序的，以上代码在排序上是不存在任何问题的，因为上面的关键字是int 型，它本身支持小于号运算，在一些特殊情况，<strong>比如关键字是一个结构体或者自定义类，涉及到排序就会出现问题，因为它没有小于号操作，insert等函数在编译的时候过 不去</strong>，下面给出两个方法解决这个问题。</p>
+<h4 id="小于号-lt-重载"><a href="#小于号-lt-重载" class="headerlink" title="小于号 &lt; 重载"></a><strong>小于号 &lt; 重载</strong></h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;  </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagStudentinfo</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span>      niD;</span><br><span class="line">	<span class="built_in">string</span>   strName;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (tagStudentinfo <span class="keyword">const</span>&amp; _A) <span class="keyword">const</span></span><br><span class="line">	&#123;     <span class="comment">//这个函数指定排序策略，按niD排序，如果niD相等的话，按strName排序  </span></span><br><span class="line">		<span class="keyword">if</span> (niD &lt; _A.niD) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">if</span> (niD == _A.niD)</span><br><span class="line">			<span class="keyword">return</span> strName.compare(_A.strName) &lt; <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;Studentinfo, *PStudentinfo; <span class="comment">//学生信息  </span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> nSize;   <span class="comment">//用学生信息映射分数  </span></span><br><span class="line">	<span class="built_in">map</span>&lt;Studentinfo, <span class="keyword">int</span>&gt;mapStudent;</span><br><span class="line">	<span class="built_in">map</span>&lt;Studentinfo, <span class="keyword">int</span>&gt;::iterator iter;</span><br><span class="line">	Studentinfo studentinfo;</span><br><span class="line">	studentinfo.niD = <span class="number">1</span>;</span><br><span class="line">	studentinfo.strName = <span class="string">"student_one"</span>;</span><br><span class="line">	mapStudent.insert(pair&lt;Studentinfo, <span class="keyword">int</span>&gt;(studentinfo, <span class="number">90</span>));</span><br><span class="line">	studentinfo.niD = <span class="number">2</span>;</span><br><span class="line">	studentinfo.strName = <span class="string">"student_two"</span>;</span><br><span class="line">	mapStudent.insert(pair&lt;Studentinfo, <span class="keyword">int</span>&gt;(studentinfo, <span class="number">80</span>));</span><br><span class="line">	<span class="keyword">for</span> (iter = mapStudent.begin(); iter != mapStudent.end(); iter++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; iter-&gt;first.niD &lt;&lt; <span class="string">' '</span> &lt;&lt; iter-&gt;first.strName &lt;&lt; <span class="string">' '</span> &lt;&lt; iter-&gt;second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="仿函数的应用"><a href="#仿函数的应用" class="headerlink" title="仿函数的应用"></a>仿函数的应用</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;  </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagStudentinfo</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span>      niD;</span><br><span class="line">	<span class="built_in">string</span>   strName;</span><br><span class="line">&#125;Studentinfo, *PStudentinfo; <span class="comment">//学生信息  </span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sort</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(Studentinfo <span class="keyword">const</span> &amp;_A, Studentinfo <span class="keyword">const</span> &amp;_B)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (_A.niD &lt; _B.niD)</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">if</span> (_A.niD == _B.niD)</span><br><span class="line">			<span class="keyword">return</span> _A.strName.compare(_B.strName) &lt; <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">	<span class="comment">//用学生信息映射分数  </span></span><br><span class="line">	<span class="built_in">map</span>&lt;Studentinfo, <span class="keyword">int</span>, sort&gt;mapStudent;</span><br><span class="line">	<span class="built_in">map</span>&lt;Studentinfo, <span class="keyword">int</span>&gt;::iterator iter;</span><br><span class="line">	Studentinfo studentinfo;</span><br><span class="line">	studentinfo.niD = <span class="number">1</span>;</span><br><span class="line">	studentinfo.strName = <span class="string">"student_one"</span>;</span><br><span class="line">	mapStudent.insert(pair&lt;Studentinfo, <span class="keyword">int</span>&gt;(studentinfo, <span class="number">90</span>));</span><br><span class="line">	studentinfo.niD = <span class="number">2</span>;</span><br><span class="line">	studentinfo.strName = <span class="string">"student_two"</span>;</span><br><span class="line">	mapStudent.insert(pair&lt;Studentinfo, <span class="keyword">int</span>&gt;(studentinfo, <span class="number">80</span>));</span><br><span class="line">	<span class="keyword">for</span> (iter = mapStudent.begin(); iter != mapStudent.end(); iter++)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; iter-&gt;first.niD &lt;&lt; <span class="string">' '</span> &lt;&lt; iter-&gt;first.strName &lt;&lt; <span class="string">' '</span> &lt;&lt; iter-&gt;second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h2><p> map底层采用的是红黑树的实现查询的时间复杂度为O(logn),看起来并没有unordered_map快，但是也要看实际的数据量，<strong>虽然unordered_map的查询从算法上分析比map快，但是它有一些其它的消耗，比如哈希函数的构造和分析，还有如果出现哈希冲突解决哈希冲突等等都有一定的消耗，</strong>因此unordered_map的效率在很大的程度上由它的hash函数算法决定，而红黑树的效率是一个稳定值。</p>
+<p>   unordered_map的底层采用哈希表的实现，查询的时间复杂度为是O(1)。所以unordered_map内部就是无序的，数据是按散列函数插入到槽里面去的，数据之间无顺序可言，如果我们不需要内部有序，这种实现是没有问题的。unordered_map属于关联式容器，采用std::pair保存key-value形式的数据。用法与map一致。特别的是，STL中的map因为是有序的二叉树存储，所以对key值需要有大小的判断，当使用内置类型时，无需重载operator &lt; ；但是用用户自定义类型的话，就需要重载operator &lt; 。 <strong>unoredered_map全程使用不需要比较元素的key值的大小，但是，对于元素的==要有判断，又因为需要使用hash映射</strong>，所以，对于非内部类型，需要程序员为其定义这二者的内容，对于内部类型，就不需要了。unordered库使用“桶”来存储元素，散列值相同的被存储在一个桶里。当散列容器中有大量数据时，同一个桶里的数据也会增多，造成访问冲突，降低性能。为了提高散列容器的性能，unordered库会在插入元素是自动增加桶的数量，不需要用户指定。但是，<strong>用户也可以在构造函数或者rehash()函数中，指定最小的桶的数量。</strong></p>
+<p>   还有另外一点从占用内存上来说因为unordered_map才用hash结构会有一定的内存损失，它的内存占用回高于map。</p>
+<p>   最后就是她们的场景了，首先如果你需要对map中的数据排序，就首选map，他会把你的数据按照key的自然排序排序（由于它的底层实现红黑树机制所以会排序），如果不需要排序，就看你对内存和cpu的选择了，不过一般都会选择unordered_map，它的查找效率会更高。</p>
+<p>至于使用方法和函数，两者差不多，由于篇幅限制这里不再赘述，unordered_multimap用法亦可类推。</p>
+<h2 id="set-multiset"><a href="#set-multiset" class="headerlink" title="set/multiset"></a>set/multiset</h2><p>std::set 是关联容器，含有 Key 类型对象的已排序集。用比较函数compare进行排序。搜索、移除和插入拥有对数复杂度。 set 通常以红黑树实现。</p>
+<p>set容器内的元素会被自动排序，set与map不同，set中的元素即是键值又是实值，set不允许两个元素有相同的键值。不能通过set的迭代器去修改set元素，原因是修改元素会破坏set组织。当对容器中的元素进行插入或者删除时，操作之前的所有迭代器在操作之后依然有效。</p>
+<p>由于set元素是排好序的，且默认为升序，因此当set集合中的元素为结构体或自定义类时，该结构体或自定义类必须实现运算符‘&lt;’的重载。</p>
+<p>　　multiset特性及用法和set完全相同，唯一的差别在于它允许键值重复。</p>
+<h2 id="set和multiset的底层实现是一种高效的平衡二叉树，即红黑树（Red-Black-Tree）。"><a href="#set和multiset的底层实现是一种高效的平衡二叉树，即红黑树（Red-Black-Tree）。" class="headerlink" title="　　set和multiset的底层实现是一种高效的平衡二叉树，即红黑树（Red-Black Tree）。"></a>　　set和multiset的底层实现是一种高效的平衡二叉树，即红黑树（Red-Black Tree）。</h2><h3 id="常用成员函数"><a href="#常用成员函数" class="headerlink" title="常用成员函数"></a>常用成员函数</h3><ol>
+<li><p>begin()–返回指向第一个元素的迭代器</p>
+</li>
+<li><p>clear()–清除所有元素</p>
+</li>
+<li><p>count()–返回某个值元素的个数</p>
+</li>
+<li><p>empty()–如果集合为空，返回true</p>
+</li>
+<li><p>end()–返回指向最后一个元素的迭代器</p>
+</li>
+<li><p>equal_range()–返回集合中与给定值相等的上下限的两个迭代器</p>
+</li>
+<li><p>erase()–删除集合中的元素</p>
+</li>
+<li><p>find()–返回一个指向被查找到元素的迭代器</p>
+</li>
+<li><p>get_allocator()–返回集合的分配器</p>
+</li>
+<li><p>insert()–在集合中插入元素</p>
+</li>
+<li><p>lower_bound()–返回指向大于（或等于）某值的第一个元素的迭代器</p>
+</li>
+<li><p>key_comp()–返回一个用于元素间值比较的函数</p>
+</li>
+<li><p>max_size()–返回集合能容纳的元素的最大限值</p>
+</li>
+<li><p>rbegin()–返回指向集合中最后一个元素的反向迭代器</p>
+</li>
+<li><p>rend()–返回指向集合中第一个元素的反向迭代器</p>
+</li>
+<li><p>size()–集合中元素的数目</p>
+</li>
+<li><p>swap()–交换两个集合变量</p>
+</li>
+<li><p>upper_bound()–返回大于某个值元素的迭代器</p>
+</li>
+<li><p>value_comp()–返回一个用于比较元素间的值的函数</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/* 仿函数CompareSet，在test02使用 */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompareSet</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//从大到小排序</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">int</span> v1, <span class="keyword">int</span> v2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//从小到大排序</span></span><br><span class="line">    <span class="comment">//bool operator()(int v1, int v2)</span></span><br><span class="line">    <span class="comment">//&#123;</span></span><br><span class="line">    <span class="comment">//    return v1 &lt; v2;</span></span><br><span class="line">    <span class="comment">//&#125;</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/* Person类，用于test03 */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">friend</span> ostream &amp;<span class="keyword">operator</span>&lt;&lt;(ostream &amp;out, <span class="keyword">const</span> Person &amp;person);</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Person(<span class="built_in">string</span> name, <span class="keyword">int</span> age)</span><br><span class="line">    &#123;</span><br><span class="line">        mName = name;</span><br><span class="line">        mAge = age;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> mName;</span><br><span class="line">    <span class="keyword">int</span> mAge;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">ostream &amp;<span class="keyword">operator</span>&lt;&lt;(ostream &amp;out, <span class="keyword">const</span> Person &amp;person)</span><br><span class="line">&#123;</span><br><span class="line">    out &lt;&lt; <span class="string">"name:"</span> &lt;&lt; person.mName &lt;&lt; <span class="string">" age:"</span> &lt;&lt; person.mAge &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> out;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/* 仿函数ComparePerson,用于test03 */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ComparePerson</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//名字大的在前面，如果名字相同，年龄大的排前面</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> Person &amp;p1, <span class="keyword">const</span> Person &amp;p2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (p1.mName == p2.mName)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> p1.mAge &gt; p2.mAge;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p1.mName &gt; p2.mName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/* 打印set类型的函数模板 */</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintSet</span><span class="params">(T &amp;s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (T::iterator iter = s.begin(); iter != s.end(); ++iter)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; *iter &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//set容器默认从小到大排序</span></span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">    s.insert(<span class="number">10</span>);</span><br><span class="line">    s.insert(<span class="number">20</span>);</span><br><span class="line">    s.insert(<span class="number">30</span>);</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//输出set</span></span><br><span class="line">    PrintSet(s);</span><br><span class="line">    <span class="comment">//结果为:10 20 30</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">/* set的insert函数返回值为一个对组(pair)。</span></span><br><span class="line"><span class="comment">       对组的第一个值first为set类型的迭代器：</span></span><br><span class="line"><span class="comment">       1、若插入成功，迭代器指向该元素。</span></span><br><span class="line"><span class="comment">       2、若插入失败，迭代器指向之前已经存在的元素</span></span><br><span class="line"><span class="comment">       对组的第二个值seconde为bool类型：</span></span><br><span class="line"><span class="comment">       1、若插入成功，bool值为true</span></span><br><span class="line"><span class="comment">       2、若插入失败，bool值为false</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    pair&lt;<span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;::iterator, <span class="keyword">bool</span>&gt; ret = s.insert(<span class="number">40</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">true</span> == ret.second)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; *ret.first &lt;&lt; <span class="string">" 插入成功"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; *ret.first &lt;&lt; <span class="string">" 插入失败"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* 如果想让set容器从大到小排序，需要给set容</span></span><br><span class="line"><span class="comment">       器提供一个仿函数,本例的仿函数为CompareSet</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>, CompareSet&gt; s;</span><br><span class="line">    s.insert(<span class="number">10</span>);</span><br><span class="line">    s.insert(<span class="number">20</span>);</span><br><span class="line">    s.insert(<span class="number">30</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//打印set</span></span><br><span class="line">    PrintSet(s);</span><br><span class="line">    <span class="comment">//结果为:30,20,10</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* set元素类型为Person，当set元素类型为自定义类型的时候</span></span><br><span class="line"><span class="comment">       必须给set提供一个仿函数，用于比较自定义类型的大小，</span></span><br><span class="line"><span class="comment">       否则无法通过编译 </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="built_in">set</span>&lt;Person,ComparePerson&gt; s;</span><br><span class="line">    s.insert(Person(<span class="string">"John"</span>, <span class="number">22</span>));</span><br><span class="line">    s.insert(Person(<span class="string">"Peter"</span>, <span class="number">25</span>));</span><br><span class="line">    s.insert(Person(<span class="string">"Marry"</span>, <span class="number">18</span>));</span><br><span class="line">    s.insert(Person(<span class="string">"Peter"</span>, <span class="number">36</span>));</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//打印set</span></span><br><span class="line">    PrintSet(s);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//test01();</span></span><br><span class="line">    <span class="comment">//test02();</span></span><br><span class="line">    <span class="comment">//test03();</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="unordered-set"><a href="#unordered-set" class="headerlink" title="unordered_set"></a>unordered_set</h2><p>C++ 11中出现了两种新的关联容器:unordered_set和unordered_map，其内部实现与set和map大有不同，set和map内部实现是基于RB-Tree，而unordered_set和unordered_map内部实现是基于哈希表(hashtable)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/05/03/C-11多线程编程/" rel="next" title="C++11多线程编程">
+                <i class="fa fa-chevron-left"></i> C++11多线程编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是STL"><span class="nav-number">1.</span> <span class="nav-text">什么是STL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#STL内容介绍"><span class="nav-number">2.</span> <span class="nav-text">STL内容介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#容器"><span class="nav-number">2.1.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器"><span class="nav-number">2.2.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">2.3.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仿函数"><span class="nav-number">2.4.</span> <span class="nav-text">仿函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器适配器"><span class="nav-number">2.5.</span> <span class="nav-text">容器适配器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分配器"><span class="nav-number">2.6.</span> <span class="nav-text">分配器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc和new"><span class="nav-number">2.6.1.</span> <span class="nav-text">malloc和new</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-中new的局限性"><span class="nav-number">2.6.2.</span> <span class="nav-text">C++中new的局限性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用allocator将内存分配、对象构造分离开"><span class="nav-number">2.6.3.</span> <span class="nav-text">使用allocator将内存分配、对象构造分离开</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用容器用法介绍"><span class="nav-number">3.</span> <span class="nav-text">常用容器用法介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vector"><span class="nav-number">3.1.</span> <span class="nav-text">vector</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本函数"><span class="nav-number">3.1.1.</span> <span class="nav-text">基本函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deque"><span class="nav-number">3.2.</span> <span class="nav-text">deque</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本函数-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">基本函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deque的一些特点"><span class="nav-number">3.2.2.</span> <span class="nav-text">deque的一些特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list"><span class="nav-number">3.3.</span> <span class="nav-text">list</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本函数-2"><span class="nav-number">3.3.1.</span> <span class="nav-text">基本函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-multimap"><span class="nav-number">3.4.</span> <span class="nav-text">map/multimap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本函数-3"><span class="nav-number">3.4.1.</span> <span class="nav-text">基本函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器-1"><span class="nav-number">3.4.2.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序"><span class="nav-number">3.4.3.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#小于号-lt-重载"><span class="nav-number">3.4.3.1.</span> <span class="nav-text">小于号 &lt; 重载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#仿函数的应用"><span class="nav-number">3.4.3.2.</span> <span class="nav-text">仿函数的应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unordered-map"><span class="nav-number">3.5.</span> <span class="nav-text">unordered_map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set-multiset"><span class="nav-number">3.6.</span> <span class="nav-text">set/multiset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set和multiset的底层实现是一种高效的平衡二叉树，即红黑树（Red-Black-Tree）。"><span class="nav-number">3.7.</span> <span class="nav-text">　　set和multiset的底层实现是一种高效的平衡二叉树，即红黑树（Red-Black Tree）。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用成员函数"><span class="nav-number">3.7.1.</span> <span class="nav-text">常用成员函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unordered-set"><span class="nav-number">3.8.</span> <span class="nav-text">unordered_set</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
