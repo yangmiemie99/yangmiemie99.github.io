@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++,设计模式,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="C++设计模式什么是设计模式“每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。 ——Christopher Alexander 如何解决复杂性？ 分解 人们面对复杂性有一个常见的做法：即分而治之，将大问题分解为多个小问题，将复杂问题分解为多个简单问题。   抽象 更高层次来讲，人们处理复杂性有一个通用的技术，即抽象">
+<meta name="keywords" content="C++,设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++设计模式">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/05/22/C-设计模式/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="C++设计模式什么是设计模式“每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。 ——Christopher Alexander 如何解决复杂性？ 分解 人们面对复杂性有一个常见的做法：即分而治之，将大问题分解为多个小问题，将复杂问题分解为多个简单问题。   抽象 更高层次来讲，人们处理复杂性有一个通用的技术，即抽象">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/22/C-设计模式/%E6%97%A9%E7%BB%91%E5%AE%9A%E6%99%9A%E7%BB%91%E5%AE%9A.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/22/C-设计模式/%E7%AD%96%E7%95%A5%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/22/C-设计模式/%E8%A7%82%E5%AF%9F%E8%80%85%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/22/C-设计模式/%E8%A3%85%E9%A5%B0%E8%80%851.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/22/C-设计模式/%E8%A3%85%E9%A5%B0%E8%80%852.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/22/C-设计模式/%E8%A3%85%E9%A5%B0%E8%80%85%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/22/C-设计模式/%E6%A1%A5%E6%A8%A1%E5%BC%8F%E7%BB%93%E6%9E%84.png">
+<meta property="og:updated_time" content="2020-05-25T17:11:31.415Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++设计模式">
+<meta name="twitter:description" content="C++设计模式什么是设计模式“每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。 ——Christopher Alexander 如何解决复杂性？ 分解 人们面对复杂性有一个常见的做法：即分而治之，将大问题分解为多个小问题，将复杂问题分解为多个简单问题。   抽象 更高层次来讲，人们处理复杂性有一个通用的技术，即抽象">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/22/C-设计模式/%E6%97%A9%E7%BB%91%E5%AE%9A%E6%99%9A%E7%BB%91%E5%AE%9A.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/05/22/C-设计模式/">
+
+
+
+
+
+  <title>C++设计模式 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/05/22/C-设计模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++设计模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:26:53+08:00">
+                2020-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="C-设计模式"><a href="#C-设计模式" class="headerlink" title="C++设计模式"></a>C++设计模式</h1><h2 id="什么是设计模式"><a href="#什么是设计模式" class="headerlink" title="什么是设计模式"></a>什么是设计模式</h2><p>“每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。 ——Christopher Alexander</p>
+<h2 id="如何解决复杂性？"><a href="#如何解决复杂性？" class="headerlink" title="如何解决复杂性？"></a>如何解决复杂性？</h2><ul>
+<li>分解<ul>
+<li>人们面对复杂性有一个常见的做法：即分而治之，将大问题分解为多个小问题，将复杂问题分解为多个简单问题。</li>
+</ul>
+</li>
+<li>抽象<ul>
+<li>更高层次来讲，人们处理复杂性有一个通用的技术，即抽象。由于不能掌握全部的复杂对象，我们选择忽视它的非本质细节，而去处理泛化和理想化了的对象模型。</li>
+</ul>
+</li>
+</ul>
+<h2 id="面向对象设计原则"><a href="#面向对象设计原则" class="headerlink" title="面向对象设计原则"></a>面向对象设计原则</h2><p>1 依赖倒置原则（DIP）</p>
+<ul>
+<li>高层模块(稳定)不应该依赖于低层模块(变化)，二者都应该依赖于抽象(稳定) 。</li>
+<li>抽象(稳定)不应该依赖于实现细节(变化) ，实现细节应该依赖于抽象(稳定)。</li>
+</ul>
+<p>A依赖B，A在编译的时候B需要存在</p>
+<p>2 开放封闭原则（OCP）</p>
+<ul>
+<li>对扩展开放，对更改封闭。</li>
+<li>类模块应该是可扩展的，但是不可修改。</li>
+</ul>
+<p>3 单一职责原则（SRP）</p>
+<ul>
+<li>一个类应该仅有一个引起它变化的原因。</li>
+<li>变化的方向隐含着类的责任。</li>
+</ul>
+<p>4 Liskov 替换原则（LSP）</p>
+<ul>
+<li>子类必须能够替换它们的基类(IS-A)。</li>
+<li>继承表达类型抽象。</li>
+</ul>
+<p>5 接口隔离原则（ISP）</p>
+<ul>
+<li>不应该强迫客户程序依赖它们不用的方法。</li>
+<li>接口应该小而完备。</li>
+</ul>
+<p>6 优先使用对象组合，而不是类继承</p>
+<ul>
+<li>类继承通常为“白箱复用”，对象组合通常为“黑箱复用” 。</li>
+<li>继承在某种程度上破坏了封装性，子类父类耦合度高。</li>
+<li>而对象组合则只要求被组合的对象具有良好定义的接口，耦合度低。</li>
+</ul>
+<p>7 封装变化点</p>
+<ul>
+<li>使用封装来创建对象之间的分界层，让设计者可以在分界层的一侧进行修改，而不会对另一侧产生不良的影响，从而实现层次间的松耦合。</li>
+</ul>
+<p>8 针对接口编程，而不是针对实现编程</p>
+<ul>
+<li>不将变量类型声明为某个特定的具体类，而是声明为某个接口。</li>
+<li>客户程序无需获知对象的具体类型，只需要知道对象所具有的接口。</li>
+<li>减少系统中各部分的依赖关系，从而实现“高内聚、松耦合”的类型设计方案。</li>
+</ul>
+<h2 id="GOF-23模式分类"><a href="#GOF-23模式分类" class="headerlink" title="GOF-23模式分类"></a>GOF-23模式分类</h2><ul>
+<li>从目的上看<ul>
+<li>创建型（Creational）模式：将对象的部分创建工作延迟到子类或者其他对象，从而<strong>应对需求变化</strong>为创建对象时具体类型实现引来的冲击。</li>
+<li>结构性（Structural）模式：通过类继承或者对象组合获得更灵活的结构，从而应对需求变化为为对象的结构带来的冲击。</li>
+<li>行为型（Behavioral）模式：通过类继承或者对象组合来或分类与对象间的职责，从而应对需求变化为多个交互的对象带来的冲击。</li>
+</ul>
+</li>
+<li>从范围来看：<ul>
+<li>类模式处理类与子类的静态关系。</li>
+<li>对象爱嗯模式处理对象间的动态关系。</li>
+</ul>
+</li>
+</ul>
+<h2 id="从封装变化角度对模式分类"><a href="#从封装变化角度对模式分类" class="headerlink" title="从封装变化角度对模式分类"></a>从封装变化角度对模式分类</h2><p>从封装变化角度对模式分类</p>
+<ul>
+<li>组件协作:<br>• Template Method<br>• Observer / Event<br>• Strategy</li>
+<li>单一职责:<br>• Decorator<br>• Bridge</li>
+<li>对象创建:<br>• Factory Method<br>• Abstract Factory<br>• Prototype<br>• Builder</li>
+<li>对象性能:<br>• Singleton<br>• Flyweight</li>
+<li>接口隔离:<br>• Façade<br>• Proxy<br>• Mediator<br>• Adapter</li>
+<li>状态变化:<br>• Memento<br>• State</li>
+<li>数据结构:<br>• Composite<br>• Iterator<br>• Chain of Resposibility</li>
+<li>行为变化:<br>• Command<br>• Visitor</li>
+<li>领域问题:<br>• Interpreter</li>
+</ul>
+<h2 id="重构获得模式-Refactoring-to-Patterns"><a href="#重构获得模式-Refactoring-to-Patterns" class="headerlink" title="重构获得模式 Refactoring to Patterns"></a>重构获得模式 Refactoring to Patterns</h2><ul>
+<li>面向对象设计模式是“好的面向对象设计”,所谓“好的面向对象设计”指是那些可以满足 <strong>“应对变化,提高复用”</strong>的设计 。</li>
+<li>现代软件设计的特征是“需求的频繁变化”。设计模式的要点是<strong>“寻找变化点,然后在变化点处应用设计模式,从而来更好地应对需求的变化”.“什么时候、什么地点应用设计模式”比“理解设计模式结构本身”更为重要。</strong></li>
+<li>设计模式的应用<strong>不宜先入为主</strong>,一上来就使用设计模式是对设计模式的最大误用。<strong>没有一步到位的设计模式。</strong>敏捷软件开发实践提倡的“Refactoring to Patterns”，重构获得模式，是目前普遍公认的最好的使用设计模式的方法。</li>
+</ul>
+<h2 id="重构关键技法"><a href="#重构关键技法" class="headerlink" title="重构关键技法"></a>重构关键技法</h2><ul>
+<li>静态 -&gt; 动态</li>
+<li>早绑定 -&gt; 晚绑定</li>
+<li>继承 -&gt; 组合</li>
+<li>编译时依赖 -&gt; 运行时依赖</li>
+<li>紧耦合 -&gt; 松耦合</li>
+</ul>
+<h2 id="“组件协作”模式"><a href="#“组件协作”模式" class="headerlink" title="“组件协作”模式"></a>“组件协作”模式</h2><p>现代软件专业<strong>分工之后</strong>的第一个结果是“<strong>框架与应用程序的划分</strong>”,“组件协作”模式通过<strong>晚期绑定</strong>,来实现框架与应用程序之间的<strong>松耦合</strong>,是二者之间协作时常用的模式。</p>
+<p>经典模式:<br>• Template Method<br>• Observer / Event<br>• Strategy</p>
+<h3 id="Template-Method模板方法"><a href="#Template-Method模板方法" class="headerlink" title="Template Method模板方法"></a>Template Method模板方法</h3><h4 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h4><ul>
+<li>在软件构建过程中，对于某一项任务，它常常有<strong>稳定的整体操作结构，</strong>但各个子步骤却有很多<strong>改变</strong>的需求，或者由于固有的原因（比如框架与应用之间的关系）而无法和任务的整体结构同时实现。</li>
+<li>如何在确定<strong>稳定操作</strong>结构的前提下，来灵活应对各个子步骤的<strong>变化</strong>或者<strong>晚期实现需求</strong>？</li>
+</ul>
+<p>[代码实例](<a href="https://github.com/yangmiemie99/NoteBook/tree/master/CPP-Design-Patterns/03_课件_Template" target="_blank" rel="noopener">https://github.com/yangmiemie99/NoteBook/tree/master/CPP-Design-Patterns/03_课件_Template</a> Method模板方法/代码)</p>
+<p>在template1中</p>
+<p>Library开发人员：</p>
+<ul>
+<li>开发1,3,5三个步骤</li>
+</ul>
+<p>Application开发人员：</p>
+<ul>
+<li>开发2,4两个步骤</li>
+<li>程序主流程</li>
+</ul>
+<p>在template2中：</p>
+<p>Library开发人员：</p>
+<ul>
+<li>开发1,3,5三个步骤</li>
+<li>程序主流程</li>
+</ul>
+<p>Application开发人员：</p>
+<ul>
+<li>开发2,4两个步骤</li>
+</ul>
+<p>开发人员不需要知道主流程了</p>
+<h4 id="早绑定和晚绑定"><a href="#早绑定和晚绑定" class="headerlink" title="早绑定和晚绑定"></a>早绑定和晚绑定</h4><p><img src="/yangmiemie99.github.io/2020/05/22/C-设计模式/%E6%97%A9%E7%BB%91%E5%AE%9A%E6%99%9A%E7%BB%91%E5%AE%9A.png" alt></p>
+<p>Library早写出的东西调用晚写Application出来的东西。</p>
+<h4 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h4><p>定义一个操作中的算法的骨架 (稳定),<strong>而将一些步骤延迟</strong><br><strong>(变化)到子类中。</strong>Template Method使得子类可以不改变(<strong>复用</strong>)一个<strong>算法的结构</strong>即可重定义(override <strong>重写)该算法的某些特定步骤。</strong></p>
+<p>在面向对象的语言里，我们提到<strong>延迟到子类</strong>一般指，定义一个虚函数，让子类实现（重写）这个虚函数。</p>
+<p>适合使用模板方法必须有一个稳定的骨架结构可以被重用。哪些是稳定的？哪些是变化的？相对性</p>
+<h4 id="要点总结"><a href="#要点总结" class="headerlink" title="要点总结"></a>要点总结</h4><ul>
+<li><p>Template Method 模式是一种<strong>非常基础性</strong>的设计模式，在面向对象系统中有着大量的应用。她用最简单的机制（虚函数的多态型）为很多应用程序框架提供了灵活的<strong>扩展点</strong>（继承+多态），是代码复用的基本实现结构。</p>
+</li>
+<li><p>除了可以<strong>灵活应对子步骤</strong>的变化外，“不要调用我，让我调用你”的<strong>反向控制结构</strong>是Template Method的典型应用。</p>
+</li>
+<li><p>在具体实现方面，被Template Method调用虚方法可以具有实现，也可以没有任何实现（抽象方法，纯虚方法），但一般推荐为将他们设置为protected方法。</p>
+</li>
+</ul>
+<h3 id="策略模式Strategy"><a href="#策略模式Strategy" class="headerlink" title="策略模式Strategy"></a>策略模式Strategy</h3><h4 id="动机-1"><a href="#动机-1" class="headerlink" title="动机"></a>动机</h4><ul>
+<li>在软件构建过程中，<strong>某些对象使用的算法可能多种多样</strong>，经常改变，如果将这些算法都编码到对象中，会将这些对象变得异常复杂;而且<strong>有时候支持不使用的算法也是一个性能负担。</strong>（不必要的代码占用代码段）</li>
+<li>如何在<strong>运行时根据需要透明地更改对象的算法</strong>？将算法与对象本身解耦，从而避免上述问题。</li>
+</ul>
+<p><a href="https://github.com/yangmiemie99/NoteBook/tree/master/CPP-Design-Patterns/04_课件_策略模式" target="_blank" rel="noopener">策略代码实例</a></p>
+<p>不同国家的税务算法不同，用枚举实现，更改需求带来业务代码改变。</p>
+<h4 id="模式定义-1"><a href="#模式定义-1" class="headerlink" title="模式定义"></a>模式定义</h4><p>定义一系列算法，把他们一个个封装起来，并且使他们可以互相替换（变化）。该模式使得算法可以<strong>独立于</strong>使用它的客户程序（稳定）而变化（扩展，子类化）。用扩展的方式面对未来需求的变化。</p>
+<p><img src="/yangmiemie99.github.io/2020/05/22/C-设计模式/%E7%AD%96%E7%95%A5%E7%BB%93%E6%9E%84.png" alt></p>
+<p>上层稳定，下层变化</p>
+<h4 id="要点总结-1"><a href="#要点总结-1" class="headerlink" title="要点总结"></a>要点总结</h4><ul>
+<li>Strategy及其子类为组件<strong>提供了一系列可重用的算法,</strong>从而可以使得类型在<strong>运行时</strong>方便地根据需要在各个算法之间进行切换。</li>
+<li>Strategy模式提供了用条件判断语句以外的另一种选择,<strong>消除条件判断语句,就是在解耦合</strong>。含有许多条件判断语句的代码<strong>通常都需要Strategy模式。</strong></li>
+<li>如果Strategy对象没有实例变量,那么各个上下文可以共享同一个Strategy对象,<strong>从而节省对象开销。</strong></li>
+</ul>
+<h3 id="观察者模式Observer"><a href="#观察者模式Observer" class="headerlink" title="观察者模式Observer"></a>观察者模式Observer</h3><h4 id="动机-2"><a href="#动机-2" class="headerlink" title="动机"></a>动机</h4><ul>
+<li>在软件构建过程中，我们需要为某些对象建立一种“通知依赖关系” ——一个对象（目标对象）的状态发生改变，所有的依赖对 象（观察者对象）都将得到通知。如果这样的<strong>依赖关系过于紧密，将使软件不能很好地抵御变化。</strong></li>
+<li>使用面向对象技术，可以将这种依赖关系弱化，并形成一种稳定的依赖关系。从而实现软件体系结构的松耦合。</li>
+</ul>
+<p><a href="https://github.com/yangmiemie99/NoteBook/tree/master/CPP-Design-Patterns/05_%E8%AF%BE%E4%BB%B6_%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">观察者代码</a></p>
+<p>实例1违反了依赖倒置原则，<strong>进度通知依赖一个控件（变化）</strong>，我们都可能不是一个WinForm程序，实现细节变更。</p>
+<h4 id="模式定义-2"><a href="#模式定义-2" class="headerlink" title="模式定义"></a>模式定义</h4><p>定义对象间的<strong>一种一对多（变化）</strong>的依赖关系，一遍当一个对象（Subject）的<strong>状态发生改变</strong>的时候，所有依赖它的对象都得到通知并自动更新。</p>
+<p><img src="/yangmiemie99.github.io/2020/05/22/C-设计模式/%E8%A7%82%E5%AF%9F%E8%80%85%E7%BB%93%E6%9E%84.png" alt></p>
+<h4 id="要点总结-2"><a href="#要点总结-2" class="headerlink" title="要点总结"></a>要点总结</h4><ul>
+<li>使用面向对象的抽象，Observer模式使得我们可以<strong>独立地改变目标与观察者</strong>，从而使得二者之间的依赖关系达致松耦合。</li>
+<li>目标发送通知时，无需指定观察者，通知（可以学带通知信息作为参数）会自动传播。</li>
+<li><strong>观察者自己决定是否需要订阅通知</strong>，目标对象对此一无所知。</li>
+<li>Observer模式是基于事件的UI框架中非常常用的设计模式，也是MVC模式的一个重要组成部分。</li>
+</ul>
+<h2 id="“单一职责”模式"><a href="#“单一职责”模式" class="headerlink" title="“单一职责”模式"></a>“单一职责”模式</h2><p>在软件组件的设计中，如果<strong>责任划分的不清晰</strong>，使用继承得到的结果往往是随着需求的变化，<strong>子类急剧膨胀，</strong>同时充斥着重复的代码，这个时候的关键是划分责任。</p>
+<p>典型模式，责任上表现突出</p>
+<ul>
+<li>Decorator</li>
+<li>Bridge</li>
+</ul>
+<h3 id="装饰模式Decorator"><a href="#装饰模式Decorator" class="headerlink" title="装饰模式Decorator"></a>装饰模式Decorator</h3><h4 id="动机-3"><a href="#动机-3" class="headerlink" title="动机"></a>动机</h4><ul>
+<li>在某些情况下我们可能会“<strong>过度地使用继承来扩展对象的功能</strong>”，由于继承为类型引入的静态特质，使得这种扩展方式缺乏灵活性； 并且随着子类的增多（扩展功能的增多），<strong>各种子类的组合（扩展功能的组合）会导致更多子类的膨胀。</strong></li>
+<li>如何使“对象功能的扩展”能够根据需要来动态地实现？同时避免“扩展功能的增多”带来的子类膨胀问题？从而使得任何“功能扩展变化”所导致的影响将为最低？</li>
+</ul>
+<p><a href="https://github.com/yangmiemie99/NoteBook/tree/master/CPP-Design-Patterns/06_%E8%AF%BE%E4%BB%B6_%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">装饰模式代码</a></p>
+<p>示例1内部继承结构</p>
+<p><img src="/yangmiemie99.github.io/2020/05/22/C-设计模式/%E8%A3%85%E9%A5%B0%E8%80%851.png" alt></p>
+<p>只有三个子类，两种操作，通过不同组合派生出9个孙子类。代码中存在大量重复。</p>
+<p>实例2：<strong>用组合代替继承</strong>，运行时编译</p>
+<p>实例3：将共同的部分提出，类关系图如下,子类大大减少</p>
+<p><img src="/yangmiemie99.github.io/2020/05/22/C-设计模式/%E8%A3%85%E9%A5%B0%E8%80%852.png" alt></p>
+<h4 id="模式定义-3"><a href="#模式定义-3" class="headerlink" title="模式定义"></a>模式定义</h4><p><strong>动态（组合）地给一个对象增加一些额外的职责</strong>。就增加功能而言，Decorator模式比生成子类（继承）更为灵活（消除重复代码&amp;减少子类的个数）。</p>
+<p><img src="/yangmiemie99.github.io/2020/05/22/C-设计模式/%E8%A3%85%E9%A5%B0%E8%80%85%E7%BB%93%E6%9E%84.png" alt></p>
+<h4 id="要点总结-3"><a href="#要点总结-3" class="headerlink" title="要点总结"></a>要点总结</h4><ul>
+<li>通过采用组合而非继承的手法，Decorator模式实现了在<strong>运行时</strong>动态扩展对象功能的能力，而且可以根据需要扩展多个功能。避免了使用继承带来“灵活性差”和“多子类衍生问题”。</li>
+<li>decorator类在接口上表现为is a Component的继承关系，即Decorator类继承了Component类所具有的接口。但在实现上又表现为has a Component的组合关系，即Decorate类又使用了另外一个Component类。</li>
+<li>Decorator模式的目的并非解决“多子类衍生的多继承”问题，<strong>Decorator模式应用的要点在于解决“主体类在多个方向上的扩展功能”</strong>——是为“装饰”的含义。</li>
+</ul>
+<h3 id="桥模式Bridge"><a href="#桥模式Bridge" class="headerlink" title="桥模式Bridge"></a>桥模式Bridge</h3><h4 id="动机-4"><a href="#动机-4" class="headerlink" title="动机"></a>动机</h4><ul>
+<li>由于某些类型的固有的实现逻辑，使得它们具有两个变化的维度，乃至<strong>多个纬度的变化。</strong></li>
+<li>如何应对这种“多维度的变化”？如何利用面向对象技术来使得类型可以轻松地沿着两个乃至多个方向变化，而不引入额外的复杂度？</li>
+</ul>
+<p><a href="https://github.com/yangmiemie99/NoteBook/tree/master/CPP-Design-Patterns/07_%E8%AF%BE%E4%BB%B6_%E6%A1%A5%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener">桥模式示例代码</a></p>
+<h4 id="模式定义-4"><a href="#模式定义-4" class="headerlink" title="模式定义"></a>模式定义</h4><p>将抽象部分（业务功能）与实现部分（平台实现）分离，使他们都可以独立变化。</p>
+<p><img src="/yangmiemie99.github.io/2020/05/22/C-设计模式/%E6%A1%A5%E6%A8%A1%E5%BC%8F%E7%BB%93%E6%9E%84.png" alt></p>
+<h4 id="要点总结-4"><a href="#要点总结-4" class="headerlink" title="要点总结"></a>要点总结</h4><ul>
+<li>Bridge模式使用“<strong>对象间的组合关系</strong>”解耦了抽象和实现之间固有的绑定关系，<strong>使得抽象和实现可以沿着各自的维度来变化。</strong>所谓抽象和实现沿着各自纬度的变化，<strong>即“子类化”它们。</strong></li>
+<li>Bridge模式有时候类似于多继承方案，但是多继承方案往往违背单一职责原则（即一个类只有一个变化的原因），复用性比较差。<strong>Bridge模式是比多继承方案更好的解决方法。</strong></li>
+<li>Bridge模式的应用一般在“<strong>两个非常强的变化维度</strong>”，有时一个类也有多于两个的变化维度，这时可以使用Bridge的扩展模式。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/yangmiemie99.github.io/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/05/08/C-中STL标准库/" rel="next" title="C++中STL标准库">
+                <i class="fa fa-chevron-left"></i> C++中STL标准库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-设计模式"><span class="nav-number">1.</span> <span class="nav-text">C++设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是设计模式"><span class="nav-number">1.1.</span> <span class="nav-text">什么是设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何解决复杂性？"><span class="nav-number">1.2.</span> <span class="nav-text">如何解决复杂性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象设计原则"><span class="nav-number">1.3.</span> <span class="nav-text">面向对象设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GOF-23模式分类"><span class="nav-number">1.4.</span> <span class="nav-text">GOF-23模式分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从封装变化角度对模式分类"><span class="nav-number">1.5.</span> <span class="nav-text">从封装变化角度对模式分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重构获得模式-Refactoring-to-Patterns"><span class="nav-number">1.6.</span> <span class="nav-text">重构获得模式 Refactoring to Patterns</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重构关键技法"><span class="nav-number">1.7.</span> <span class="nav-text">重构关键技法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“组件协作”模式"><span class="nav-number">1.8.</span> <span class="nav-text">“组件协作”模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Template-Method模板方法"><span class="nav-number">1.8.1.</span> <span class="nav-text">Template Method模板方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动机"><span class="nav-number">1.8.1.1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#早绑定和晚绑定"><span class="nav-number">1.8.1.2.</span> <span class="nav-text">早绑定和晚绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式定义"><span class="nav-number">1.8.1.3.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#要点总结"><span class="nav-number">1.8.1.4.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略模式Strategy"><span class="nav-number">1.8.2.</span> <span class="nav-text">策略模式Strategy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动机-1"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式定义-1"><span class="nav-number">1.8.2.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#要点总结-1"><span class="nav-number">1.8.2.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#观察者模式Observer"><span class="nav-number">1.8.3.</span> <span class="nav-text">观察者模式Observer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动机-2"><span class="nav-number">1.8.3.1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式定义-2"><span class="nav-number">1.8.3.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#要点总结-2"><span class="nav-number">1.8.3.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“单一职责”模式"><span class="nav-number">1.9.</span> <span class="nav-text">“单一职责”模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰模式Decorator"><span class="nav-number">1.9.1.</span> <span class="nav-text">装饰模式Decorator</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动机-3"><span class="nav-number">1.9.1.1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式定义-3"><span class="nav-number">1.9.1.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#要点总结-3"><span class="nav-number">1.9.1.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#桥模式Bridge"><span class="nav-number">1.9.2.</span> <span class="nav-text">桥模式Bridge</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动机-4"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式定义-4"><span class="nav-number">1.9.2.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#要点总结-4"><span class="nav-number">1.9.2.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
