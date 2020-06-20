@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="小技巧,计算机网络,FTP,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="新入手IPad，发现Ubuntu不能下载itunes，那么怎么把数据传输到IPad上呢？我的视频什么的总不能利用网盘互传吧，那效率太慢了。 那么我们可以想起来一个经典的文件传输协议FTP，它使用TCP可靠的运输服务，主要功能是减少或者消除在不同操作系统下处理文件的不兼容性。 FTP原理简单介绍一下原理，不想看的同学可以直接跳过该部分。 FTP使用客户服务器方式。一个FTP服务器进程可以为多个客户进">
+<meta name="keywords" content="小技巧,计算机网络,FTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IPad怎么与Ubuntu16互传数据">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/06/20/IPad怎么与Ubuntu16互传数据/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="新入手IPad，发现Ubuntu不能下载itunes，那么怎么把数据传输到IPad上呢？我的视频什么的总不能利用网盘互传吧，那效率太慢了。 那么我们可以想起来一个经典的文件传输协议FTP，它使用TCP可靠的运输服务，主要功能是减少或者消除在不同操作系统下处理文件的不兼容性。 FTP原理简单介绍一下原理，不想看的同学可以直接跳过该部分。 FTP使用客户服务器方式。一个FTP服务器进程可以为多个客户进">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/20/IPad怎么与Ubuntu16互传数据/IMG_0001.PNG">
+<meta property="og:updated_time" content="2020-06-20T09:31:27.605Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IPad怎么与Ubuntu16互传数据">
+<meta name="twitter:description" content="新入手IPad，发现Ubuntu不能下载itunes，那么怎么把数据传输到IPad上呢？我的视频什么的总不能利用网盘互传吧，那效率太慢了。 那么我们可以想起来一个经典的文件传输协议FTP，它使用TCP可靠的运输服务，主要功能是减少或者消除在不同操作系统下处理文件的不兼容性。 FTP原理简单介绍一下原理，不想看的同学可以直接跳过该部分。 FTP使用客户服务器方式。一个FTP服务器进程可以为多个客户进">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/20/IPad怎么与Ubuntu16互传数据/IMG_0001.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/06/20/IPad怎么与Ubuntu16互传数据/">
+
+
+
+
+
+  <title>IPad怎么与Ubuntu16互传数据 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/20/IPad怎么与Ubuntu16互传数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IPad怎么与Ubuntu16互传数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-20T03:23:45+08:00">
+                2020-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>新入手IPad，发现Ubuntu不能下载itunes，那么怎么把数据传输到IPad上呢？我的视频什么的总不能利用网盘互传吧，那效率太慢了。</p>
+<p>那么我们可以想起来一个经典的文件传输协议FTP，它使用TCP可靠的运输服务，主要功能是减少或者消除在不同操作系统下处理文件的不兼容性。</p>
+<h2 id="FTP原理"><a href="#FTP原理" class="headerlink" title="FTP原理"></a>FTP原理</h2><p>简单介绍一下原理，<strong>不想看的同学可以直接跳过该部分。</strong></p>
+<p>FTP使用客户服务器方式。一个FTP服务器进程可以为多个客户进程提供服务。FTP的服务器进程由两大部分组成：一个主进程，负责接受新的请求；另外有若干个从属进程，负责处理单个请求。</p>
+<p>主进程的工作步骤如下：</p>
+<ul>
+<li>打开熟知端口（端口号为21），使客户进程能连接上。</li>
+<li>等待客户进程发出连接请求</li>
+<li>启动从属进程来处理客户进程发来的请求。从<strong>属进程对客户进程的请求处理完毕后即终止</strong>，但从属进程在运行期间根据需要还可能创建其他一些子进程。</li>
+<li>回到等待状态，继续接受其他客户进程发来的请求。主进程与从属进程是并发地进行。</li>
+</ul>
+<p>FTP工作时主要有两个从属进程：<strong>控制进程</strong>和<strong>数据传送</strong>进程。控制连接进程在整个会话期间一直保持打开，FTP客户所发出的传送请求通过控制连接发送给服务端的控制进程，但控制进程不用来出送文件，<strong>实际传送文件的是数据连接。</strong>服务端的控制进程收到FTP客户端发送的连接请求后就创建数据传送进程，传送数据。</p>
+<p>客户端发送连接请求也有两种模式：</p>
+<ul>
+<li>主动模式：默认情况下，ftp服务是开放了21端口，用来接受控制命令，服务器用20端口取发送数据（连接客户端大于1024的随机端口）</li>
+<li>被动模式：ftp服务也是开放21端口，用来接受命令控制，进行数据传输时，客户端会告知服务端打开一个大于1024的端口，，然后客户端主动连接服务器打开的端口（默认是被动模式）</li>
+</ul>
+<p>主动好还是被动好?</p>
+<p><strong>个人防火墙的默认一般只会拒绝进来的包，而不会拒绝你出去的包和你出去再回来的包。</strong></p>
+<p>所以上面的主动模式是有可能被拒绝掉的,一般的使用方法是：使用被动模式，并固定服务端的随机端口范围，在服务端写防火墙来控制</p>
+<p>主动ftp对ftp服务器的管理有利，但对客户端的管理不利。<strong>因为是服务端主动与客户端去建立连接，可能会被客户端的防火墙把源来自服务器的包给阻塞掉</strong></p>
+<p>被动ftp对ftp客户端的管理有利，但对服务端的管理不利。<strong>因为客户端主动与服务端去连，可能会被服务端的防火墙给阻塞掉</strong></p>
+<p>折衷的方法就是使用被动模式，并指定一个连接过来的端口范围，可以针对这个范围的端口进行一个防火墙的设置。</p>
+<h2 id="FTP服务器搭建"><a href="#FTP服务器搭建" class="headerlink" title="FTP服务器搭建"></a>FTP服务器搭建</h2><p>第一步：安装VSFTPD</p>
+<p><code>sudo apt-get install vsftpd</code></p>
+<p>安装完成后启动VSFTPD服务：</p>
+<p><code>service vsftpd start</code></p>
+<p>第二步：新建目录/home/uftp作为用户主目录</p>
+<p><code>sudo mkdir /home/uftp</code></p>
+<p>第三步：新建用户uftp，制定用户主目录和所用shell，并设置密码</p>
+<p><code>sudo useradd -d /home/uftp -s /bin/bash uftp</code></p>
+<p>然后将目录/home/uftp的所属者和所属组都改为uftp：</p>
+<p><code>sudo chown uftp:uftp /home/uftp</code></p>
+<p>第四步：新建文件/etc/vsftpd.user_list，用于存放允许访问ftp的用户：</p>
+<p><code>sudo vi /etc/vsftpd.user_list</code></p>
+<p>在其中添加用户uftp，并且保存退出</p>
+<p>第五步：编辑VSFTPD配置文件</p>
+<p>anon——代表匿名用户选项</p>
+<p>local——代表本地用户 /etc/passwd文件里所存在的用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/vsftpd.conf</span><br><span class="line"></span><br><span class="line">　　做如下修改： </span><br><span class="line">　　write_enable=YES </span><br><span class="line">　　写总开关</span><br><span class="line">　　</span><br><span class="line">　　local_enable=YES</span><br><span class="line">是否允许本地用户访问，就是linux本机中存在的用户，YES允许</span><br><span class="line"></span><br><span class="line">	local_umask=022</span><br><span class="line">	新建文件权限，一般设置为022，那么新建后的文件的权限就是777-022=755</span><br><span class="line"></span><br><span class="line">	允许匿名用户上传文件，并且可以删除文件</span><br><span class="line">	anon_mkdir_write_enable=YES 创建文件</span><br><span class="line"></span><br><span class="line">	anon_upload_enable=YES  上传文件</span><br><span class="line"></span><br><span class="line">	anon_other_write_enable=YES 删除、重命名等功能</span><br><span class="line"></span><br><span class="line">　　添加信息 userlist_file=/etc/vsftpd.user_list </span><br><span class="line">　　添加信息 userlist_enable=YES </span><br><span class="line">　　是否启动userlist为通过模式，YES的话只有存在于userlist文件中的用户才能登录ftp（可以理解为userlist是一个白名单），NO的话，白名单失效</span><br><span class="line">　　</span><br><span class="line">　　添加信息 userlist_deny=NO </span><br><span class="line">　　修改完成后保存退出。</span><br><span class="line">　　</span><br><span class="line">限制用户只能访问宿主目录配置</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">是否限制本地所有用户切换根目录的权限，YES为开启限制，即登录后的用户不能访问ftp根目录以外的目录，NO为不开启限制</span><br><span class="line"></span><br><span class="line">chroot_list_enable=YES</span><br><span class="line">是否启动限制用户的名单list为允许模式，YES限制了所有用户，可以用这个名单作为白名单，作为例外允许访问ftp根目录以外</span><br><span class="line"></span><br><span class="line">chroot_list_file=/etc/vsftpd.chroot_list</span><br><span class="line">设置chroot_list文件，文件中用户将不受限制的访问ftp根目录以外的目录，每行一个用户名</span><br></pre></td></tr></table></figure>
+
+<p>最后重启服务</p>
+<p>service vsftpd restart</p>
+<h2 id="IPad连接服务器"><a href="#IPad连接服务器" class="headerlink" title="IPad连接服务器"></a>IPad连接服务器</h2><p>下载软件FTP精灵（任意FTP软件即可）</p>
+<p>输入主机名，用户帐号密码，服务器IP即可连接，可双向传输数据。</p>
+<p><img src="/yangmiemie99.github.io/2020/06/20/IPad怎么与Ubuntu16互传数据/IMG_0001.PNG" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/小技巧/" rel="tag"># 小技巧</a>
+          
+            <a href="/yangmiemie99.github.io/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+            <a href="/yangmiemie99.github.io/tags/FTP/" rel="tag"># FTP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/06/06/C-设计模式之单例模式详谈/" rel="next" title="C++设计模式之单例模式详谈">
+                <i class="fa fa-chevron-left"></i> C++设计模式之单例模式详谈
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#FTP原理"><span class="nav-number">1.</span> <span class="nav-text">FTP原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FTP服务器搭建"><span class="nav-number">2.</span> <span class="nav-text">FTP服务器搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPad连接服务器"><span class="nav-number">3.</span> <span class="nav-text">IPad连接服务器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
