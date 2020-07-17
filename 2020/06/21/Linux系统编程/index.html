@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/yangmiemie99.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/yangmiemie99.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/yangmiemie99.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/yangmiemie99.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/yangmiemie99.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/yangmiemie99.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="文件IOC库函数的工作流程 fopen工作流程举例，访问磁盘文件（提供路径，打开方式），返回FILE* 操作系统为每个进程维护一个打开文件表，文件描述符是这个表中的索引。打开文件表中存放着从inode中读取的关键信息，这样就可以找到文件数据的具体位置。 文件指针具体有几个？只有一个，读写操作时候需要注意，fseek可以移动文件指针 I/O缓冲区读：写数据都先经过缓冲区，提升fopen的执行效率，直">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux系统编程">
+<meta property="og:url" content="https://yangmiemie99.github.io/2020/06/21/Linux系统编程/index.html">
+<meta property="og:site_name" content="MieMieBlog">
+<meta property="og:description" content="文件IOC库函数的工作流程 fopen工作流程举例，访问磁盘文件（提供路径，打开方式），返回FILE* 操作系统为每个进程维护一个打开文件表，文件描述符是这个表中的索引。打开文件表中存放着从inode中读取的关键信息，这样就可以找到文件数据的具体位置。 文件指针具体有几个？只有一个，读写操作时候需要注意，fseek可以移动文件指针 I/O缓冲区读：写数据都先经过缓冲区，提升fopen的执行效率，直">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E6%96%87%E4%BB%B6IO.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E8%A1%A8.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/C%E5%BA%93%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0%E5%85%B3%E7%B3%BB.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/C%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B02.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/open%E7%9A%84flags.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/st_mode.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E8%AF%BB%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/fork%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/fork%E4%B9%8B%E5%90%8E.png">
+<meta property="og:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/exec.png">
+<meta property="og:updated_time" content="2020-07-06T18:28:07.761Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux系统编程">
+<meta name="twitter:description" content="文件IOC库函数的工作流程 fopen工作流程举例，访问磁盘文件（提供路径，打开方式），返回FILE* 操作系统为每个进程维护一个打开文件表，文件描述符是这个表中的索引。打开文件表中存放着从inode中读取的关键信息，这样就可以找到文件数据的具体位置。 文件指针具体有几个？只有一个，读写操作时候需要注意，fseek可以移动文件指针 I/O缓冲区读：写数据都先经过缓冲区，提升fopen的执行效率，直">
+<meta name="twitter:image" content="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E6%96%87%E4%BB%B6IO.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/yangmiemie99.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangmiemie99.github.io/2020/06/21/Linux系统编程/">
+
+
+
+
+
+  <title>Linux系统编程 | MieMieBlog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/yangmiemie99.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MieMieBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/yangmiemie99.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/yangmiemie99.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/yangmiemie99.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/yangmiemie99.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/yangmiemie99.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangmiemie99.github.io/yangmiemie99.github.io/2020/06/21/Linux系统编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang MieMie">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/yangmiemie99.github.io/images/touxiang.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MieMieBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux系统编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-21T00:24:01+08:00">
+                2020-06-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/yangmiemie99.github.io/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="文件IO"><a href="#文件IO" class="headerlink" title="文件IO"></a>文件IO</h1><h2 id="C库函数的工作流程"><a href="#C库函数的工作流程" class="headerlink" title="C库函数的工作流程"></a>C库函数的工作流程</h2><p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E6%96%87%E4%BB%B6IO.png" alt></p>
+<p>fopen工作流程举例，访问磁盘文件（提供路径，打开方式），返回FILE*</p>
+<p>操作系统为每个进程维护一个打开文件表，文件描述符是这个表中的索引。打开文件表中存放着从inode中读取的关键信息，这样就可以找到文件数据的具体位置。</p>
+<p>文件指针具体有几个？只有一个，读写操作时候需要注意，fseek可以移动文件指针</p>
+<p>I/O缓冲区读：写数据都先经过缓冲区，提升fopen的执行效率，直接对磁盘读写是非常慢的（ms）,对于内存读写速度（ns）</p>
+<h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p>文件描述符（file descriptor）是内核为了高效管理已被打开的文件所创建的索引，其是一个非负整数（通常是小整数），用于指代被打开的文件，所有执行I/O操作的系统调用都通过文件描述符。</p>
+<p><strong>POSIX标准要求每次打开文件时（含socket）必须使用当前进程中**</strong>最小可用的文件描述符号码，因此，在网络通信过程中稍不注意就有可能造成串话**。</p>
+<h3 id="文件描述限制"><a href="#文件描述限制" class="headerlink" title="文件描述限制"></a>文件描述限制</h3><p>主要是因为文件描述符是系统的一个重要资源，<strong>虽然说系统内存有多少就可以打开多少的文件描述符</strong>，但是在实际实现过程中内核是会做相应的处理的，一般最大打开文件数会是系统内存的10%（以KB来计算）（称之为系统级限制），查看<strong>系统级别的最大打开文件数</strong>可以使用sysctl -a | grep fs.file-max命令查看。与此同时，内核为了不让某一个进程消耗掉所有的文件资源，其也会对<strong>单个进程最大打开文件数做默认值处理</strong>（称之为用户级限制），默认值一般是1024，使用ulimit -n命令可以查看。在Web服务器中，通过更改系统默认值文件描述符的最大值来优化服务器是最常见的方式之一</p>
+<h3 id="文件描述符合打开文件之间的关系"><a href="#文件描述符合打开文件之间的关系" class="headerlink" title="文件描述符合打开文件之间的关系"></a>文件描述符合打开文件之间的关系</h3><p> 每一个文件描述符会与一个打开文件相对应，同时，<strong>不同的文件描述符也会指向同一个文件。相同的文件可以被不同的进程打开也可以在同一个进程中被多次打开。</strong>系统为每一个进程维护了一个文件描述符表，该表的值都是从0开始的，所以在不同的进程中你会看到相同的文件描述符，这种情况下相同文件描述符有可能指向同一个文件，也有可能指向不同的文件。具体情况要具体分析，要理解具体其概况如何，需要查看由内核维护的3个数据结构。</p>
+<p>​    1. 进程级的文件描述符表</p>
+<p>​    2. 系统级的打开文件描述符表</p>
+<pre><code>3. 文件系统的inode表</code></pre><p>进程级的描述符表的每一条目记录了单个文件描述符的相关信息。</p>
+<p>​    1.  控制文件描述符操作的一组标志。（目前，此类标志仅定义了一个，即close-on-exec标志）</p>
+<pre><code>2. 对打开文件句柄的引用</code></pre><p><strong>内核对所有打开的文件的文件维护有一个系统级的描述符表格</strong>（open file description table）。有时，<strong>也称之为打开文件表</strong>（open file table），并将表格中各条目称为打开文件句柄（open file handle）。一个打开文件句柄存储了与一个打开文件相关的全部信息，如下所示：</p>
+<ol>
+<li><p>当前文件偏移量（调用read()和write()时更新，或使用lseek()直接修改）</p>
+</li>
+<li><p>打开文件时所使用的状态标识（即，open()的flags参数）</p>
+</li>
+<li><p>文件访问模式（如调用open()时所设置的只读模式、只写模式或读写模式）</p>
+</li>
+<li><p>与信号驱动相关的设置</p>
+</li>
+<li><p>对该文件i-node对象的引用</p>
+</li>
+<li><p>文件类型（例如：常规文件、套接字或FIFO）和访问权限</p>
+</li>
+<li><p>一个指针，指向该文件所持有的锁列表</p>
+</li>
+<li><p>文件的各种属性，包括文件大小以及与不同类型操作相关的时间戳</p>
+</li>
+</ol>
+<p>下图展示了文件描述符、打开的文件句柄以及i-node之间的关系，图中，两个进程拥有诸多打开的文件描述符。</p>
+<p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E8%A1%A8.png" alt></p>
+<p>在进程A中，<strong>文件描述符1和30都指向了同一个打开的文件句柄（标号23）。</strong>这可能是通过调用dup()、dup2()、fcntl()或者对同一个文件多次调用了open()函数而形成的。</p>
+<p>​    进程A的文件描述符2和进程B的文件描述符2都指向了同一个打开的文件句柄（标号73）。这种情形可能是在调用fork()后出现的（即，进程A、B是父子进程关系），或者当某进程通过UNIX域套接字将一个打开的文件描述符传递给另一个进程时，也会发生。再者是不同的进程独自去调用open函数打开了同一个文件，此时进程内部的描述符正好分配到与其他进程打开该文件的描述符一样。</p>
+<p>​    此外，进程A的描述符0和进程B的描述符3分别指向不同的打开文件句柄，但这些句柄均指向i-node表的相同条目（1976），换言之，指向同一个文件。发生这种情况是因为每个进程各自对同一个文件发起了open()调用。同一个进程两次打开同一个文件，也会发生类似情况。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    <strong>1. 由于进程级文件描述符表的存在，不同的进程中会出现相同的文件描述符，它们可能指向同一个文件，也可能指向不同的文件</strong></p>
+<p>​    2. 两个不同的文件描述符，<strong>若指向同一个打开文件句柄，将共享同一文件偏移量</strong>。因此，如果<strong>通过其中一个文件描述符来修改文件偏移量</strong>（由调用read()、write()或lseek()所致），那么从另一个描述符中也会观察到变化，无论这两个文件描述符是否属于不同进程，还是同一个进程，情况都是如此。</p>
+<p>​    3. 要获取和修改打开的文件标志（例如：O_APPEND、O_NONBLOCK和O_ASYNC），可执行fcntl()的F_GETFL和F_SETFL操作，其对作用域的约束与上一条颇为类似。</p>
+<p>​    4. 文件描述符标志（即，close-on-exec）为进程和文件描述符所私有。对这一标志的修改将不会影响同一进程或不同进程中的其他文件描述符</p>
+<h2 id="C库函数与系统函数的关系"><a href="#C库函数与系统函数的关系" class="headerlink" title="C库函数与系统函数的关系"></a>C库函数与系统函数的关系</h2><p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/C%E5%BA%93%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0%E5%85%B3%E7%B3%BB.png" alt></p>
+<p>printf其实也是一个文件IO操作</p>
+<p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/C%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B02.png" alt></p>
+<h2 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h2><p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4.png" alt></p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续可用的内存（一个连续完整的地址空间），而<strong>实际上，它通常是被分隔成多个物理内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换。</strong>与没有使用虚拟内存技术的系统相比，使用这种技术的系统使得大型程序的编写变得更容易，对真正的物理内存（例如RAM）的使用也更有效率。<br> 注意：虚拟内存不只是「用磁盘空间来扩展物理内存」的意思——这只是扩充内存级别以使其包含硬盘驱动器而已。把内存扩展到磁盘只是使用虚拟内存技术的一个结果，它的作用也可以通过覆盖或者把处于不活动状态的程序以及它们的数据全部交换到磁盘上等方式来实现。对虚拟内存的定义是基于对地址空间的重定义的，即<strong>把地址空间定义为「连续的虚拟内存地址」</strong>，以借此「欺骗」程序，使它们以为自己正在使用一大块的「连续」地址。<strong>逻辑地址和线性地址</strong></p>
+<h3 id="逻辑线性地址"><a href="#逻辑线性地址" class="headerlink" title="逻辑线性地址"></a>逻辑线性地址</h3><p>逻辑地址，就是指机器语言指令中用来指定一个操作数或一条指令的地址，由一个段(segment)和偏移量(offset)组成，说地直白点就是CPU拿到的地址。</p>
+<p>线性地址，也叫虚拟地址，就是题主所问的虚拟地址。值得注意的是这个地址就是一个32位无符号的整型数，所以虚拟地址空间总共就是4 GB大小。</p>
+<p>系统中的每个进程所使用的地址就是线性地址或者说虚拟地址，而不是什么逻辑地址，更不是物理地址，所以对每个独立的进程来说，线性空间大小是4 GB是没有错的，且其中0-1GB的地址空间给予内核访问，其它3GB由每个进程自己访问。</p>
+<p>那是不是说一个进程就只能访问4GB的物理内存大小呢？答案是否定的，<strong>具体访问到哪个物理地址要看MMU将线性地址转换后的物理地址才能知道</strong>，所以有可能两个进程的地址同时访问同一个物理地址，这在物理地址很小的情况下是经常会发生的事情。当然，同一时刻，一个物理内存单元只可能由某个进程来访问，至于具体原理，这个MMU来实现的，这里不细讲。</p>
+<p><strong>四、地址转换</strong></p>
+<p>有了MMU，CPU拿到的逻辑地址就可以经过它来找到对应的物理地址了。</p>
+<p>MMU有两个硬件电路单元，一个称之为分段单元(segmentation unit)、一个称之为分页单元(paging unit)，下面是它的工作原理：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">				---------------                        --------------</span><br><span class="line">逻辑地址   ----&gt;   |  分段单元   |  ----&gt; 线性地址  ----&gt; |  分页单元  |  ----&gt;  物理地址</span><br><span class="line">                ---------------                        --------------</span><br></pre></td></tr></table></figure>
+
+<p>所以，如果系统、CPU、MMU和内存坐在一起，那肯定会发生下面的对话:</p>
+<p>系统：CPU我给你个逻辑地址0xff84ed43，你去找到这个人</p>
+<p>CPU： 好的系统，我去问问MMU。 MMU，我这里有个地址0xff84ed43，你帮忙找一下</p>
+<p>MMU： 好的，请求分段单元，这个地址你先找到他家所在街道的地址</p>
+<p>分段单元：报告，已经找到了他家所在的街道地址，地址是0x56ac21fe</p>
+<p>MMU：好的，请求分页单元，这个是他家的街道地址，你找到他家住几号。</p>
+<p>分页单元：报告，已经找到了，他家具体地址是0x12345678</p>
+<p>CPU：谢谢，我这就去找他</p>
+<h3 id="进程管理模块"><a href="#进程管理模块" class="headerlink" title="进程管理模块"></a>进程管理模块</h3><p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8.png" alt></p>
+<p>stdin,stdout,stderr为默认打开的文件返回FILE*，这个结构体里就有文件描述符。</p>
+<p>一个进程有一个文件描述符表：最多1024</p>
+<ul>
+<li>前三个被占用了</li>
+<li>作用：寻找磁盘文件</li>
+</ul>
+<h2 id="open-close"><a href="#open-close" class="headerlink" title="open/close"></a>open/close</h2><p><code>bash:man man</code> 看一下系统调用</p>
+<p><code>man 2 open</code></p>
+<ul>
+<li><p>函数原型：</p>
+<ul>
+<li><code>int open(constchar * pathname,int flags);</code> 返回值为int,这个int就是一个文件描述符，通过文件描述符才能找到这个文件的位置。</li>
+<li><code>int open(const char* pathname,int flags,mode_t mode);</code></li>
+</ul>
+</li>
+<li><p>参数</p>
+<ul>
+<li><p>flags:</p>
+<ul>
+<li><p>必选项 O_RDONLY,O_WRONLY,ORDWR</p>
+</li>
+<li><p>可选项：</p>
+<ul>
+<li><p>创建文件:O_CREAT（配合mode，创建文件的权限，就是8进制的数）</p>
+<ul>
+<li>创建文件时检测文件是否存在：O_EXCL,如果文件存在，返回-1,必须与O_CRET一起使用</li>
+</ul>
+</li>
+<li><p>追加文件：O_APPEND（自动将文件指针移动到文件尾部）</p>
+</li>
+<li><p>文件截断：O_TRUNC(将原来文件中的内容删掉)</p>
+</li>
+<li><p>设置非阻塞:O_NONBLOCK</p>
+</li>
+</ul>
+</li>
+<li><p>mode</p>
+<ul>
+<li>mode &amp; umask</li>
+<li>环境变量umask0002<ul>
+<li>0777 &amp; ~0002 <code>111111111 &amp; 111111101 = 111 111 101</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>flages参数为一个32位整数</p>
+</li>
+<li><p>每一位对应不同的操作</p>
+</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/open%E7%9A%84flags.png" alt></p>
+</li>
+</ul>
+<h4 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//打开一个文件hello,不存在先创建</span></span><br><span class="line">	<span class="keyword">int</span> fd = open(<span class="string">"hello"</span>,O_RDWR | O_CREAT,<span class="number">0777</span>);</span><br><span class="line">	<span class="keyword">if</span>(fd == <span class="number">-1</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"打开失败\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	close(fd); </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="read"><a href="#read" class="headerlink" title="read"></a>read</h2><ul>
+<li>函数原型：<code>ssize_t read(int fd,void *buf,size_t count);</code><ul>
+<li>参数：<ul>
+<li>fd是open的返回值</li>
+<li>buf：缓冲区，存储要读取的数据</li>
+<li>count：缓冲区存放的最大字节数sizeof(buf)</li>
+</ul>
+</li>
+<li>返回值：sszie_t有符号整形值<ul>
+<li>-1失败</li>
+<li>成功：<ul>
+<li>大于0：读出的字节数</li>
+<li>=0：文件读完了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="write"><a href="#write" class="headerlink" title="write"></a>write</h2><ul>
+<li>函数原型：<code>ssize_t write(int fd,const void * buf,size_t count);</code><ul>
+<li>参数：<ul>
+<li>fd:open返回值</li>
+<li>buf:要写到文件的数据</li>
+<li>count: strlen(buf)有效字节数</li>
+</ul>
+</li>
+<li>返回值：<ul>
+<li>-1失败</li>
+<li>大于0：写入到文件的字节数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>有一个很大的文件，open，数据读出来，read，读出的数据写道另一个文件中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//打开一个文件</span></span><br><span class="line">	<span class="keyword">int</span> fd = open(<span class="string">"/home/brook/blog/source/_posts/Linux系统编程/打开文件表.png"</span>,O_RDWR);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"fd = %d\n"</span>, fd);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 打开另一个文件</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> fd1 = open(<span class="string">"tmp.png"</span>,O_WRONLY | O_CREAT,<span class="number">0664</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"fd1 = %d\n"</span>, fd1);</span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">4096</span>];</span><br><span class="line">	<span class="comment">//读</span></span><br><span class="line">	<span class="keyword">int</span> len = read(fd,buf,<span class="keyword">sizeof</span>(buf));</span><br><span class="line">	<span class="keyword">while</span>( len &gt; <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="comment">//数据写入文件中</span></span><br><span class="line">		<span class="keyword">int</span> ret = write(fd1,buf,len);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ret);</span><br><span class="line">		<span class="comment">//读</span></span><br><span class="line">		len = read(fd,buf,<span class="keyword">sizeof</span>(buf));</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	close(fd);</span><br><span class="line">	close(fd1);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="perror和errno"><a href="#perror和errno" class="headerlink" title="perror和errno"></a>perror和errno</h2><p>系统库函数的全局变量：errno（errnumber）</p>
+<p>不同的数值对应不同的错误</p>
+<p>perror()：根据errno产生错误信息</p>
+<p><code>void perror(const char * s);</code></p>
+<p>打印错误信息之前打印错误信息。</p>
+<h2 id="lseek"><a href="#lseek" class="headerlink" title="lseek"></a>lseek</h2><ul>
+<li><p>函数原型：<code>off_t lseek(int fd,off_t offset,int whence);</code></p>
+<ul>
+<li>SEEK_SET 将文件偏移量设置为距离文件开始处的offset字节</li>
+<li>SEEK_CUR当前位置加offset</li>
+<li>SEEK_END 将文件偏移量设置为文件长度加offset</li>
+<li>成功返回新的文件偏移量</li>
+</ul>
+</li>
+<li><p>使用：</p>
+<ul>
+<li>文件指针移动到头部<code>lseek(fd,0,SEEK_SET);</code></li>
+<li>获取文件指针的当前的位置<code>int len = lseek(fd,0,SEEK_CUR);</code></li>
+<li>获取文件长度：<code>int len = lseek(fd,0,SEEK_END);</code></li>
+</ul>
+</li>
+<li><p>文件拓展</p>
+<ul>
+<li><p>文件大小为100，拓展为1100</p>
+<p><code>lseek(fd,1000,SEEK_END);</code></p>
+</li>
+<li><p>最后做一次写操作</p>
+<p>write(fd,“a”,1); </p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> fd = open(<span class="string">"english.txt"</span>,O_RDWR);</span><br><span class="line">	<span class="keyword">if</span>(fd == <span class="number">-1</span>)&#123;</span><br><span class="line">		perror(<span class="string">"open error"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//文件拓展</span></span><br><span class="line">	<span class="keyword">int</span> len = lseek(fd,<span class="number">100</span>,SEEK_END);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, len);</span><br><span class="line">	<span class="comment">//在下一次写之后，文件才扩展成功</span></span><br><span class="line">	write(fd,<span class="string">"a"</span>,<span class="number">1</span>);</span><br><span class="line">	close(fd);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="阻塞和非阻塞"><a href="#阻塞和非阻塞" class="headerlink" title="阻塞和非阻塞"></a>阻塞和非阻塞</h2><ul>
+<li><p>阻塞和非阻塞是文件的属性还是read函数的属性？</p>
+<p>文件的属性，默认终端/dev/tty阻塞</p>
+<ul>
+<li>普通文件：hello.c<ul>
+<li>默认不阻塞</li>
+</ul>
+</li>
+<li>终端设备：/dev/tty，管道，套接字<ul>
+<li>默认阻塞</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>阻塞读终端</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//堵塞读终端</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="comment">//读终端</span></span><br><span class="line">	n = read(STDIN_FILENO,buf,<span class="number">10</span>);</span><br><span class="line">	<span class="keyword">if</span>(n &lt; <span class="number">0</span>)&#123;</span><br><span class="line">		perror(<span class="string">"read STDIN_FILENO"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	write(STDOUT_FILENO,buf,n);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>非阻塞读终端</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAG_TRY <span class="meta-string">"try again\n"</span></span></span><br><span class="line"><span class="comment">//非阻塞读</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> fd,n;</span><br><span class="line">	fd = open(<span class="string">"/dev/tty"</span>,O_RDONLY | O_NONBLOCK);</span><br><span class="line">	<span class="keyword">if</span>(fd &lt; <span class="number">0</span>)&#123;</span><br><span class="line">		perror(<span class="string">"open/dev/tty"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"fd = %d\n"</span>, fd);</span><br><span class="line">	tryagin:</span><br><span class="line">	n = read(fd,buf,<span class="number">10</span>);</span><br><span class="line">	<span class="keyword">if</span>(n &lt; <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="comment">//如果write为阻塞，但没有数据可以读，此时全局变量errno被设置为EAGAIN</span></span><br><span class="line">		<span class="keyword">if</span>(errno == EAGAIN)&#123;</span><br><span class="line">			sleep(<span class="number">3</span>);</span><br><span class="line">			write(STDOUT_FILENO,MAG_TRY,<span class="built_in">strlen</span>(MAG_TRY));</span><br><span class="line">			<span class="keyword">goto</span> tryagin;</span><br><span class="line">		&#125;</span><br><span class="line">		perror(<span class="string">"read /dev/tty"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	write(STDOUT_FILENO,buf,n);</span><br><span class="line">	close(fd);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="dup和dup2"><a href="#dup和dup2" class="headerlink" title="dup和dup2"></a>dup和dup2</h2><ol>
+<li>复制文件描述符<ul>
+<li><code>int dup(int oldfd);</code><ul>
+<li>oldfd - 要复制的文件描述符</li>
+<li>返回值：新的文件描述符</li>
+<li>dup调用成功：<ul>
+<li>有两个文件描述符指向同一个文件</li>
+</ul>
+</li>
+<li>返回值：<strong>取最小的且没有被占用的文件描述符</strong></li>
+</ul>
+</li>
+<li><code>int dup2(int oldfd,int newfd);</code><ul>
+<li>灵活一些：指定复制给谁</li>
+<li>假设newfd已经 指向了一个文件，首先断开close与哪个文件的链接，n<strong>ewfd指向oidfd指向的文件</strong>，又称为文件描述符从定向</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> fd = open(<span class="string">"temp"</span>,O_RDWR | O_CREAT,<span class="number">0664</span>);</span><br><span class="line">	<span class="keyword">if</span>(fd == <span class="number">-1</span>)&#123;</span><br><span class="line">		perror(<span class="string">"open"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//复制文件描述符</span></span><br><span class="line">	<span class="keyword">int</span> fd2 = dup(fd);</span><br><span class="line"><span class="comment">//	int fd2 = fcntl(fd,F_DUPFL);</span></span><br><span class="line">	<span class="keyword">char</span> * p = <span class="string">"hell world"</span>;</span><br><span class="line">	write(fd,p,<span class="built_in">strlen</span>(p));</span><br><span class="line">	close(fd);</span><br><span class="line">	<span class="comment">//继续读文件</span></span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">100</span>];</span><br><span class="line">	<span class="comment">//共享文件指针</span></span><br><span class="line">	lseek(fd2,<span class="number">0</span>,SEEK_SET);</span><br><span class="line">	read(fd2,buf,<span class="keyword">sizeof</span>(buf));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"buf = %s\n"</span>, buf);</span><br><span class="line">	close(fd2);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="fcntl"><a href="#fcntl" class="headerlink" title="fcntl"></a>fcntl</h2><ul>
+<li>改变已经打开的文件的属性:fcntl<ul>
+<li>变参函数</li>
+<li><strong>复制一个已有的文件描述符</strong><ul>
+<li><code>int ret = fcntl(fd,F_DUPFD);</code></li>
+</ul>
+</li>
+<li>获取/设置文件状态标志<ul>
+<li>open的flags参数，写open时候指定的标志</li>
+<li><strong>获取文件的状态标识</strong><code>int flag = fcntl(fd,F_GETFL);</code></li>
+<li><strong>设置文件的状态标识</strong><ul>
+<li>flag = flag | O_APPEND;<ul>
+<li>fcntl(fd,F_SETFL,flag);</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以更改的几个文件标识：O_APPEND重新追加,O_NONBLOCK非阻塞（常用）</li>
+</ul>
+</li>
+</ul>
+<p>例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="文件和目录"><a href="#文件和目录" class="headerlink" title="文件和目录"></a>文件和目录</h1><h2 id="stat-Istat函数"><a href="#stat-Istat函数" class="headerlink" title="stat/Istat函数"></a>stat/Istat函数</h2><p>终端命令实验stat</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">brook@Alien:~/C++学习/sysLinux/io$ stat unblock</span><br><span class="line">  文件：'unblock'</span><br><span class="line">  大小：<span class="number">9088</span>      	块：<span class="number">24</span>         IO 块：<span class="number">4096</span>   普通文件</span><br><span class="line">设备：<span class="number">809</span>h/<span class="number">2057</span>d	Inode：<span class="number">6092010</span>     硬链接：<span class="number">1</span></span><br><span class="line">权限：(<span class="number">0775</span>/-rwxrwxr-x)  Uid：( <span class="number">1000</span>/   brook)   Gid：( <span class="number">1000</span>/   brook) 用户，组</span><br><span class="line">最近访问：<span class="number">2020</span><span class="number">-06</span><span class="number">-26</span> <span class="number">20</span>:<span class="number">29</span>:<span class="number">56.177599941</span> +<span class="number">0800</span></span><br><span class="line">最近更改：<span class="number">2020</span><span class="number">-06</span><span class="number">-26</span> <span class="number">20</span>:<span class="number">29</span>:<span class="number">54.481508858</span> +<span class="number">0800</span> （文件更改的时间）</span><br><span class="line">最近改动：<span class="number">2020</span><span class="number">-06</span><span class="number">-26</span> <span class="number">20</span>:<span class="number">29</span>:<span class="number">54.481508858</span> +<span class="number">0800</span> （文件属性更改的时间）</span><br><span class="line">创建时间：-</span><br></pre></td></tr></table></figure>
+
+<p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90.png" alt></p>
+<p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/st_mode.png" alt></p>
+<p>linux有7种文件类型  8进制</p>
+<ul>
+<li>S_IFSOCK   0140000套接字</li>
+<li>S_IFLNK      0120000符号链接（软链接）</li>
+<li>S_IFREG     0100000普通文件</li>
+<li>S_BLK  0060000块设备</li>
+<li>S_IFDIR  0040000目录</li>
+<li>S_IFCHR  0020000字符设备</li>
+<li>S_IFIFO    0010000管道设备</li>
+<li>S_IFMT 0170000掩码，过滤st_mode中除了文件类型之外的信息。</li>
+</ul>
+<p>int stat(const char* pathname,struct stat* buf);`</p>
+<p><code>int fstat(int fd,struct stat* buf);</code></p>
+<p><code>int lstat(const char* pathname,struct stat* buf)</code>  </p>
+<ul>
+<li>lstat读取链接文件本身的文件属性</li>
+<li>stat读取的是链接文件指向的文件的属性<ul>
+<li>追踪，穿透</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">st</span>;</span></span><br><span class="line">	<span class="keyword">int</span> ret = stat(<span class="string">"english.txt"</span>,&amp;st);</span><br><span class="line">	<span class="keyword">if</span>(ret == <span class="number">-1</span>)&#123;</span><br><span class="line">		perror(<span class="string">"stat error"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"file size = %d\n"</span>, (<span class="keyword">int</span>)st.st_size);</span><br><span class="line">    <span class="comment">//文件类型，S——IFMT文件类型掩码，前四位</span></span><br><span class="line">	<span class="keyword">if</span>((st.st_mode &amp; S_IFMT) == S_IFREG)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"这是一个普通文件\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//所有者对文件的权限</span></span><br><span class="line">	<span class="keyword">if</span>(st.st_mode &amp; S_IRUSR)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"	R\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(st.st_mode &amp; S_IWUSR)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"	W\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(st.st_mode &amp; S_IXUSR)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"	X\n"</span>);</span><br><span class="line">	&#125;    </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件属性函数access-chmod-chown-truncate"><a href="#文件属性函数access-chmod-chown-truncate" class="headerlink" title="文件属性函数access/chmod/chown/truncate"></a>文件属性函数access/chmod/chown/truncate</h2><ul>
+<li><p>测试当前用户指定文件是否具有某种属性</p>
+<ul>
+<li><p>当前用户，使用哪个用户调用当前这个函数，这个用户就是当前用户</p>
+</li>
+<li><p><code>int access(const char* pathname,int mode);</code></p>
+<ul>
+<li><p>参数：</p>
+<p>pathname:文件名</p>
+<p>mode:4种权限</p>
+<p>​    R_OK –读</p>
+<p>​    W_OK – 写</p>
+<p>​    X_OK –执行</p>
+<p>​    F_OK –文件是否存在</p>
+</li>
+<li><p>返回值</p>
+<p>0 -有某种权限，或者文件存在</p>
+<p>1 -没有，或者文件不存在</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(argc &lt; <span class="number">2</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"a.out filename\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> ret = access(argv[<span class="number">1</span>],W_OK);</span><br><span class="line">	<span class="keyword">if</span>(ret == <span class="number">-1</span>)&#123;</span><br><span class="line">		perror(<span class="string">"access"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"you can write this file\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>修改文件权限</p>
+<ul>
+<li><code>int chmod(const char* filename,int mode);</code><ul>
+<li>参数：<ul>
+<li>filename:文件名</li>
+<li>mode：文件权限，8进制数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>修改文件所有者和所有组</p>
+<ul>
+<li><code>int chown(const char*i path,uid_t owner,gid_t group);</code></li>
+<li>参数：<ul>
+<li>owner –整形值，用户id<ul>
+<li>/etc/passwd</li>
+</ul>
+</li>
+<li>group – 组ID<ul>
+<li>/etc/group</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>用例更改文件属性</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(argc &lt; <span class="number">3</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"a.out filename\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> mode = strtol(argv[<span class="number">2</span>],<span class="literal">NULL</span>,<span class="number">8</span>);</span><br><span class="line">	<span class="keyword">int</span> ret = access(argv[<span class="number">1</span>],mode);</span><br><span class="line">	<span class="keyword">if</span>(ret == <span class="number">-1</span>)&#123;</span><br><span class="line">		perror(<span class="string">"chmod"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	ret = chown(argv[<span class="number">1</span>],<span class="number">1001</span>,<span class="number">1001</span>);</span><br><span class="line">	<span class="keyword">if</span>(ret == <span class="number">-1</span>)&#123;</span><br><span class="line">		perror(<span class="string">"chown"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>修改文件大小</p>
+<ul>
+<li><p><code>int truncate(const char* path,off_t lenght);</code></p>
+</li>
+<li><p>参数:</p>
+<ul>
+<li>path –文件名</li>
+<li>length –文件的最终大小<ul>
+<li>比原来小，删掉后边的部分</li>
+<li>比原来大，向后扩展</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="文件目录操作相关函数"><a href="#文件目录操作相关函数" class="headerlink" title="文件目录操作相关函数"></a>文件目录操作相关函数</h2><ol>
+<li>文件重命名<ul>
+<li><code>int rename(const char* oldpath,const char* newpath);</code></li>
+</ul>
+</li>
+<li>修改<strong>当前进程（应用程序）</strong>的路径cd<ul>
+<li><code>int  chdir(const char* path)</code></li>
+</ul>
+</li>
+<li>获取当前进程的工作目录<ul>
+<li><code>char* getcwd(char* buf,size_t size);</code></li>
+<li>返回值<ul>
+<li>成功：当前的工作目录</li>
+<li>失败：NULL</li>
+</ul>
+</li>
+<li>参数：<ul>
+<li>buf:缓冲区，存储当前的工作目录</li>
+<li>size:缓冲区大小</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>创建目录mkdir<ul>
+<li><code>int mkdir(const char* pathname,mode_t mode);</code><ul>
+<li>参数：<ul>
+<li>pathname:创建的目录名</li>
+<li>mode:目录权限，8进制的数，实际权限：mode &amp; umask</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>输出一个空目录<ul>
+<li><code>int rmdir(const char* pathname);</code><ul>
+<li>参数:空目录的名字</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>操作实例</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">include &lt;fcntl.h&gt;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(argc &lt; <span class="number">2</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"a.out dir\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> ret = chdir(argv[<span class="number">1</span>]);</span><br><span class="line">	<span class="keyword">if</span>(ret == <span class="number">-1</span>)&#123;</span><br><span class="line">		perror(<span class="string">"chdir"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> fd = open(<span class="string">"chdir.txt"</span>,O_CREAT | O_RDWR,<span class="number">0777</span>);</span><br><span class="line">	<span class="keyword">if</span>(fd == <span class="number">-1</span>)&#123;</span><br><span class="line">		perror(<span class="string">"open"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">1000</span>];</span><br><span class="line">	getcwd(buf,<span class="keyword">sizeof</span>(buf));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"current dir:%s\n"</span>,buf);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="目录遍历相关函数"><a href="#目录遍历相关函数" class="headerlink" title="目录遍历相关函数"></a>目录遍历相关函数</h2><ol>
+<li><p>打开一个目录</p>
+<ul>
+<li><code>DIR* opendir(cosnt char* name);</code><ul>
+<li>参数：目录名</li>
+<li>返回值:指向目录的指针</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>读目录</p>
+<p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E8%AF%BB%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt></p>
+<ul>
+<li><code>sruct dirent* readdir(DIR* dirp);</code><ul>
+<li>参数：opendit的返回值</li>
+<li>返回值：目录项结构体</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>进到目录之后opendir，读内容</p>
+<p><strong>需要循环的读目录中的内容</strong>，直到返回NULL才读完</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(readdir)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>关闭目录<ul>
+<li><code>int closedir(DIR* dirp);</code></li>
+</ul>
+</li>
+<li>独立完成递归读目录中指定类型文件个数的操作</li>
+</ol>
+<p>使用，统计某个目录下的文加个数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;dirent.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="comment">//定义函数。读指定目录中的文件个数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFIleNum</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* root)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> totalNum = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//读目录</span></span><br><span class="line">	DIR* dir = <span class="literal">NULL</span>;</span><br><span class="line">	dir = opendir(root);</span><br><span class="line">	<span class="keyword">if</span>(dir == <span class="literal">NULL</span>)&#123;</span><br><span class="line">		perror(<span class="string">"opendir error"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">dirent</span>* <span class="title">pdr</span>;</span></span><br><span class="line">	<span class="keyword">while</span>((pdr = readdir(dir)) != <span class="literal">NULL</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">strcmp</span>(pdr -&gt; d_name,<span class="string">"."</span>) == <span class="number">0</span> || <span class="built_in">strcmp</span>(pdr -&gt; d_name,<span class="string">".."</span>) == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		<span class="comment">//普通文件计数</span></span><br><span class="line">		<span class="keyword">if</span>(pdr -&gt; d_type == DT_REG)</span><br><span class="line">			totalNum++;</span><br><span class="line">		<span class="comment">//目录继续向下寻找</span></span><br><span class="line">		<span class="keyword">if</span>(pdr -&gt; d_type == DT_DIR)&#123;</span><br><span class="line">			<span class="comment">//求出子目录</span></span><br><span class="line">			<span class="keyword">char</span> path[<span class="number">2048</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">			<span class="built_in">sprintf</span>(path,<span class="string">"%s/%s"</span>,root,pdr -&gt; d_name);</span><br><span class="line">			getFIleNum(path);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">    closedir(dir);</span><br><span class="line">	<span class="keyword">return</span> totalNum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(argc &lt; <span class="number">2</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"a.out path\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> total = getFIleNum(argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s 目录文夹下普通文加共：%d 个\n"</span>, argv[<span class="number">1</span>],total);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="进程相关"><a href="#进程相关" class="headerlink" title="进程相关"></a>进程相关</h1><ol>
+<li><p>进程和程序</p>
+<ul>
+<li>程序：二进制文件，占用磁盘空间</li>
+<li>进程：启动的程序<ul>
+<li>所有的数据都在内存中</li>
+<li>需要很多的系统资源<ul>
+<li>cpu,物理内存</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>并行和并发</p>
+<ul>
+<li>并发是一个时间段的概念</li>
+<li>并行是一个时间点的概念</li>
+</ul>
+</li>
+<li><p>pcb进程控制块</p>
+</li>
+</ol>
+<p>我们知道，每个进程在内核中都有一个程序控制块（PCB）来维护进程相关信息，Linux进程控制块是task_struct结构体。/usr/src/linux-headers-4.4.0-141/include/linux/sched.h/文件中可以查看task_struct结构体定义。内部成员很多掌握常见的即可。</p>
+<ul>
+<li>进程id。系统中每个进程有惟一的id，在C语言中用pid_t类型表示，其实就是一个非负整数。</li>
+<li>进程的状态，就绪、运行、挂起、停止等状态。</li>
+<li>进程切换时需要保存和恢复的一些CPU寄存器。</li>
+<li>描述虚拟地址空间的信息。</li>
+<li>描述控制终端的信息（运行进程依赖于一个终端）</li>
+<li>当前的工作目录</li>
+<li>umask掩码（每一个进程都有一个）</li>
+<li>文件描述符表，包含很多指向file结构体的指针</li>
+<li>和<strong>信号</strong>相关的信息。</li>
+<li>用户id和组id</li>
+<li>会话session（多个进程组组成的组织）和进程组（一套进程继承结构，父进程子进程同组）</li>
+<li>进程可以使用的资源上限,比如，文件描述符的个数，管道的限制，栈空间等等   ulimit -a</li>
+</ul>
+<ol start="4">
+<li>进程状态</li>
+</ol>
+<p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81.png" alt></p>
+<h2 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h2><p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/fork%E8%BF%87%E7%A8%8B.png" alt></p>
+<p><code>pid_t fork(void)</code></p>
+<ul>
+<li>fork的返回值<ul>
+<li>大于0,父进程的返回值</li>
+<li>等于0,子进程的返回值</li>
+</ul>
+</li>
+<li>子进程创建成功后，代码的执行位置<ul>
+<li>父进程执行到了哪里，子进程就从哪里开始执行</li>
+</ul>
+</li>
+<li>父子进程的执行顺序<ul>
+<li>不一定，谁抢到cpu谁执行</li>
+</ul>
+</li>
+<li>如何区分父子进程？<ul>
+<li>通过fork函数的返回值</li>
+</ul>
+</li>
+<li>getpid/getppid<ul>
+<li>得到当前进程的PID和得到当前父进程的PID</li>
+</ul>
+</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/fork%E4%B9%8B%E5%90%8E.png" alt></p>
+<p>例子1</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">pid_t</span> pid;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i  = <span class="number">0</span>; i&lt; <span class="number">4</span>; i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"------i = %d\n"</span>,i);</span><br><span class="line">	&#125;</span><br><span class="line">	pid = fork();</span><br><span class="line">	<span class="comment">//父进程</span></span><br><span class="line">	<span class="keyword">if</span>(pid &gt; <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"parent process,pid = %d\n"</span>,getpid());</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//子进程</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"child process,pid = %d ,ppid = %d\n\n"</span>,getpid(),getppid());		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i  = <span class="number">0</span>; i&lt; <span class="number">4</span>; i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"i = %d\n"</span>,i);</span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个问题？</p>
+<p>shell进程不知道./fork创建了子进程，shell检测父进程执行完毕后，shell切换到了前台，导致子进程的输出到了shell上，如何避免</p>
+<p>例子2 循环创建子进程</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">pid_t</span> pid;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">		pid = fork();</span><br><span class="line">		<span class="comment">// 防止子进程产生孙子进程</span></span><br><span class="line">		<span class="keyword">if</span>(pid == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//如何判断是第几个孩子</span></span><br><span class="line">	<span class="comment">//通过循环因子i判断</span></span><br><span class="line">	<span class="comment">//first</span></span><br><span class="line">	<span class="keyword">if</span>(i == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"first process ,pid = %d\n"</span>,getpid());</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//second</span></span><br><span class="line">	<span class="keyword">if</span>(i == <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"second process ,pid = %d\n"</span>,getpid());</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//父进程</span></span><br><span class="line">	<span class="keyword">if</span>(i == <span class="number">5</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"father process ,pid = %d\n"</span>,getpid());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="进程相关命令"><a href="#进程相关命令" class="headerlink" title="进程相关命令"></a>进程相关命令</h2><ul>
+<li><p>ps</p>
+<ul>
+<li>ps aux</li>
+<li>ps ajx  显示更多信息 ppid等</li>
+</ul>
+</li>
+<li><p>kill </p>
+<ul>
+<li>发信号给某个进程</li>
+<li>查看信号 kill -l 信号1-31固定</li>
+</ul>
+</li>
+</ul>
+<h2 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h2><ol>
+<li><p>exec函数族</p>
+<ul>
+<li>让父子进程执行不相干的操作</li>
+<li>能够替换进程地址空间中的源代码.txt段</li>
+<li>当前程序中第哦啊用另一个程序<ul>
+<li>首先想到exec之前需要fork</li>
+</ul>
+</li>
+<li>如果函数执行成功，不返回</li>
+<li>执行失败，打印错误信息，退出</li>
+</ul>
+<p><img src="/yangmiemie99.github.io/2020/06/21/Linux系统编程/exec.png" alt></p>
+</li>
+<li><p>执行指定目录下的程序</p>
+<ul>
+<li><code>int  execl(const char* path,cosnt char* arg,...);</code><ul>
+<li>path:要执行程序的绝对路径</li>
+<li>变参arg:要执行程序需要的参数</li>
+<li>第一arg：占位</li>
+<li>后边的arg:命令的参数</li>
+<li>参数写完之后：NULL</li>
+<li><strong>一般执行自己写的程序</strong></li>
+</ul>
+</li>
+<li><code>int execv(const char* path,char* const argv[]);</code><ul>
+<li>参数：</li>
+<li>path : /bin/ps</li>
+<li>char* args[] = {“ps”,“aux”,NULL};<ul>
+<li><code>execv(&quot;/bin/ps&quot;,args);</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//父进程</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; <span class="number">8</span>; i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"parent i = %d\n"</span>, i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 创建一个子进程</span></span><br><span class="line">	<span class="keyword">pid_t</span> pid = fork();</span><br><span class="line">	<span class="keyword">if</span>(pid == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="comment">//ls使用子进程的地址空间</span></span><br><span class="line">		execl(<span class="string">"/bin/ls"</span>,<span class="string">"666"</span>,<span class="string">"-lha"</span>,<span class="literal">NULL</span>);</span><br><span class="line">        		<span class="comment">//执行到这里就说明出错了</span></span><br><span class="line">		perror(<span class="string">"execlp"</span>);</span><br><span class="line">		<span class="built_in">exit</span>();</span><br><span class="line">		<span class="comment">//execl("/bin/ls","ls","-lha",NULL);</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//只执行一次，子进程text段替换了</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; <span class="number">3</span>; i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"+++++ i = %d\n"</span>, i);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>执行PATH环境变量能够搜索到的程序<ul>
+<li><code>int execlp(const char* file,const char *arg,...)</code></li>
+<li>file : 执行程序的名字</li>
+<li>第一arg：占位</li>
+<li>后边的arg:命令的参数</li>
+<li>参数写完之后：NULL</li>
+<li>执行系统自带的程序<ul>
+<li>/bin</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="wait"><a href="#wait" class="headerlink" title="wait"></a>wait</h2><ol start="4">
+<li>进程回收<ul>
+<li>孤儿进程<ul>
+<li>父进程死亡，子进程还活着，那么子进程就叫孤儿进程</li>
+<li>孤儿被init进程领养，init进程变为孤儿进程的父亲</li>
+<li>为了释放子进程占用的系统资源<ul>
+<li>进程结束后，能够释放用户区空间</li>
+<li>释放不了pcb，必须由父进程释放</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>僵尸进程<ul>
+<li>子进程死了，父进程活着，父进程不去释放子进程的pcb，子进程就变成了僵尸进程。</li>
+<li>是一个已经死掉的进程</li>
+</ul>
+</li>
+<li>进程回收<ul>
+<li>wait - 阻塞函数</li>
+<li>pid_t wait(int * status);<ul>
+<li>函数作用：<ul>
+<li>阻塞并等待子程序退出</li>
+<li>回收子进程残留资源</li>
+<li>获取子进程的结束状态（退出原因）</li>
+</ul>
+</li>
+<li>返回值：<ul>
+<li>-1：回收失败，已经没有子进程了</li>
+<li>大于零，回收子进程对应的pid</li>
+</ul>
+</li>
+<li>参数：子进程的退出状态–传出参数status<ul>
+<li>判断子进程是如何死亡的<ul>
+<li>正常退出</li>
+<li>被某个信号杀死了</li>
+<li>WIFEXITED(status):为非0,进程正常结束。WEXITSTATUS(status):如上宏为真，使用此宏 —&gt; 获取进程退出状态。</li>
+<li>WIFSIGNAL(status):为非0 ，进程异常终止。WTERMSIG(status):如上宏为真，使用此宏 -&gt;取得使进程终止的那个信号的编号。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>调用一次只能回收一个子进程</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">pid_t</span> pid = fork();</span><br><span class="line">	<span class="comment">//父进程</span></span><br><span class="line">	<span class="keyword">if</span>(pid &gt; <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"parent process , pid = %d,ppid = %d\n"</span>, getpid(),getppid());</span><br><span class="line">		<span class="comment">//回收子进程</span></span><br><span class="line">		<span class="keyword">int</span> status;</span><br><span class="line">		<span class="comment">//阻塞</span></span><br><span class="line">		<span class="keyword">pid_t</span> wpid = wait(&amp;status);</span><br><span class="line">		<span class="comment">//判断是否正常推出</span></span><br><span class="line">		<span class="keyword">if</span>(WIFEXITED(status))&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"exit value:%d\n"</span>, WEXITSTATUS(status));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//是否被信号杀死</span></span><br><span class="line">		<span class="keyword">if</span>(WIFSIGNALED(status))&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"exit by signal%d\n"</span>,WTERMSIG(status));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"died child pid = %d\n"</span>, wpid);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//子进程</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>)&#123;</span><br><span class="line">		sleep(<span class="number">2</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"child process , pid = %d,ppid = %d\n"</span>, getpid(),getppid());		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"i = %d\n"</span>, i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">12</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="waitpid"><a href="#waitpid" class="headerlink" title="waitpid"></a>waitpid</h2><p><code>pid_t waitpid(pid_t pid,int* status,int options);</code></p>
+<p>函数 作用:同wait</p>
+<ul>
+<li>参数：<ul>
+<li>pid:<ul>
+<li>pid == -1 等待任一子进程。与wait等效</li>
+<li>pid &gt; 0 等待其进程ID与pid相等的子进程</li>
+<li>id== 0 等待其组id等于调用进程的组ID的任一子进程</li>
+<li>pid &lt; -1 等待其组ID等于pid的绝对值的任一子进程</li>
+</ul>
+</li>
+<li>status:子进程的退出状态，用法同wait函数</li>
+<li>options:这只为WNOHANG,函数非阻塞，设置为0，函数阻塞</li>
+</ul>
+</li>
+<li>返回值<ul>
+<li>大于0:fanti清理掉的子进程ID</li>
+<li>-1：无子进程</li>
+<li>=0：参数3为WNOHANG，且子进程正在运行</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/yangmiemie99.github.io/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/yangmiemie99.github.io/2020/06/20/IPad怎么与Ubuntu16互传数据/" rel="next" title="IPad怎么与Ubuntu16互传数据">
+                <i class="fa fa-chevron-left"></i> IPad怎么与Ubuntu16互传数据
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/yangmiemie99.github.io/images/touxiang.jpeg" alt="Yang MieMie">
+            
+              <p class="site-author-name" itemprop="name">Yang MieMie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/yangmiemie99.github.io/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/yangmiemie99.github.io/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/yangmiemie99.github.io/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yangmiemie99" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件IO"><span class="nav-number">1.</span> <span class="nav-text">文件IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#C库函数的工作流程"><span class="nav-number">1.1.</span> <span class="nav-text">C库函数的工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.1.1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件描述限制"><span class="nav-number">1.1.2.</span> <span class="nav-text">文件描述限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件描述符合打开文件之间的关系"><span class="nav-number">1.1.3.</span> <span class="nav-text">文件描述符合打开文件之间的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C库函数与系统函数的关系"><span class="nav-number">1.2.</span> <span class="nav-text">C库函数与系统函数的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟地址空间"><span class="nav-number">1.3.</span> <span class="nav-text">虚拟地址空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑线性地址"><span class="nav-number">1.3.2.</span> <span class="nav-text">逻辑线性地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程管理模块"><span class="nav-number">1.3.3.</span> <span class="nav-text">进程管理模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#open-close"><span class="nav-number">1.4.</span> <span class="nav-text">open/close</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#具体使用"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">具体使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read"><span class="nav-number">1.5.</span> <span class="nav-text">read</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#write"><span class="nav-number">1.6.</span> <span class="nav-text">write</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#perror和errno"><span class="nav-number">1.7.</span> <span class="nav-text">perror和errno</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lseek"><span class="nav-number">1.8.</span> <span class="nav-text">lseek</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻塞和非阻塞"><span class="nav-number">1.9.</span> <span class="nav-text">阻塞和非阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dup和dup2"><span class="nav-number">1.10.</span> <span class="nav-text">dup和dup2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fcntl"><span class="nav-number">1.11.</span> <span class="nav-text">fcntl</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#文件和目录"><span class="nav-number">2.</span> <span class="nav-text">文件和目录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#stat-Istat函数"><span class="nav-number">2.1.</span> <span class="nav-text">stat/Istat函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件属性函数access-chmod-chown-truncate"><span class="nav-number">2.3.</span> <span class="nav-text">文件属性函数access/chmod/chown/truncate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件目录操作相关函数"><span class="nav-number">2.4.</span> <span class="nav-text">文件目录操作相关函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录遍历相关函数"><span class="nav-number">2.5.</span> <span class="nav-text">目录遍历相关函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程相关"><span class="nav-number">3.</span> <span class="nav-text">进程相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fork"><span class="nav-number">3.1.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程相关命令"><span class="nav-number">3.2.</span> <span class="nav-text">进程相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exec"><span class="nav-number">3.3.</span> <span class="nav-text">exec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wait"><span class="nav-number">3.4.</span> <span class="nav-text">wait</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#waitpid"><span class="nav-number">3.5.</span> <span class="nav-text">waitpid</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang MieMie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/yangmiemie99.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/yangmiemie99.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/yangmiemie99.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
